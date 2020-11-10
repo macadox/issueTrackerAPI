@@ -1,0 +1,100 @@
+[{
+  "_id": {
+    "$oid": "5fa586d03dbded1b184b5979"
+  },
+  "roles": [
+    "user",
+    "tester",
+    "developer",
+    "admin"
+  ],
+  "createdOn": {
+    "$date": "2020-11-06T17:19:11.139Z"
+  },
+  "name": "maciej",
+  "email": "maciej@mokninski.com",
+  "password": "$2a$12$yVK.AotIbEh1H2dkOI/a2eusIfswHKmsiTUZoToFBjjPfWauQIase",
+  "__v": 0,
+  "passwordChangedAt": {
+    "$date": "2020-11-09T09:54:54.092Z"
+  },
+  "passwordResetExpires": {
+    "$date": "2020-11-09T17:06:15.330Z"
+  },
+  "passwordResetToken": "fbaaba93776c6ba49d1bf483c68a8f46ff7a7d02b56475fc5bd09b229a413cd4"
+},{
+  "_id": {
+    "$oid": "5fa98e8d2e39346044d78c45"
+  },
+  "roles": [
+    "tester",
+    "user"
+  ],
+  "createdOn": {
+    "$date": "2020-11-09T18:32:12.596Z"
+  },
+  "name": "Tester 1",
+  "email": "test@mokninski.com",
+  "password": "$2a$12$7goMAYqusJpF5XlBjiEJO.Zq6JaDuBEJlfd9ltUItTdt0wtnYme.K",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fa98e942e39346044d78c46"
+  },
+  "roles": [
+    "tester",
+    "user"
+  ],
+  "createdOn": {
+    "$date": "2020-11-09T18:32:12.596Z"
+  },
+  "name": "Tester 2",
+  "email": "test2@mokninski.com",
+  "password": "$2a$12$ze6V8YJ/ShIP062U25/EM.ZkS2Y85PSjo3oCOshfsPrkY1r7UO7ve",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fa98ee52e39346044d78c47"
+  },
+  "roles": [
+    "developer",
+    "user"
+  ],
+  "createdOn": {
+    "$date": "2020-11-09T18:32:12.596Z"
+  },
+  "name": "Developer 2",
+  "email": "dev@mokninski.com",
+  "password": "$2a$12$o1UbeRcoy1R5liUq1r1Pd.WNAoXB7zl1uVdXoWglCnKEgkRqQtewq",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fa98efc2e39346044d78c48"
+  },
+  "roles": [
+    "product owner",
+    "user"
+  ],
+  "createdOn": {
+    "$date": "2020-11-09T18:32:12.596Z"
+  },
+  "name": "Project Manager",
+  "email": "pm@mokninski.com",
+  "password": "$2a$12$RPpw9LCSqEoP6ua5M8SweOURUZw36DmgjaZvLGvhyocwutn.uh0Oa",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "5fa98f202e39346044d78c49"
+  },
+  "roles": [
+    "designer",
+    "user"
+  ],
+  "createdOn": {
+    "$date": "2020-11-09T18:32:12.596Z"
+  },
+  "name": "Designer",
+  "email": "designer@mokninski.com",
+  "password": "$2a$12$k/K7OIFZwdX4BeytgjHNl.4KGvHWbUi3YhrzcccyXtWbdiUcBSh8m",
+  "__v": 0
+}]

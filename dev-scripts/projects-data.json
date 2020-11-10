@@ -1,0 +1,27 @@
+[
+  {
+    "name": "IssueTracker-API",
+    "deadline": "2020-12-31",
+    "teamMembers": [
+      "5fa98ee52e39346044d78c47",
+      "5fa98e8d2e39346044d78c45",
+      "5fa98e942e39346044d78c46",
+      "5fa98f202e39346044d78c49",
+      "5fa586d03dbded1b184b5979"
+    ],
+    "startDate": "2020-11-01",
+    "progress": 60,
+    "status": "In progress"
+  },
+  {
+    "name": "AmongUs Gamedata",
+    "deadline": "2020-11-14",
+    "teamMembers": [
+      "5fa98e8d2e39346044d78c45",
+      "5fa98f202e39346044d78c49",
+      "5fa586d03dbded1b184b5979"
+    ],
+    "startDate": "2020-10-01",
+    "progress": 20
+  }
+]

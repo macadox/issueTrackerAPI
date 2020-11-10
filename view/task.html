@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        const getAllIssues = async () => {
+            const res = await fetch(`/api/v1/issues/5f9ad8edf16ddb08a4ee5276`);
+            const data = await res.json();
+
+            console.log(data);
+        }
+
+        getAllIssues();
+    </script>
+</body>
+
+</html>
