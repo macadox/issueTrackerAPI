@@ -42,6 +42,12 @@ const projectSchema = mongoose.Schema({
   ],
 });
 
+// projectSchema.pre(/^find/, function (func, next) {
+//   // console.log(req)
+//   // this.find({ $or: [{ owner: req.user._id }, { teamMembers: req.user._id }] });
+//   next();
+// });
+
 projectSchema.pre(/^find/, function (next) {
   this.populate({
     path: 'owner teamMembers',
