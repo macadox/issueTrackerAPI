@@ -23,6 +23,10 @@ const projectSchema = mongoose.Schema({
       message: 'Project status can only be Unreleased, In progress or Released',
     },
   },
+  description: {
+    type: String,
+    required: [true, 'A project has to have a description'],
+  },
   startDate: {
     type: Date,
   },

@@ -6,15 +6,17 @@ const router = express.Router({ mergeParams: true });
 
 router.route('/criterias').get(issueController.getAllAcceptanceCriteria);
 
+router.use(authController.protect)
+
 router
   .route('/')
-  .get(authController.protect, issueController.getAllIssues)
-  .post(authController.protect, issueController.createIssue);
+  .get(issueController.getAllIssues)
+  .post(issueController.createIssue);
 
 router
   .route('/:id')
-  .get(authController.protect, issueController.getIssue)
-  .patch(authController.protect, issueController.updateIssue)
-  .delete(authController.protect, issueController.deleteIssue);
+  .get(issueController.getIssue)
+  .patch(issueController.updateIssue)
+  .delete(issueController.deleteIssue);
 
 module.exports = router;

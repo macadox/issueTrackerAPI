@@ -52,7 +52,7 @@ exports.getAllAcceptanceCriteria = catchAsync(async (req, res, next) => {
     status: 'success',
     results: stats.length,
     data: {
-      stats,
+      data: stats,
     },
   });
 });

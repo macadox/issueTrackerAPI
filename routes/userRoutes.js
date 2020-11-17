@@ -8,42 +8,23 @@ router.route('/signup').post(authController.signup);
 router.route('/login').post(authController.login);
 router.route('/forgotPassword').post(authController.forgotPassword);
 router.route('/resetPassword/:token').patch(authController.resetPassword);
-router
-  .route('/updatePassword')
-  .patch(authController.protect, authController.updatePassword);
-router
-  .route('/updateDetails')
-  .patch(authController.protect, userController.updateDetails);
+
+router.use(authController.protect);
+
+router.route('/updatePassword').patch(authController.updatePassword);
+router.route('/updateDetails').patch(userController.updateDetails);
+
+router.use(authController.restrict('admin'));
 
 router
   .route('/')
-  .get(
-    authController.protect,
-    authController.restrict('admin'),
-    userController.getAllUsers
-  )
-  .post(
-    authController.protect,
-    authController.restrict('admin'),
-    userController.createUser
-  );
+  .get(userController.getAllUsers)
+  .post(userController.createUser);
 
 router
   .route('/:id')
-  .get(
-    authController.protect,
-    authController.restrict('admin'),
-    userController.getUser
-  )
-  .patch(
-    authController.protect,
-    authController.restrict('admin'),
-    userController.updateUser
-  )
-  .delete(
-    authController.protect,
-    authController.restrict('admin'),
-    userController.deleteUser
-  );
+  .get(userController.getUser)
+  .patch(userController.updateUser)
+  .delete(userController.deleteUser);
 
 module.exports = router;
