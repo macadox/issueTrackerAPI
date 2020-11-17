@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const globalErrorHandler = require('./controllers/errorHandler');
 const AppError = require('./utils/appError');
 
-const issueRouter = require('./routes/issueRoutes');
+// const issueRouter = require('./routes/issueRoutes');
 const userRouter = require('./routes/userRoutes');
 const projectRouter = require('./routes/projectRoutes');
 
