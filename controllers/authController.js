@@ -98,6 +98,41 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+// TODO: Is logged in function, used in viewsRoutes to set res.locals.user to currentUser
+// exports.isLoggedIn = catchAsync(async (req, res, next) => {
+//   if (req.cookies.jwt) {
+
+//   }
+//   let token;
+//   // 1 Getting the token and checking if its there
+//   if (
+//     req.headers.authorization &&
+//     req.headers.authorization.startsWith('Bearer')
+//   ) {
+//     token = req.headers.authorization.split(' ')[1];
+//   }
+//   if (!token) {
+//     return next(new AppError('Please log in!', 401));
+//   }
+
+//   // 2. Verify the token
+//   const decoded = await promisify(JWT.verify)(token, process.env.JWT_SECRET);
+
+//   // 3. Check if user still exists
+//   const freshUser = await User.findById(decoded.id);
+//   if (!freshUser) {
+//     return next();
+//   }
+//   // 4. Check if user changed password after token was issued.
+//   if (freshUser.checkPasswordChangedAfterIat(decoded.iat)) {
+//     // return an error
+//     return next();
+//   }
+
+//   req.user = freshUser;
+//   next();
+// });
+
 exports.restrict = (...roles) => (req, res, next) => {
   const userRoles = req.user.roles;
 

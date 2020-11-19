@@ -1,0 +1,19 @@
+mixin menuItem (iconPath, text, link)
+
+    li.menu__item: a.menu__link(href=`${link}`)
+        img.menu__icon(src=`/img/ui/${iconPath}`, alt=`${text} icon`, class=`menu__icon--${text.toLowerCase().replace(' ', '')}`, role="menuitem")
+        span.menu__text= text
+//- TODO/ Add roving tab index
+header
+    .logo
+        h2.logo__content IssueTracker
+    nav
+        ul.menu(role="menu", )
+            +menuItem('home.svg', 'Home', '/')
+            +menuItem('login.svg', 'Login', '/login')
+            +menuItem('enter.svg', 'Sign up', '/signup')
+            //- +menuItem('briefing.svg', 'Projects', '/projects')
+            //- +menuItem('bug.svg', 'Issues', '/myIssues')
+            //- +menuItem('settings.svg', 'Admin', '/admin')
+            //- +menuItem('user.svg', 'User', '/me')
+            //- +menuItem('logout.svg', 'Logout', '/logout')
