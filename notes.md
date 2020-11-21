@@ -21,9 +21,11 @@
                           
 ## Todos
 
-- Implement helmet, rate limiting, data sanitization, hpp 
-- Add authentication and authorization middleware in the router files. router.use(authController.protect, etc.)
-- Add functions that calculate Quantity of Issues and updates it on the Project model with pre /^findOneAnd/ and post /^findOneAnd/ hooks
+- Add authentication and authorization middleware in the router files. router.use(authController.protect, etc.) [x]
 
-- design the webpage Home, Projects, Users (admin), User Data, Logout || Home, Login, Signup
-- prepare view pug templates and build the frontend
+- design the webpage Home, Projects, Users (admin), User Data, Logout || Home, Login, Signup [x]
+- prepare my own email templates in pug [x]
+- prepare view pug templates and build the frontend = In progress
+- prepare json files, from which I can import sample projects + users [ ]
+- Implement helmet, rate limiting, data sanitization, hpp [ ]
+- Add functions that calculate Quantity of Issues and updates it on the Project model with pre /^findOneAnd/ and post /^findOneAnd/ hooks [ ]

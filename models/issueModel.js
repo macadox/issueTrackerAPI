@@ -35,6 +35,10 @@ const issueSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
       },
+      createdOn: {
+        type: Date,
+        default: Date.now(),
+      },
     },
   ],
   deadline: {
@@ -73,6 +77,7 @@ const issueSchema = new mongoose.Schema({
       ref: 'User',
     },
   ],
+  issueId: String,
 });
 
 // DOCUMENT Middleware: runs before .save() and .create()

@@ -61,6 +61,13 @@ const userSchema = mongoose.Schema(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    active: {
+      type: Boolean,
+      default: false,
+      select: false,
+    },
+    userConfirmationToken: String,
+    userConfirmedAt: Date,
   },
   {
     toJSON: { virtuals: true },
@@ -139,6 +146,17 @@ userSchema.methods.generatePasswordResetToken = function () {
     Date.now() + process.env.PASSWORD_RESET_EXPIRES * 60 * 1000;
 
   return resetToken;
+};
+
+userSchema.methods.generateUserConfirmationToken = function () {
+  const confirmationToken = crypto.randomBytes(32).toString('hex');
+
+  this.userConfirmationToken = crypto
+    .createHash('sha256')
+    .update(confirmationToken)
+    .digest('hex');
+
+  return confirmationToken;
 };
 
 module.exports = mongoose.model('User', userSchema);

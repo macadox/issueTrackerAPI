@@ -1,0 +1,16 @@
+extends baseEmail.pug
+
+block content
+    p Hi #{firstName},
+    p Welcome to IssueTracker!
+    p Please, use the button below to confirm that this email belongs to you.
+    table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+        tbody
+            tr
+                td(align='center')
+                    table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+                        tbody
+                            tr
+                                td
+                                    a(href=`${url}`, target='_blank') Confirm your email
+    p If you have not tried to register on our site, please contact the administrator.

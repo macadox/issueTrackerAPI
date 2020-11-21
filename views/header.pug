@@ -10,10 +10,14 @@ header
     nav
         ul.menu(role="menu", )
             +menuItem('home.svg', 'Home', '/')
-            +menuItem('login.svg', 'Login', '/login')
-            +menuItem('enter.svg', 'Sign up', '/signup')
-            //- +menuItem('briefing.svg', 'Projects', '/projects')
-            //- +menuItem('bug.svg', 'Issues', '/myIssues')
-            //- +menuItem('settings.svg', 'Admin', '/admin')
-            //- +menuItem('user.svg', 'User', '/me')
-            //- +menuItem('logout.svg', 'Logout', '/logout')
+            if user
+                +menuItem('bug.svg', 'Issues', '/myIssues')
+                +menuItem('briefing.svg', 'Projects', '/projects')
+                +menuItem('settings.svg', 'Admin', '/admin')
+                +menuItem('user.svg', 'User', '/me')
+                li.menu__item: button.btn.menu__link.menu__link--logout
+                    img.menu__icon(src=`/img/ui/logout.svg`, alt=`logout icon`, class=`menu__icon--logout}`, role="menuitem")
+                    span.menu__text Logout
+            else
+                +menuItem('login.svg', 'Login', '/login')
+                +menuItem('enter.svg', 'Sign up', '/signup')

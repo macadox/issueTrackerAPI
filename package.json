@@ -6,6 +6,8 @@
   "scripts": {
     "start:prod": "cross-env NODE_ENV=production nodemon server.js",
     "start": "nodemon server.js",
+    "watch:js": "parcel watch ./public/js/src/index.js --out-dir ./public/js/dist --out-file bundle.js",
+    "build": "parcel build ./public/js/src/index.js --out-dir ./public/js/dist --out-file bundle.js",
     "debug": "ndb server.js"
   },
   "author": "",
@@ -15,11 +17,14 @@
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "alert": "^5.0.6",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "html-to-text": "^6.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.11",
     "morgan": "^1.10.0",

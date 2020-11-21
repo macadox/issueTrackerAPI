@@ -44,6 +44,21 @@ const projectSchema = mongoose.Schema({
       ref: 'User',
     },
   ],
+  projectId: {
+    type: String,
+    validate: {
+      validator: function (val) {
+        return /^([A-Z]{2}\d|[A-Z]{3})/.test(val);
+      },
+      message:
+        'Project id must consist of three characters in following manner: BB2, BBB',
+    },
+    uppercase: true,
+  },
+  issueSequenceId: {
+    type: Number,
+    default: 1
+  }
 });
 
 // projectSchema.pre(/^find/, function (func, next) {
