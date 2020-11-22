@@ -1,0 +1,203 @@
+[
+  {
+    "name": "Create backend for AmongUs API",
+    "priority": "MUST",
+    "difficulty": "8",
+    "description": "Among US needs to have a mongodb, express and allow to consume the API with frontend that I have built in pure js and css",
+    "acceptanceCriterias": [
+      {
+        "criteria": "Backend should have mongoDB"
+      },
+      {
+        "criteria": "Backend should be on ran only locally, no need to expose API yet."
+      },
+      {
+        "criteria": "no templating engine should be included"
+      }
+    ],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5aa355d45d4da00aee00",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "AA01-001"
+  },
+  {
+    "name": "Migrate data from Firebase database",
+    "priority": "MUST",
+    "difficulty": "9",
+    "description": "I need to export the db from firebase with json, correct the data and import it via import script",
+    "acceptanceCriterias": [
+      {
+        "criteria": "No data lost for users"
+      },
+      {
+        "criteria": "No data lost for games"
+      }
+    ],
+    "deadline": "2020-11-31",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5aa355d45d4da00aee00",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "AA01-002"
+  },
+  {
+    "name": "Remove firebase references from frontend",
+    "priority": "MUST",
+    "difficulty": "8",
+    "description": "Move all the functionalities to the AmongUS API",
+    "acceptanceCriterias": [
+      {
+        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+      },
+      {
+        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+      },
+      {
+        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+      }
+    ],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5aa355d45d4da00aee00",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "AA01-003"
+  },
+  {
+    "name": "Rebuild the frontend",
+    "priority": "MUST",
+    "difficulty": "8",
+    "description": "Rebuild the frontend to patch, post and get data from frontend with fetchAPI",
+    "acceptanceCriterias": [
+      {
+        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+      },
+      {
+        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+      },
+      {
+        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+      }
+    ],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5aa355d45d4da00aee00",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "AA01-004"
+  },
+  {
+    "name": "Build the json data",
+    "priority": "MUST",
+    "difficulty": "8",
+    "description": "Build JSON data for issue, users and projects in order to be able to clear the db and import records",
+    "acceptanceCriterias": [
+      {
+        "criteria": "JSON data needs to have all necessary fields"
+      },
+      {
+        "criteria": "JSON data needs to have unique content, so it doesn't look weird in the app."
+      },
+      {
+        "criteria": "All the links between the data need to be correct, so it does not lookweird"
+      }
+    ],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-001"
+  },
+  {
+    "name": "Finish building frontend",
+    "priority": "MUST",
+    "difficulty": "8",
+    "description": "Finish building pug templates, that will allow to view all the projects and go to different views endpoints",
+    "acceptanceCriterias": [],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-002"
+  },
+  {
+    "name": "Verify saving of issues",
+    "priority": "SHOULD",
+    "difficulty": "4",
+    "description": "Verify if saving the issues always checks if the project that we are asking for in the request is in the DB, so it does not send wrong responses.",
+    "acceptanceCriterias": [
+      {
+        "criteria": "Responses should be with status 'error' if project does not exist"
+      },
+      {
+        "criteria": "Error should be displayed on the frontend in the Custom alert that I have created"
+      }
+    ],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-003"
+  },
+  {
+    "name": "Check out Jonas Schemdtman's course to learn about forms",
+    "priority": "MUST",
+    "difficulty": "4",
+    "description": "Find a way to deal with saving, editing and viewing form templates that will allow to save Projects and Issues.",
+    "acceptanceCriterias": [
+      {
+        "criteria": "The forms should not be hardcoded and have similar logic"
+      }
+    ],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-004"
+  },
+  {
+    "name": "Provide support for rendering 404 pages",
+    "priority": "MUST",
+    "difficulty": "4",
+    "description": "For some wrong responses, 404 pages should be rendered",
+    "acceptanceCriterias": [],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-005"
+  },
+  {
+    "name": "Add catching uncaught exceptions and unhandled rejections",
+    "priority": "COULD",
+    "difficulty": "2",
+    "description": "As above",
+    "acceptanceCriterias": [],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-006"
+  },
+  {
+    "name": "Add limiting access to projects",
+    "priority": "COULD",
+    "difficulty": "2",
+    "description": "Users, should be able to only view and edit projects that they participate in!",
+    "acceptanceCriterias": [],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-007"
+  }
+]

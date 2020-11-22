@@ -1,0 +1,112 @@
+[
+  {
+    "_id": "5fba548657c77e2d803c869d",
+    "name": "Maciej Okniński",
+    "email": "maciej@mokninski.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["admin", "developer", "designer", "tester", "product owner"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba54c1dad2496b80d047d5",
+    "name": "Mathew Marques",
+    "email": "marques@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["manager"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba54dadad2496b80d047d6",
+    "name": "Nicholas Aldred",
+    "email": "nicolai@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["product owner"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba54eadad2496b80d047d7",
+    "name": "Gareth Mackenzie",
+    "email": "gareth.mackenzie@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["product owner"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba54f7dad2496b80d047d8",
+    "name": "Kareem Rodriques",
+    "email": "kareem@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["developer"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba5503dad2496b80d047d9",
+    "name": "Grayson Willis",
+    "email": "willisg@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["developer"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba550edad2496b80d047da",
+    "name": "Avi Krause",
+    "email": "avi@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["developer"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba551adad2496b80d047db",
+    "name": "Toby Beltran",
+    "email": "toby@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["developer"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba5532dad2496b80d047dc",
+    "name": "Frank Fitzgerald",
+    "email": "frank@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["tester"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba5569dad2496b80d047dd",
+    "name": "Jarvis Hooper",
+    "email": "jarvis@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["designer", "tester"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  },
+  {
+    "_id": "5fba5578dad2496b80d047df",
+    "name": "Izaak Haas",
+    "email": "izaak@example.com",
+    "active": true,
+    "photo": "default.png",
+    "roles": ["tester"],
+    "password": "test1234",
+    "confirmPassword": "test1234"
+  }
+]
