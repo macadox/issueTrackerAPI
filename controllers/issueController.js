@@ -29,7 +29,7 @@ exports.createIssue = catchAsync(async (req, res, next) => {
   // Allow nested route
   if (!req.body.author) req.body.author = req.user._id;
   if (!req.body.project) req.body.project = req.params.projectId;
-
+  
   const newDoc = await Issue.create(req.body);
 
   res.status(201).json({

@@ -6,7 +6,7 @@ export const logout = async () => {
       method: 'GET',
     });
     const resData = await res.json();
-    new Alert('success', 'User logged out').showMessage();
+    new Alert('success', 'Logged out successfully').showMessage();
     setTimeout(() => location.assign('/'), 2000);
   } catch (err) {
     new Alert('error', 'Error logging out').showMessage();

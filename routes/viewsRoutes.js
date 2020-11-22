@@ -9,6 +9,7 @@ router.get('/login', viewsController.getLoginForm);
 router.get('/signup', viewsController.getSignupForm);
 router.get('/forgotPassword', viewsController.getForgotPasswordForm);
 router.get('/resetPassword/:token', viewsController.getResetPasswordForm)
-// router.get('/')
+
+router.get('/myprojects', viewsController.getAllProjects)
 
 module.exports = router;

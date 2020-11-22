@@ -6808,7 +6808,7 @@ var LoginForm = /*#__PURE__*/function (_AuthForm) {
                 return _context.abrupt("return", alert.showMessage());
 
               case 10:
-                new _Alert.Alert('success', 'User logged in').showMessage();
+                new _Alert.Alert('success', "Logged in as: ".concat(resData.data.user.name)).showMessage();
                 setTimeout(function () {
                   return location.assign('/');
                 }, 2000);
@@ -7160,7 +7160,7 @@ var logout = /*#__PURE__*/function () {
 
           case 6:
             resData = _context.sent;
-            new _Alert.Alert('success', 'User logged out').showMessage();
+            new _Alert.Alert('success', 'Logged out successfully').showMessage();
             setTimeout(function () {
               return location.assign('/');
             }, 2000);
@@ -7497,7 +7497,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52795" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64284" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

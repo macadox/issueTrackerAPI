@@ -76,7 +76,6 @@ exports.confirmSignup = catchAsync(async (req, res, next) => {
   }
 
   user.active = true;
-  user.userConfirmedAt = Date.now();
   user.userConfirmationToken = undefined;
 
   await user.save({ validateBeforeSave: false });

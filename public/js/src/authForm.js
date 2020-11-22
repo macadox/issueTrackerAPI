@@ -54,7 +54,7 @@ class LoginForm extends AuthForm {
         const alert = new Alert('error', resData.message);
         return alert.showMessage();
       }
-      new Alert('success', 'User logged in').showMessage();
+      new Alert('success', `Logged in as: ${resData.data.user.name}`).showMessage();
       setTimeout(() => location.assign('/'), 2000);
     } catch (err) {
       console.log(err);

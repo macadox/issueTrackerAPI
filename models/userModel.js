@@ -8,6 +8,13 @@ const userSchema = mongoose.Schema(
     name: {
       type: String,
       required: [true, 'A user must have a name'],
+      validate: {
+        validator: function (val) {
+          return /\b([A-ZÀ-ÿ][-,a-z. ']+[ ]+)+/.test(val);
+        },
+      },
+      message:
+        'Please provide a valid name (name + surname). Each needs to start with uppercase letter.',
     },
     email: {
       type: String,
@@ -18,6 +25,10 @@ const userSchema = mongoose.Schema(
       },
       unique: true,
       lowercase: true,
+    },
+    photo: {
+      type: String,
+      default: 'default.png',
     },
     roles: [
       {
@@ -30,7 +41,7 @@ const userSchema = mongoose.Schema(
             'product owner',
             'tester',
             'manager',
-            'user',
+            'default',
             'admin',
           ],
           message:
@@ -67,7 +78,6 @@ const userSchema = mongoose.Schema(
       select: false,
     },
     userConfirmationToken: String,
-    userConfirmedAt: Date,
   },
   {
     toJSON: { virtuals: true },
@@ -98,7 +108,7 @@ userSchema.pre('save', async function (next) {
 userSchema.pre('save', function (next) {
   if (!this.isNew) return next();
 
-  if (this.roles.length == 0) this.roles.push('user');
+  if (this.roles.length == 0) this.roles.push('default');
   next();
 });
 

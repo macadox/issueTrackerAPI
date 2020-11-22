@@ -1,27 +1,124 @@
 [
   {
-    "name": "IssueTracker-API",
-    "deadline": "2020-12-31",
-    "teamMembers": [
-      "5fa98ee52e39346044d78c47",
-      "5fa98e8d2e39346044d78c45",
-      "5fa98e942e39346044d78c46",
-      "5fa98f202e39346044d78c49",
-      "5fa586d03dbded1b184b5979"
-    ],
-    "startDate": "2020-11-01",
-    "progress": 60,
-    "status": "In progress"
+    "_id": "5fba5aa355d45d4da00aee00",
+    "progress": 20,
+    "status": "In progress",
+    "teamMembers": ["5fba54c1dad2496b80d047d5"],
+    "prefixSequence": 5,
+    "unresolvedIssues": 4,
+    "name": "AmongUs Gamedata",
+    "description": "Project of building AmongUs Data API v1, with UI, that will allow me to add games to the database. Then, I would like to make the api public",
+    "prefix": "AA01",
+    "deadline": "2020-11-14",
+    "startDate": "2020-10-01",
+    "owner": "5fba548657c77e2d803c869d",
+    "icon": "https://loremicon.com/grad/128/128/7475176/jpeg"
   },
   {
-    "name": "AmongUs Gamedata",
-    "deadline": "2020-11-14",
+    "_id": "5fba5b1455d45d4da00aee01",
+    "progress": 60,
+    "status": "In progress",
+    "teamMembers": ["5fba54c1dad2496b80d047d5", "5fba5532dad2496b80d047dc"],
+    "prefixSequence": 8,
+    "unresolvedIssues": 7,
+    "name": "IssueTracker-API",
+    "description": "Project of building Issue Tracking App, that allows user to signup, build their projects, invite team members and track the issues.",
+    "prefix": "ISS1",
+    "deadline": "2020-12-31",
+    "startDate": "2020-11-01",
+    "owner": "5fba548657c77e2d803c869d",
+    "icon": "https://loremicon.com/grad/128/128/3025648/jpeg"
+  },
+  {
+    "_id": "5fba5b8355d45d4da00aee02",
+    "progress": 0,
+    "status": "Unreleased",
     "teamMembers": [
-      "5fa98e8d2e39346044d78c45",
-      "5fa98f202e39346044d78c49",
-      "5fa586d03dbded1b184b5979"
+      "5fba54f7dad2496b80d047d8",
+      "5fba5503dad2496b80d047d9",
+      "5fba5569dad2496b80d047dd"
     ],
-    "startDate": "2020-10-01",
-    "progress": 20
+    "name": "Implementation of new QC Deadline",
+    "description": "Implementation of approval that concerns artwork. We need to urge the suppliers to prepare aw sd documents.",
+    "prefix": "QCDL",
+    "deadline": "2020-11-27",
+    "startDate": "2020-10-29",
+    "owner": "5fba54dadad2496b80d047d6",
+    "icon": "https://loremicon.com/grad/128/128/9431673/jpeg"
+  },
+  {
+    "_id": "5fba5bee55d45d4da00aee03",
+    "progress": 100,
+    "status": "Released",
+    "teamMembers": [
+      "5fba54f7dad2496b80d047d8",
+      "5fba5503dad2496b80d047d9",
+      "5fba5569dad2496b80d047dd",
+      "5fba5578dad2496b80d047df"
+    ],
+    "name": "vershold.com bugfixes",
+    "description": "Getting rid off the bugs and fixing the issues found on vershold.com site. Both frontend and backend",
+    "prefix": "VBUG",
+    "deadline": "2020-10-12",
+    "startDate": "2020-10-05",
+    "owner": "5fba54eadad2496b80d047d7",
+    "icon": "https://loremicon.com/grad/128/128/3678139/jpeg"
+  },
+  {
+    "_id": "5fba5c1d55d45d4da00aee04",
+    "progress": 100,
+    "status": "Released",
+    "teamMembers": [
+      "5fba54f7dad2496b80d047d8",
+      "5fba5503dad2496b80d047d9",
+      "5fba550edad2496b80d047da",
+      "5fba5532dad2496b80d047dc"
+    ],
+    "name": "Moving brand websites to the cloud",
+    "description": "Move Brand websites from the on prem Network to the Cloud Network",
+    "prefix": "VBRA",
+    "deadline": "2020-10-23",
+    "startDate": "2020-09-30",
+    "owner": "5fba54eadad2496b80d047d7",
+    "icon": "https://loremicon.com/grad/128/128/4190390/jpeg"
+  },
+  {
+    "_id": "5fba5c5f55d45d4da00aee05",
+    "progress": 100,
+    "status": "Released",
+    "teamMembers": [
+      "5fba54f7dad2496b80d047d8",
+      "5fba5503dad2496b80d047d9",
+      "5fba550edad2496b80d047da",
+      "5fba5532dad2496b80d047dc",
+      "5fba5578dad2496b80d047df"
+    ],
+    "name": "Move Symfonia Database Backups",
+    "description": "Move Symfonia Database Backups to the cloud",
+    "prefix": "SDBB",
+    "deadline": "2020-09-10",
+    "startDate": "2020-07-27",
+    "owner": "5fba54eadad2496b80d047d7",
+    "icon": "https://loremicon.com/grad/128/128/3129926/jpeg"
+  },
+  {
+    "_id": "5fba5cd655d45d4da00aee06",
+    "progress": 0,
+    "status": "Unreleased",
+    "teamMembers": [
+      "5fba54f7dad2496b80d047d8",
+      "5fba5503dad2496b80d047d9",
+      "5fba550edad2496b80d047da",
+      "5fba5532dad2496b80d047dc",
+      "5fba5578dad2496b80d047df",
+      "5fba5569dad2496b80d047dd"
+    ],
+    "name": "Implementation of new HTML forms",
+    "description": "Finishing task of rewrtiting HTML templates to improve Veronica efficiency​.",
+    "prefix": "HTML",
+    "deadline": "2020-12-31",
+    "startDate": "2020-11-22",
+    "owner": "5fba54dadad2496b80d047d6",
+    "icon": "https://loremicon.com/grad/128/128/9855856/jpeg"
   }
 ]
