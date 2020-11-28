@@ -1,6 +1,7 @@
 extends base
 
 include mixins/_multiselect.pug
+include mixins/_editableTable.pug
 
 
 append head
@@ -50,6 +51,31 @@ block content
                 input#deadline.form-template__input(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create" , name="deadline", value=`${formMode!=='create' && issue.deadline ?  issue.deadline.toLocaleDateString('en-GB') : ''}`)
             .form-template__field.colspan2
                 label.form-template__label(for="description") Description
-                textarea#description.form-template__textarea(style="resize: none;" disabled=formMode!=="update" && formMode !=="create", name="description")=`${formMode!=='create' ? issue.description : ''}`
+                textarea#description.form-template__textarea(disabled=formMode!=="update" && formMode !=="create", name="description")=`${formMode!=='create' ? issue.description : ''}`
             .form-template__field.colspan2.new-line
                 +userMultiselect("assignees", "Assignees", (issue) ?  issue.assignees : [], users)
+            .form-template__field.colspan3.new-line
+                label.form-template__label(for="acceptanceCriterias") Acceptance Criteria
+                table.list
+                    tr.list__row--heading
+                        th.list__heading: span Criterion
+                        th.list__heading: span Created
+                        th.list__heading: span Solved
+                    tr.list__row.list__row--form
+                        td.list__data.list__data--form: span UV A280 (biologics only): Initial samples: 85-115% of the target 
+                        td.list__data.list__data--form: span 16/11/2020
+                        td.list__data.list__data--form: span No
+                    tr.list__row.list__row--form
+                        td.list__data.list__data--form: span Monomer: >= 90.0%
+                        td.list__data.list__data--form: span 16/11/2020
+                        td.list__data.list__data--form: span No
+                    tr.list__row.list__row--form
+                        td.list__data.list__data--form: span HP-SEC (biologics only): High mol. wt species: <=5.00%
+                        td.list__data.list__data--form: span 16/11/2020
+                        td.list__data.list__data--form: span Yes
+                    tr.list__row.list__row--form
+                        td.list__data.list__data--form: span Contents by HPLC (small molecule): Initial samples: 85-115% of target
+                        td.list__data.list__data--form: span 16/11/2020
+                        td.list__data.list__data--form: span No
+            .form-template__field.colspan3.new-line
+                +editableTable('acceptanceCriterias', 'Acceptance Criteria', (issue.acceptanceCriterias) ?  issue.acceptanceCriterias : [], 'ID', 'Criterion', 'Created on', 'Solved')

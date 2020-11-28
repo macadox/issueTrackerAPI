@@ -17,36 +17,36 @@ block content
                 a(href=`/projects/${projectId}/issues?grid=true`).btn.btn--small.btn--light.align--right Toggle grid view
             table.list.list--projects
                 tr.list__row--heading
-                    th.list__heading ID
-                    th.list__heading Issue
-                    th.list__heading Description
-                    th.list__heading Priority
-                    th.list__heading Author
-                    th.list__heading Created
-                    th.list__heading Deadline
-                    th.list__heading Status
-                    th.list__heading Assignees
+                    th.list__heading(role="columnheader") ID
+                    th.list__heading(role="columnheader") Issue
+                    th.list__heading(role="columnheader") Description
+                    th.list__heading(role="columnheader") Priority
+                    th.list__heading(role="columnheader") Author
+                    th.list__heading(role="columnheader") Created
+                    th.list__heading(role="columnheader") Deadline
+                    th.list__heading(role="columnheader") Status
+                    th.list__heading(role="columnheader") Assignees
                 each issue in issues
                     tr.list__row
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`)= issue.issueId
                             - const nameLength = 35
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`)= `${(issue.name.length > nameLength) ? issue.name.slice(0, nameLength) + issue.name.slice(nameLength).split(' ')[0] + '...' : issue.name}`
                             - const descriptionLength = 50
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`)= `${(issue.description.length > descriptionLength) ? issue.description.slice(0, descriptionLength) + issue.description.slice(descriptionLength).split(' ')[0] + '...' : issue.description}`
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`)= `${issue.status}`
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`)= issue.author.name
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`)= `${issue.createdOn ? issue.createdOn.toLocaleDateString('en-GB') : ''}`
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`)= `${issue.deadline ? issue.deadline.toLocaleDateString('en-GB') : ''}`
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`)= issue.status
-                        td.list__data
+                        td.list__data(role="cell")
                             a.list__content(href=`/projects/${projectId}/issues/${issue._id}/preview`) 
                                 .team-members
                                     - const numPortraits = 3

@@ -2,16 +2,24 @@ import '@babel/polyfill';
 import { authForm } from './authForm';
 import { MultiselectFactory } from './Multiselect';
 import { FormTemplate } from './FormTemplate';
+import { Checkbox } from './Checkbox';
 import { logout } from './logout';
 
 const logoutBtn = document.querySelector('.menu__link--logout');
 const multiSelects = document.querySelectorAll('.multiselect');
+const checkboxes = document.querySelectorAll('.checkbox');
 const formTemplate = document.querySelector('.form-template');
 
 if (multiSelects.length > 0) {
   multiSelects.forEach((multiselect) => {
     MultiselectFactory.create('UserMultiselect', multiselect);
   });
+}
+
+if (checkboxes.length > 0) {
+  checkboxes.forEach((checkbox) => {
+    new Checkbox(checkbox);
+  })
 }
 
 if (formTemplate) {

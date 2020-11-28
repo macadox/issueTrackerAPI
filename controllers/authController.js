@@ -114,7 +114,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     token = req.cookies.jwt;
   }
   if (!token) {
-    return next(new AppError('Please log in!', 401));
+    return next(new AppError('Authentication failed. Please log in again!', 401));
   }
 
   // 2. Verify the token

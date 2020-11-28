@@ -26,28 +26,28 @@ export class FormTemplate {
     const bodyObj = {};
     const formData = new FormData(this.form);
     // Build body object
-    for (let pair of formData.entries()) {
-      if (await this.isParsable(pair[1])) {
-        bodyObj[pair[0]] = JSON.parse(pair[1]);
-      } else {
-        if (pair[1] == '') continue;
-        bodyObj[pair[0]] = pair[1];
-      }
-    }
-    let args = [];
-    if (/create$/gi.test(location.pathname)) {
-      args = [this.form.dataset.resource, 'POST', bodyObj];
-    } else if (/update$/gi.test(location.pathname)) {
-      args = [
-        this.form.dataset.resource,
-        'PATCH',
-        bodyObj,
-        this.form.dataset.id,
-      ];
-    } else {
-      return new Alert('error', 'We do not cover that kind of request!');
-    }
-    await this.createReq(...args);
+    // for (let pair of formData.entries()) {
+    //   if (await this.isParsable(pair[1])) {
+    //     bodyObj[pair[0]] = JSON.parse(pair[1]);
+    //   } else {
+    //     if (pair[1] == '') continue;
+    //     bodyObj[pair[0]] = pair[1];
+    //   }
+    // }
+    // let args = [];
+    // if (/create$/gi.test(location.pathname)) {
+    //   args = [this.form.dataset.resource, 'POST', bodyObj];
+    // } else if (/update$/gi.test(location.pathname)) {
+    //   args = [
+    //     this.form.dataset.resource,
+    //     'PATCH',
+    //     bodyObj,
+    //     this.form.dataset.id,
+    //   ];
+    // } else {
+    //   return new Alert('error', 'We do not cover that kind of request!');
+    // }
+    // await this.createReq(...args);
   }
 
   async createReq(resource, method, body, projectId) {

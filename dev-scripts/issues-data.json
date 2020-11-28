@@ -6,13 +6,13 @@
     "description": "Among US needs to have a mongodb, express and allow to consume the API with frontend that I have built in pure js and css",
     "acceptanceCriterias": [
       {
-        "criteria": "Backend should have mongoDB"
+        "criterion": "Backend should have mongoDB"
       },
       {
-        "criteria": "Backend should be on ran only locally, no need to expose API yet."
+        "criterion": "Backend should be on ran only locally, no need to expose API yet."
       },
       {
-        "criteria": "no templating engine should be included"
+        "criterion": "no templating engine should be included"
       }
     ],
     "deadline": "2020-11-29",
@@ -35,10 +35,10 @@
     "description": "I need to export the db from firebase with json, correct the data and import it via import script",
     "acceptanceCriterias": [
       {
-        "criteria": "No data lost for users"
+        "criterion": "No data lost for users"
       },
       {
-        "criteria": "No data lost for games"
+        "criterion": "No data lost for games"
       }
     ],
     "deadline": "2020-11-31",
@@ -55,13 +55,13 @@
     "description": "Move all the functionalities to the AmongUS API",
     "acceptanceCriterias": [
       {
-        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
       },
       {
-        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
       },
       {
-        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
       }
     ],
     "deadline": "2020-11-29",
@@ -78,13 +78,13 @@
     "description": "Rebuild the frontend to patch, post and get data from frontend with fetchAPI",
     "acceptanceCriterias": [
       {
-        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
       },
       {
-        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
       },
       {
-        "criteria": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
       }
     ],
     "deadline": "2020-11-29",
@@ -101,13 +101,13 @@
     "description": "Build JSON data for issue, users and projects in order to be able to clear the db and import records",
     "acceptanceCriterias": [
       {
-        "criteria": "JSON data needs to have all necessary fields"
+        "criterion": "JSON data needs to have all necessary fields"
       },
       {
-        "criteria": "JSON data needs to have unique content, so it doesn't look weird in the app."
+        "criterion": "JSON data needs to have unique content, so it doesn't look weird in the app."
       },
       {
-        "criteria": "All the links between the data need to be correct, so it does not lookweird"
+        "criterion": "All the links between the data need to be correct, so it does not lookweird"
       }
     ],
     "deadline": "2020-11-29",
@@ -137,10 +137,10 @@
     "description": "Verify if saving the issues always checks if the project that we are asking for in the request is in the DB, so it does not send wrong responses.",
     "acceptanceCriterias": [
       {
-        "criteria": "Responses should be with status 'error' if project does not exist"
+        "criterion": "Responses should be with status 'error' if project does not exist"
       },
       {
-        "criteria": "Error should be displayed on the frontend in the Custom alert that I have created"
+        "criterion": "Error should be displayed on the frontend in the Custom alert that I have created"
       }
     ],
     "deadline": "2020-11-29",
@@ -157,7 +157,7 @@
     "description": "Find a way to deal with saving, editing and viewing form templates that will allow to save Projects and Issues.",
     "acceptanceCriterias": [
       {
-        "criteria": "The forms should not be hardcoded and have similar logic"
+        "criterion": "The forms should not be hardcoded and have similar logic"
       }
     ],
     "deadline": "2020-11-29",

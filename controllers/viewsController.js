@@ -116,21 +116,23 @@ exports.getIssueForm = catchAsync(async (req, res, next) => {
   const mode = parts[parts.length - 1];
   const users = await User.find();
 
+  
   if (mode !== 'create') {
     project = await Project.findById(req.params.projectId);
     if (!project)
-      return next(new AppError('There is no project with such id!', 404));
-
+    return next(new AppError('There is no project with such id!', 404));
+    
     issue = await Issue.findById(req.params.issueId);
     if (!issue)
-      return next(new AppError('There is no issue with such id!', 404));
-      
+    return next(new AppError('There is no issue with such id!', 404));
+    
     if (issue.project != req.params.projectId)
-      return next(
-        new AppError('This issue does not belong to that project!'),
-        404
+    return next(
+      new AppError('This issue does not belong to that project!'),
+      404
       );
-  }
+    }
+    console.log(issue.acceptanceCriterias)
 
   res.status(200).render('issueForm', {
     title:

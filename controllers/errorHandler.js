@@ -42,7 +42,6 @@ const sendErrorProd = (err, req, res) => {
   res.status(err.statusCode).render('404', {
     title: 'Something went wrong',
     err: 'Please, try again later',
-    user
   });
 };
 
@@ -58,7 +57,6 @@ const sendErrorDev = (err, req, res) => {
     res.status(err.statusCode).render('404', {
       title: 'Something went wrong',
       err: err.message,
-      user
     });
   }
 };
