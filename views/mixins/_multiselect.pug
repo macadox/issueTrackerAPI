@@ -1,0 +1,19 @@
+mixin userMultiselect (id, label, resource, users)
+    label.form-template__label(for=`${id}_container`)= label
+    .chosen-container(role="listbox", aria-multiselectable="true", id=`${id}_container`, class=`${formMode!=="preview" ? 'multiselect' : ''}`)
+        if (formMode==="preview")
+            ul.chosen
+                each element in resource
+                    li.chosen__choice.chosen__choice--read: span.chosen__value= `${element.name} (${element.mainRole.charAt(0).toUpperCase() + element.mainRole.slice(1)})`
+        else
+            input(type="text", id=`${id}`, name=`${id}`).chosen__hidden-input
+            ul.chosen.chosen--edit
+                each element in resource
+                    li.chosen__choice.chosen__choice--edit(role="option", aria-selected="true", data-id=`${element._id}` , id=`${element._id}`) 
+                        span.chosen__value= `${element.name} (${element.mainRole.charAt(0).toUpperCase() + element.mainRole.slice(1)})`
+                        i.chosen__button: i.fas.fa-times
+            ul.dropdown
+                each user in users
+                    li.dropdown__option(role="option", aria-selected="false", data-id=`${user._id}`, id=`${user._id}`)
+                        span.dropdown__value= `${user.name} (${user.roles[0]})`
+                        i.chosen__button.chosen__button--hidden: i.fas.fa-times
