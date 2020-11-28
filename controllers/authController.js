@@ -92,7 +92,7 @@ exports.login = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email }).select('+password +active');
 
   if (!user.active) {
-    return next(new AppError('User not active, please confirm the email.'))
+    return next(new AppError('User not active, please confirm the email.'));
   }
   // 2) Check if user exists && password is correct
   if (!user || !(await user.checkPassword(password, user.password))) {
@@ -110,6 +110,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt) {
+    token = req.cookies.jwt;
   }
   if (!token) {
     return next(new AppError('Please log in!', 401));
@@ -133,8 +135,8 @@ exports.protect = catchAsync(async (req, res, next) => {
       )
     );
   }
-
   req.user = freshUser;
+  res.locals.user = freshUser;
   next();
 });
 

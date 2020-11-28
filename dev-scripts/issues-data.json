@@ -17,7 +17,13 @@
     ],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": [
+      "5fba548657c77e2d803c869d",
+      "5fba54c1dad2496b80d047d5",
+      "5fba5503dad2496b80d047d9",
+      "5fba5569dad2496b80d047dd",
+      "5fba5578dad2496b80d047df"
+    ],
     "project": "5fba5aa355d45d4da00aee00",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "AA01-001"
@@ -37,7 +43,7 @@
     ],
     "deadline": "2020-11-31",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5aa355d45d4da00aee00",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "AA01-002"
@@ -60,7 +66,7 @@
     ],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5aa355d45d4da00aee00",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "AA01-003"
@@ -83,7 +89,7 @@
     ],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5aa355d45d4da00aee00",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "AA01-004"
@@ -106,7 +112,7 @@
     ],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-001"
@@ -119,7 +125,7 @@
     "acceptanceCriterias": [],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-002"
@@ -139,7 +145,7 @@
     ],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-003"
@@ -156,7 +162,7 @@
     ],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-004"
@@ -169,7 +175,7 @@
     "acceptanceCriterias": [],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-005"
@@ -182,7 +188,7 @@
     "acceptanceCriterias": [],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-006"
@@ -195,7 +201,7 @@
     "acceptanceCriterias": [],
     "deadline": "2020-11-29",
     "status": "New",
-    "assignees": ["5fba54c1dad2496b80d047d5"],
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-007"

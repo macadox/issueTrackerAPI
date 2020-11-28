@@ -1,14 +1,5 @@
 # Notes
 
-## Authentication
-
-1. /login endpoint [x]
-1. /signup endpoint for new users (protect with destructuring) [x]
-1. /forgotPassword endpoint, that sends a link via email, /resetPassword/:token allows the user to change their password [x]
-1. /updateDetails endpoint that allows the user to update their info (not email, not password) [x]
-1. /updatePassword endpoint that allows the user to update their password [x]
-1. patch, post, delete requests on users exclusive to admin. (especially work on updating password) [x]
-
 ## Model
 
 [USERS]* ----- *[PROJECTS]
@@ -21,11 +12,61 @@
                           
 ## Todos
 
-- Add authentication and authorization middleware in the router files. router.use(authController.protect, etc.) [x]
+### Authentication & Security
 
-- design the webpage Home, Projects, Users (admin), User Data, Logout || Home, Login, Signup [x]
-- prepare my own email templates in pug [x]
-- prepare view pug templates and build the frontend = In progress
+#### Done
+- /login endpoint [x]
+- /signup endpoint for new users (protect with destructuring) [x]
+- /forgotPassword endpoint, that sends a link via email, /resetPassword/:token allows the user to change their password [x]
+- /updateDetails endpoint that allows the user to update their info (not email, not password) [x]
+- /updatePassword endpoint that allows the user to update their password [x]
+- patch, post, delete requests on users exclusive to admin. (especially work on updating password) [x]
+- Add authentication and authorization middleware in the router files. router.use(authController.protect, etc.) [x]
+- Implement helmet, rate limiting, data sanitization, hpp [ ] | Everything but HPP
+
+#### Todo
+- 
+
+### Data & API
+
+#### Done
+- 
+#### Todo
 - prepare json files, from which I can import sample projects + users [ ]
-- Implement helmet, rate limiting, data sanitization, hpp [ ]
 - Add functions that calculate Quantity of Issues and updates it on the Project model with pre /^findOneAnd/ and post /^findOneAnd/ hooks [ ]
+
+### Templates
+
+#### Done
+- Setup pug as templating engine [x]
+- prepare my own email templates in pug [x]
+- prepare grid and table views for both projects and issues [x]
+- prepare edit, create and preview for forms [x]
+- CRUD operations on the forms [x]
+- prepare 404 pages if resource is unavailable [x]
+
+#### Todo
+- Prepare Component for Setting date and Single Select ('MUST', 'SHOULD', 'COULD', 'WONT') [ ]
+- Prepare Datepicker [ ]
+- save grid/table view preference in local storage [ ]
+- Prepare validator on the forms [ ]
+- Implement Breadcrumbs [ ]
+- prepare content if there is no issue for a project or no projects (Do you want to add one?)
+
+### Modules
+
+#### Done
+- design the webpage Home, Projects, Users (admin), User Data, Logout || Home, Login, Signup [x]
+
+#### Todo
+- Design Dashboard [ ]
+- Implement Dashboard [ ]
+- Implement Admin tab to manage users [ ]
+- Implement User tab, updating preferences, password, user name, email, photo [ ]
+
+
+
+
+
+
+

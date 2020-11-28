@@ -4,7 +4,7 @@
     "name": "Maciej Okniński",
     "email": "maciej@mokninski.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "macadox.jpg",
     "roles": ["admin", "developer", "designer", "tester", "product owner"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -14,7 +14,7 @@
     "name": "Mathew Marques",
     "email": "marques@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user1.jpg",
     "roles": ["manager"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -24,7 +24,7 @@
     "name": "Nicholas Aldred",
     "email": "nicolai@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user2.jpg",
     "roles": ["product owner"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -34,7 +34,7 @@
     "name": "Gareth Mackenzie",
     "email": "gareth.mackenzie@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user3.jpg",
     "roles": ["product owner"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -44,7 +44,7 @@
     "name": "Kareem Rodriques",
     "email": "kareem@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user4.jpg",
     "roles": ["developer"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -54,7 +54,7 @@
     "name": "Grayson Willis",
     "email": "willisg@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user5.jpg",
     "roles": ["developer"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -64,7 +64,7 @@
     "name": "Avi Krause",
     "email": "avi@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user6.jpg",
     "roles": ["developer"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -74,7 +74,7 @@
     "name": "Toby Beltran",
     "email": "toby@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user7.jpg",
     "roles": ["developer"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -84,7 +84,7 @@
     "name": "Frank Fitzgerald",
     "email": "frank@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user8.jpg",
     "roles": ["tester"],
     "password": "test1234",
     "confirmPassword": "test1234"
@@ -94,7 +94,7 @@
     "name": "Jarvis Hooper",
     "email": "jarvis@example.com",
     "active": true,
-    "photo": "default.png",
+    "photo": "user9.jpg",
     "roles": ["designer", "tester"],
     "password": "test1234",
     "confirmPassword": "test1234"

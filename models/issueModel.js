@@ -90,7 +90,9 @@ issueSchema.pre('save', function (next) {
   this.modifiedOn = Date.now();
   next();
 });
-// issueSchema.pre('save', assignIssueId);
+if (process.env.NODE_ENV !== 'import') {
+  issueSchema.pre('save', assignIssueId);
+}
 // QUERY Middleware
 // Pre find
 issueSchema.pre(/^find/, populateUserData);

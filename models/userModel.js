@@ -49,6 +49,23 @@ const userSchema = mongoose.Schema(
         },
       },
     ],
+    mainRole: {
+      type: String,
+      require: [true, 'A user must have a main role'],
+      enum: {
+        values: [
+          'developer',
+          'designer',
+          'product owner',
+          'tester',
+          'manager',
+          'default',
+          'admin',
+        ],
+        message:
+          'role has to be a developer, designer, product owner, tester or manager',
+      },
+    },
     password: {
       type: String,
       required: [true, 'Please provide a password!'],
@@ -109,6 +126,7 @@ userSchema.pre('save', function (next) {
   if (!this.isNew) return next();
 
   if (this.roles.length == 0) this.roles.push('default');
+  if (!this.mainRole) this.mainRole = this.roles[0]
   next();
 });
 

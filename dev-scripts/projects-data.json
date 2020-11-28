@@ -3,7 +3,7 @@
     "_id": "5fba5aa355d45d4da00aee00",
     "progress": 20,
     "status": "In progress",
-    "teamMembers": ["5fba54c1dad2496b80d047d5"],
+    "teamMembers": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "prefixSequence": 5,
     "unresolvedIssues": 4,
     "name": "AmongUs Gamedata",
@@ -18,7 +18,11 @@
     "_id": "5fba5b1455d45d4da00aee01",
     "progress": 60,
     "status": "In progress",
-    "teamMembers": ["5fba54c1dad2496b80d047d5", "5fba5532dad2496b80d047dc"],
+    "teamMembers": [
+      "5fba548657c77e2d803c869d",
+      "5fba54c1dad2496b80d047d5",
+      "5fba5532dad2496b80d047dc"
+    ],
     "prefixSequence": 8,
     "unresolvedIssues": 7,
     "name": "IssueTracker-API",
@@ -34,6 +38,7 @@
     "progress": 0,
     "status": "Unreleased",
     "teamMembers": [
+      "5fba548657c77e2d803c869d",
       "5fba54f7dad2496b80d047d8",
       "5fba5503dad2496b80d047d9",
       "5fba5569dad2496b80d047dd"
@@ -51,6 +56,7 @@
     "progress": 100,
     "status": "Released",
     "teamMembers": [
+      "5fba548657c77e2d803c869d",
       "5fba54f7dad2496b80d047d8",
       "5fba5503dad2496b80d047d9",
       "5fba5569dad2496b80d047dd",
@@ -69,6 +75,7 @@
     "progress": 100,
     "status": "Released",
     "teamMembers": [
+      "5fba548657c77e2d803c869d",
       "5fba54f7dad2496b80d047d8",
       "5fba5503dad2496b80d047d9",
       "5fba550edad2496b80d047da",
@@ -87,6 +94,7 @@
     "progress": 100,
     "status": "Released",
     "teamMembers": [
+      "5fba548657c77e2d803c869d",
       "5fba54f7dad2496b80d047d8",
       "5fba5503dad2496b80d047d9",
       "5fba550edad2496b80d047da",
@@ -106,6 +114,7 @@
     "progress": 0,
     "status": "Unreleased",
     "teamMembers": [
+      "5fba548657c77e2d803c869d",
       "5fba54f7dad2496b80d047d8",
       "5fba5503dad2496b80d047d9",
       "5fba550edad2496b80d047da",
