@@ -23,8 +23,8 @@
       "5fba54c1dad2496b80d047d5",
       "5fba5532dad2496b80d047dc"
     ],
-    "prefixSequence": 8,
-    "unresolvedIssues": 7,
+    "prefixSequence": 11,
+    "unresolvedIssues": 10,
     "name": "IssueTracker-API",
     "description": "Project of building Issue Tracking App, that allows user to signup, build their projects, invite team members and track the issues.",
     "prefix": "ISS1",
@@ -36,7 +36,7 @@
   {
     "_id": "5fba5b8355d45d4da00aee02",
     "progress": 0,
-    "status": "Unreleased",
+    "status": "Not released",
     "teamMembers": [
       "5fba548657c77e2d803c869d",
       "5fba54f7dad2496b80d047d8",
@@ -112,7 +112,7 @@
   {
     "_id": "5fba5cd655d45d4da00aee06",
     "progress": 0,
-    "status": "Unreleased",
+    "status": "Not released",
     "teamMembers": [
       "5fba548657c77e2d803c869d",
       "5fba54f7dad2496b80d047d8",

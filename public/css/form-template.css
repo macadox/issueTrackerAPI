@@ -15,7 +15,8 @@
   flex-direction: column;
 }
 
-.form-template__input {
+.form-template__input,
+.form-template__select {
   border: 1px solid #d9d2d2;
   background: transparent;
   border-radius: 6px;
@@ -66,6 +67,8 @@
   box-shadow: none;
   padding: 0;
   text-indent: 0;
+  height: auto;
+  min-height: 30px;
 }
 
 .form-template__input:disabled::placeholder {
@@ -106,7 +109,7 @@
   margin-top: 0.5em;
 }
 
-.chosen__hidden-input {
+.input-hidden {
   display: none;
 }
 
@@ -222,4 +225,21 @@
   grid-column-end: span 4;
 }
 
+
+/* Table data for forms */
+
+.list__row--form {
+  vertical-align: top;
+  opacity: 1;
+}
+
+.list__data--form {
+  padding-right: 1em;
+  font-size: 1.4rem;
+}
+
+.list--ac .list__heading:first-of-type,
+.list--ac .list__data--form:first-of-type {
+  display: none;
+}
 

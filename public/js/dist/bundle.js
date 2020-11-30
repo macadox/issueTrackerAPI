@@ -6615,7 +6615,7 @@ try {
   Function("r", "regeneratorRuntime = r")(runtime);
 }
 
-},{}],"Alert.js":[function(require,module,exports) {
+},{}],"Components/Alert.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6667,7 +6667,399 @@ var Alert = /*#__PURE__*/function () {
 }();
 
 exports.Alert = Alert;
-},{}],"authForm.js":[function(require,module,exports) {
+},{}],"FormTemplate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.FormTemplate = void 0;
+
+var _Alert = require("./Components/Alert");
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var FormTemplate = /*#__PURE__*/function () {
+  function FormTemplate(form) {
+    _classCallCheck(this, FormTemplate);
+
+    this.form = form;
+    var deleteBtn = document.querySelector('#deleteFormBtn');
+
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', this.deleteForm.bind(this));
+    }
+
+    this.form.addEventListener('submit', this.saveForm.bind(this));
+  }
+
+  _createClass(FormTemplate, [{
+    key: "isParsable",
+    value: function () {
+      var _isParsable = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(str) {
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                JSON.parse(str);
+                _context.next = 7;
+                break;
+
+              case 4:
+                _context.prev = 4;
+                _context.t0 = _context["catch"](0);
+                return _context.abrupt("return", false);
+
+              case 7:
+                return _context.abrupt("return", true);
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 4]]);
+      }));
+
+      function isParsable(_x) {
+        return _isParsable.apply(this, arguments);
+      }
+
+      return isParsable;
+    }()
+  }, {
+    key: "saveForm",
+    value: function () {
+      var _saveForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
+        var bodyObj, formData, _iterator, _step, pair, args;
+
+        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault();
+                bodyObj = {};
+                formData = new FormData(this.form); // Build body object
+
+                _iterator = _createForOfIteratorHelper(formData.entries());
+                _context2.prev = 4;
+
+                _iterator.s();
+
+              case 6:
+                if ((_step = _iterator.n()).done) {
+                  _context2.next = 19;
+                  break;
+                }
+
+                pair = _step.value;
+                _context2.next = 10;
+                return this.isParsable(pair[1]);
+
+              case 10:
+                if (!_context2.sent) {
+                  _context2.next = 14;
+                  break;
+                }
+
+                bodyObj[pair[0]] = JSON.parse(pair[1]);
+                _context2.next = 17;
+                break;
+
+              case 14:
+                if (!(pair[1] == '')) {
+                  _context2.next = 16;
+                  break;
+                }
+
+                return _context2.abrupt("continue", 17);
+
+              case 16:
+                bodyObj[pair[0]] = pair[1];
+
+              case 17:
+                _context2.next = 6;
+                break;
+
+              case 19:
+                _context2.next = 24;
+                break;
+
+              case 21:
+                _context2.prev = 21;
+                _context2.t0 = _context2["catch"](4);
+
+                _iterator.e(_context2.t0);
+
+              case 24:
+                _context2.prev = 24;
+
+                _iterator.f();
+
+                return _context2.finish(24);
+
+              case 27:
+                args = [];
+
+                if (!/create$/gi.test(location.pathname)) {
+                  _context2.next = 32;
+                  break;
+                }
+
+                args = [this.form.dataset.resource, 'POST', bodyObj];
+                _context2.next = 37;
+                break;
+
+              case 32:
+                if (!/update$/gi.test(location.pathname)) {
+                  _context2.next = 36;
+                  break;
+                }
+
+                args = [this.form.dataset.resource, 'PATCH', bodyObj, this.form.dataset.id];
+                _context2.next = 37;
+                break;
+
+              case 36:
+                return _context2.abrupt("return", new _Alert.Alert('error', 'We do not cover that kind of request!'));
+
+              case 37:
+                console.log(bodyObj);
+                _context2.next = 40;
+                return this.createReq.apply(this, _toConsumableArray(args));
+
+              case 40:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this, [[4, 21, 24, 27]]);
+      }));
+
+      function saveForm(_x2) {
+        return _saveForm.apply(this, arguments);
+      }
+
+      return saveForm;
+    }()
+  }, {
+    key: "createReq",
+    value: function () {
+      var _createReq = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(resource, method, body, projectId) {
+        var res, _resData;
+
+        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return fetch("".concat(window.location.protocol, "/api/v1/").concat(resource).concat(projectId ? "/".concat(projectId) : ''), {
+                  method: method,
+                  headers: {
+                    'Content-type': 'application/json'
+                  },
+                  body: JSON.stringify(body)
+                });
+
+              case 3:
+                res = _context3.sent;
+                _context3.next = 6;
+                return res.json();
+
+              case 6:
+                _resData = _context3.sent;
+                console.log(_resData);
+
+                if (res.ok) {
+                  _context3.next = 10;
+                  break;
+                }
+
+                return _context3.abrupt("return", new _Alert.Alert('error', _resData.message).showMessage());
+
+              case 10:
+                new _Alert.Alert('success', 'Data has been saved').showMessage();
+                setTimeout(function () {
+                  return location.assign("".concat(window.location.protocol, "/").concat(resource, "/").concat(_resData.data.data._id, "/preview"), 3000);
+                }, 2000);
+                _context3.next = 17;
+                break;
+
+              case 14:
+                _context3.prev = 14;
+                _context3.t0 = _context3["catch"](0);
+                new _Alert.Alert('error', _context3.t0).showMessage();
+
+              case 17:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 14]]);
+      }));
+
+      function createReq(_x3, _x4, _x5, _x6) {
+        return _createReq.apply(this, arguments);
+      }
+
+      return createReq;
+    }()
+  }, {
+    key: "deleteForm",
+    value: function () {
+      var _deleteForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+        var _this = this;
+
+        var result, res;
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                //   Later add some custom delete
+                result = confirm('Do you really want to delete the form?');
+
+                if (result) {
+                  _context4.next = 3;
+                  break;
+                }
+
+                return _context4.abrupt("return");
+
+              case 3:
+                _context4.prev = 3;
+                _context4.next = 6;
+                return fetch("".concat(window.location.protocol, "/api/v1/").concat(this.form.dataset.resource, "/").concat(this.form.dataset.id), {
+                  method: 'DELETE'
+                });
+
+              case 6:
+                res = _context4.sent;
+
+                if (res.ok) {
+                  _context4.next = 9;
+                  break;
+                }
+
+                return _context4.abrupt("return", new _Alert.Alert('error', resData.message).showMessage());
+
+              case 9:
+                new _Alert.Alert('success', 'Data successfully deleted').showMessage();
+                setTimeout(function () {
+                  return location.assign("".concat(window.location.protocol, "/").concat(_this.form.dataset.resource), 3000);
+                }, 2000);
+                _context4.next = 16;
+                break;
+
+              case 13:
+                _context4.prev = 13;
+                _context4.t0 = _context4["catch"](3);
+                new _Alert.Alert('error', _context4.t0).showMessage();
+
+              case 16:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this, [[3, 13]]);
+      }));
+
+      function deleteForm() {
+        return _deleteForm.apply(this, arguments);
+      }
+
+      return deleteForm;
+    }() //   async makePostReq(resource, body) {
+    //     try {
+    //       const res = await fetch(
+    //         `${window.location.protocol}/api/v1/${resource}`,
+    //         {
+    //           method: 'POST',
+    //           headers: {
+    //             'Content-type': 'application/json',
+    //           },
+    //           body: JSON.stringify(body),
+    //         }
+    //       );
+    //       const resData = await res.json();
+    //       console.log(resData);
+    //       if (!res.ok) {
+    //         return new Alert('error', resData.message).showMessage();
+    //       }
+    //       new Alert('success', 'Data has been saved').showMessage();
+    //       setTimeout(
+    //         () =>
+    //           location.assign(
+    //             `${window.location.protocol}/${resource}/${resData.data.data._id}/preview`,
+    //             3000
+    //           ),
+    //         2000
+    //       );
+    //     } catch (err) {
+    //       new Alert('error', err).showMessage();
+    //     }
+    //   }
+    //   async makePatchReq(resource, body, id) {
+    //     try {
+    //       const res = await fetch(
+    //         `${window.location.protocol}/api/v1/${resource}/${id}`,
+    //         {
+    //           method: 'PATCH',
+    //           headers: {
+    //             'Content-type': 'application/json',
+    //           },
+    //           body: JSON.stringify(body),
+    //         }
+    //       );
+    //       const resData = await res.json();
+    //       console.log(resData);
+    //       if (!res.ok) {
+    //         return new Alert('error', resData.message).showMessage();
+    //       }
+    //       new Alert('success', 'Data has been saved').showMessage();
+    //       setTimeout(
+    //         () =>
+    //           location.assign(
+    //             `${window.location.protocol}/${resource}/${resData.data.data._id}/preview`,
+    //             3000
+    //           ),
+    //         2000
+    //       );
+    //     } catch (err) {
+    //       new Alert('error', err).showMessage();
+    //     }
+    //   }
+
+  }]);
+
+  return FormTemplate;
+}();
+
+exports.FormTemplate = FormTemplate;
+},{"./Components/Alert":"Components/Alert.js"}],"Components/AuthForm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7126,7 +7518,7 @@ var authForm = {
   signupForm: SignupForm
 };
 exports.authForm = authForm;
-},{"./Alert":"Alert.js"}],"Multiselect.js":[function(require,module,exports) {
+},{"./Alert":"Components/Alert.js"}],"Components/Multiselect.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7401,319 +7793,7 @@ exports.MultiselectFactory = MultiselectFactory;
 _defineProperty(MultiselectFactory, "dictionary", {
   UserMultiselect: UserMultiselect
 });
-},{}],"FormTemplate.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.FormTemplate = void 0;
-
-var _Alert = require("./Alert");
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var FormTemplate = /*#__PURE__*/function () {
-  function FormTemplate(form) {
-    _classCallCheck(this, FormTemplate);
-
-    this.form = form;
-    var deleteBtn = document.querySelector('#deleteFormBtn');
-
-    if (deleteBtn) {
-      deleteBtn.addEventListener('click', this.deleteForm.bind(this));
-    }
-
-    this.form.addEventListener('submit', this.saveForm.bind(this));
-  }
-
-  _createClass(FormTemplate, [{
-    key: "isParsable",
-    value: function () {
-      var _isParsable = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(str) {
-        return regeneratorRuntime.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _context.prev = 0;
-                JSON.parse(str);
-                _context.next = 7;
-                break;
-
-              case 4:
-                _context.prev = 4;
-                _context.t0 = _context["catch"](0);
-                return _context.abrupt("return", false);
-
-              case 7:
-                return _context.abrupt("return", true);
-
-              case 8:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, null, [[0, 4]]);
-      }));
-
-      function isParsable(_x) {
-        return _isParsable.apply(this, arguments);
-      }
-
-      return isParsable;
-    }()
-  }, {
-    key: "saveForm",
-    value: function () {
-      var _saveForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(e) {
-        var bodyObj, formData;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                e.preventDefault();
-                bodyObj = {};
-                formData = new FormData(this.form); // Build body object
-                // for (let pair of formData.entries()) {
-                //   if (await this.isParsable(pair[1])) {
-                //     bodyObj[pair[0]] = JSON.parse(pair[1]);
-                //   } else {
-                //     if (pair[1] == '') continue;
-                //     bodyObj[pair[0]] = pair[1];
-                //   }
-                // }
-                // let args = [];
-                // if (/create$/gi.test(location.pathname)) {
-                //   args = [this.form.dataset.resource, 'POST', bodyObj];
-                // } else if (/update$/gi.test(location.pathname)) {
-                //   args = [
-                //     this.form.dataset.resource,
-                //     'PATCH',
-                //     bodyObj,
-                //     this.form.dataset.id,
-                //   ];
-                // } else {
-                //   return new Alert('error', 'We do not cover that kind of request!');
-                // }
-                // await this.createReq(...args);
-
-              case 3:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function saveForm(_x2) {
-        return _saveForm.apply(this, arguments);
-      }
-
-      return saveForm;
-    }()
-  }, {
-    key: "createReq",
-    value: function () {
-      var _createReq = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(resource, method, body, projectId) {
-        var res, _resData;
-
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.prev = 0;
-                _context3.next = 3;
-                return fetch("".concat(window.location.protocol, "/api/v1/").concat(resource).concat(projectId ? "/".concat(projectId) : ''), {
-                  method: method,
-                  headers: {
-                    'Content-type': 'application/json'
-                  },
-                  body: JSON.stringify(body)
-                });
-
-              case 3:
-                res = _context3.sent;
-                _context3.next = 6;
-                return res.json();
-
-              case 6:
-                _resData = _context3.sent;
-                console.log(_resData);
-
-                if (res.ok) {
-                  _context3.next = 10;
-                  break;
-                }
-
-                return _context3.abrupt("return", new _Alert.Alert('error', _resData.message).showMessage());
-
-              case 10:
-                new _Alert.Alert('success', 'Data has been saved').showMessage();
-                setTimeout(function () {
-                  return location.assign("".concat(window.location.protocol, "/").concat(resource, "/").concat(_resData.data.data._id, "/preview"), 3000);
-                }, 2000);
-                _context3.next = 17;
-                break;
-
-              case 14:
-                _context3.prev = 14;
-                _context3.t0 = _context3["catch"](0);
-                new _Alert.Alert('error', _context3.t0).showMessage();
-
-              case 17:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, null, [[0, 14]]);
-      }));
-
-      function createReq(_x3, _x4, _x5, _x6) {
-        return _createReq.apply(this, arguments);
-      }
-
-      return createReq;
-    }()
-  }, {
-    key: "deleteForm",
-    value: function () {
-      var _deleteForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        var _this = this;
-
-        var result, res;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                //   Later add some custom delete
-                result = confirm('Do you really want to delete the form?');
-
-                if (result) {
-                  _context4.next = 3;
-                  break;
-                }
-
-                return _context4.abrupt("return");
-
-              case 3:
-                _context4.prev = 3;
-                _context4.next = 6;
-                return fetch("".concat(window.location.protocol, "/api/v1/").concat(this.form.dataset.resource, "/").concat(this.form.dataset.id), {
-                  method: 'DELETE'
-                });
-
-              case 6:
-                res = _context4.sent;
-
-                if (res.ok) {
-                  _context4.next = 9;
-                  break;
-                }
-
-                return _context4.abrupt("return", new _Alert.Alert('error', resData.message).showMessage());
-
-              case 9:
-                new _Alert.Alert('success', 'Data successfully deleted').showMessage();
-                setTimeout(function () {
-                  return location.assign("".concat(window.location.protocol, "/").concat(_this.form.dataset.resource), 3000);
-                }, 2000);
-                _context4.next = 16;
-                break;
-
-              case 13:
-                _context4.prev = 13;
-                _context4.t0 = _context4["catch"](3);
-                new _Alert.Alert('error', _context4.t0).showMessage();
-
-              case 16:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, this, [[3, 13]]);
-      }));
-
-      function deleteForm() {
-        return _deleteForm.apply(this, arguments);
-      }
-
-      return deleteForm;
-    }() //   async makePostReq(resource, body) {
-    //     try {
-    //       const res = await fetch(
-    //         `${window.location.protocol}/api/v1/${resource}`,
-    //         {
-    //           method: 'POST',
-    //           headers: {
-    //             'Content-type': 'application/json',
-    //           },
-    //           body: JSON.stringify(body),
-    //         }
-    //       );
-    //       const resData = await res.json();
-    //       console.log(resData);
-    //       if (!res.ok) {
-    //         return new Alert('error', resData.message).showMessage();
-    //       }
-    //       new Alert('success', 'Data has been saved').showMessage();
-    //       setTimeout(
-    //         () =>
-    //           location.assign(
-    //             `${window.location.protocol}/${resource}/${resData.data.data._id}/preview`,
-    //             3000
-    //           ),
-    //         2000
-    //       );
-    //     } catch (err) {
-    //       new Alert('error', err).showMessage();
-    //     }
-    //   }
-    //   async makePatchReq(resource, body, id) {
-    //     try {
-    //       const res = await fetch(
-    //         `${window.location.protocol}/api/v1/${resource}/${id}`,
-    //         {
-    //           method: 'PATCH',
-    //           headers: {
-    //             'Content-type': 'application/json',
-    //           },
-    //           body: JSON.stringify(body),
-    //         }
-    //       );
-    //       const resData = await res.json();
-    //       console.log(resData);
-    //       if (!res.ok) {
-    //         return new Alert('error', resData.message).showMessage();
-    //       }
-    //       new Alert('success', 'Data has been saved').showMessage();
-    //       setTimeout(
-    //         () =>
-    //           location.assign(
-    //             `${window.location.protocol}/${resource}/${resData.data.data._id}/preview`,
-    //             3000
-    //           ),
-    //         2000
-    //       );
-    //     } catch (err) {
-    //       new Alert('error', err).showMessage();
-    //     }
-    //   }
-
-  }]);
-
-  return FormTemplate;
-}();
-
-exports.FormTemplate = FormTemplate;
-},{"./Alert":"Alert.js"}],"Checkbox.js":[function(require,module,exports) {
+},{}],"Components/Checkbox.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7732,14 +7812,20 @@ var Checkbox = /*#__PURE__*/function () {
     _classCallCheck(this, Checkbox);
 
     this.element = element;
-    this.input = this.element.querySelector('input[type="checkbox"]');
-    this.box = this.element.querySelector('.checkbox__box');
-    this._checked = !!this.input.getAttribute(checked);
-    this.box.setAttribute('role', 'checkbox');
-    this.box.setAttribute('tabindex', 0);
-    this.box.setAttribute('aria-checked', this._checked);
-    this.box.addEventListener('keydown', this.handleKeyDown.bind(this));
-    this.box.addEventListener('click', this.handleClick.bind(this));
+    this._checked = this.element.getAttribute('aria-checked') === 'true';
+    this.event = new Event('input', {
+      bubbles: true,
+      cancelable: true
+    });
+
+    if (this._checked) {
+      this.element.classList.add('checkbox--checked');
+    }
+
+    this.element.setAttribute('role', 'checkbox');
+    this.element.setAttribute('tabindex', 0);
+    this.element.addEventListener('keydown', this.handleKeyDown.bind(this));
+    this.element.addEventListener('click', this.handleClick.bind(this));
   }
 
   _createClass(Checkbox, [{
@@ -7767,8 +7853,14 @@ var Checkbox = /*#__PURE__*/function () {
     },
     set: function set(val) {
       this._checked = val;
-      this.box.setAttribute('aria-checked', val);
-      this.input.setAttribute('checked', val);
+      this.element.setAttribute('aria-checked', val);
+      this.element.dispatchEvent(this.event);
+
+      if (this._checked) {
+        this.element.classList.add('checkbox--checked');
+      } else {
+        this.element.classList.remove('checkbox--checked');
+      }
     }
   }]);
 
@@ -7776,7 +7868,191 @@ var Checkbox = /*#__PURE__*/function () {
 }();
 
 exports.Checkbox = Checkbox;
-},{}],"logout.js":[function(require,module,exports) {
+},{}],"Components/NestedTable.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.NestedTableFactory = void 0;
+
+var _Checkbox = require("./Checkbox");
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var NestedTable = /*#__PURE__*/function () {
+  function NestedTable(element) {
+    var _this = this;
+
+    _classCallCheck(this, NestedTable);
+
+    this.element = element;
+    this.input = this.element.querySelector('.input-hidden');
+    this.table = this.element.querySelector('table');
+    this.tbody = this.element.querySelector('tbody');
+    this.trs = this.element.querySelectorAll('.list__row--form:not(.list__row--heading)');
+    this.addNewBtn = this.element.querySelector('button');
+    this.inputs = this.element.querySelectorAll('input[type="text"], textarea, .checkbox');
+    this.values = [];
+    this.init();
+    console.log(this.values);
+    this.inputs.forEach(function (input) {
+      return input.addEventListener('input', _this.handleInput.bind(_this));
+    });
+    this.addNewBtn.addEventListener('click', this.addRow.bind(this));
+  }
+
+  _createClass(NestedTable, [{
+    key: "init",
+    value: function init() {
+      var vals = [];
+      this.trs.forEach(function (row) {
+        var inputs = row.querySelectorAll('input[type="text"], textarea, .checkbox');
+        var obj = {};
+        inputs.forEach(function (input) {
+          // my custom checkbox
+          if (input.getAttribute('role') == 'checkbox') {
+            obj[input.dataset.key] = input.getAttribute('aria-checked') == 'true';
+          } else {
+            obj[input.dataset.key] = input.value;
+          }
+        });
+        vals.push(obj);
+      });
+      this.values = [].concat(vals);
+      this.input.value = JSON.stringify(this.values);
+    }
+  }, {
+    key: "updateThis",
+    value: function updateThis() {
+      this.trs = this.element.querySelectorAll('.list__row--form:not(.list__row--heading)');
+    }
+  }, {
+    key: "handleInput",
+    value: function handleInput(e) {
+      var input = e.target;
+      var tr = e.target.closest('tr');
+
+      var index = _toConsumableArray(this.trs).indexOf(tr);
+
+      this.values[index][input.dataset.key] = input.getAttribute('role') == 'checkbox' ? input.getAttribute('aria-checked') == 'true' : input.value;
+      console.log(this.values);
+      this.input.value = JSON.stringify(this.values);
+    } // 
+
+  }, {
+    key: "addRow",
+    value: function addRow() {}
+  }]);
+
+  return NestedTable;
+}();
+
+var AcceptanceCriteriaTable = /*#__PURE__*/function (_NestedTable) {
+  _inherits(AcceptanceCriteriaTable, _NestedTable);
+
+  var _super = _createSuper(AcceptanceCriteriaTable);
+
+  function AcceptanceCriteriaTable(element) {
+    _classCallCheck(this, AcceptanceCriteriaTable);
+
+    return _super.call(this, element);
+  }
+
+  _createClass(AcceptanceCriteriaTable, [{
+    key: "addRow",
+    value: function addRow() {
+      var _this2 = this;
+
+      this.values.push({});
+      var tr = document.createElement('tr');
+      tr.className = 'list__row list__row--form';
+      tr.innerHTML = "\n        <td class=\"list__data list__data--form\">\n            <input class=\"form-template__input\", type=\"text\", aria-labelledby=\"criterionId\", value=\"\", data-key=\"_id\", disabled>\n        </td>\n        <td class=\"list__data list__data--form list__data--textarea\">\n            <textarea class=\"form-template__textarea\", aria-labelledby=\"criterionName\", data-key='criterion'></textarea>\n        </td>\n        <td class=\"list__data list__data--form\">\n            <input class=\"form-template__input form-template__input--disabled\" type=\"text\" aria-labelledby=\"criterionCreated\" value=\"\" data-key=\"createdOn\" disabled>\n        </td>\n        <td class=\"list__data list__data--form\">\n            <div class=\"checkbox\", aria-labelledby=\"criterionSolved\", checked, data-key='solved'></div>\n        </td>\n        <td class=\"list__data list__data--form list__data--delete\">\n            <button type=\"button\" class=\"btn btn--small btn--light\"><i class=\"fas fa-times\"></i></button>\n        </td>\n    ";
+      this.tbody.append(tr);
+      var deleteBtn = tr.querySelector('button');
+      var inputs = tr.querySelectorAll('input[type="text"], textarea, .checkbox');
+      deleteBtn.addEventListener('click', function () {
+        _this2.values.pop();
+
+        _this2.tbody.removeChild(tr);
+
+        _this2.updateThis();
+
+        console.log(_this2.values);
+        _this2.input.value = JSON.stringify(_this2.values);
+      });
+      inputs.forEach(function (input) {
+        if (input.classList.contains('checkbox')) {
+          new _Checkbox.Checkbox(input);
+        }
+
+        input.addEventListener('input', function (e) {
+          _this2.handleInput.bind(_this2)(e);
+        });
+      });
+      console.log(this.values);
+      this.updateThis();
+    }
+  }]);
+
+  return AcceptanceCriteriaTable;
+}(NestedTable);
+
+var NestedTableFactory = /*#__PURE__*/function () {
+  function NestedTableFactory() {
+    _classCallCheck(this, NestedTableFactory);
+  }
+
+  _createClass(NestedTableFactory, null, [{
+    key: "create",
+    value: function create(T, element) {
+      return new this.dictionary[T](element);
+    }
+  }]);
+
+  return NestedTableFactory;
+}();
+
+exports.NestedTableFactory = NestedTableFactory;
+
+_defineProperty(NestedTableFactory, "dictionary", {
+  AcceptanceCriteriaTable: AcceptanceCriteriaTable
+});
+},{"./Checkbox":"Components/Checkbox.js"}],"logout.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7784,7 +8060,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.logout = void 0;
 
-var _Alert = require("./Alert.js");
+var _Alert = require("./Components/Alert.js");
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -7836,7 +8112,7 @@ var logout = /*#__PURE__*/function () {
 }();
 
 exports.logout = logout;
-},{"./Alert.js":"Alert.js"}],"index.js":[function(require,module,exports) {
+},{"./Components/Alert.js":"Components/Alert.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("core-js/modules/es6.array.copy-within");
@@ -8097,20 +8373,24 @@ require("core-js/modules/web.dom.iterable");
 
 require("regenerator-runtime/runtime");
 
-var _authForm = require("./authForm");
-
-var _Multiselect = require("./Multiselect");
-
 var _FormTemplate = require("./FormTemplate");
 
-var _Checkbox = require("./Checkbox");
+var _AuthForm = require("./Components/AuthForm");
+
+var _Multiselect = require("./Components/Multiselect");
+
+var _NestedTable = require("./Components/NestedTable");
+
+var _Checkbox = require("./Components/Checkbox");
 
 var _logout = require("./logout");
 
 var logoutBtn = document.querySelector('.menu__link--logout');
-var multiSelects = document.querySelectorAll('.multiselect');
+var multiSelects = document.querySelectorAll('.multiselect--user');
+var acTables = document.querySelectorAll('.nestedTable--ac');
 var checkboxes = document.querySelectorAll('.checkbox');
 var formTemplate = document.querySelector('.form-template');
+var datePickerFields = document.querySelectorAll('.form-template__input--date');
 
 if (multiSelects.length > 0) {
   multiSelects.forEach(function (multiselect) {
@@ -8124,27 +8404,41 @@ if (checkboxes.length > 0) {
   });
 }
 
+if (acTables.length > 0) {
+  acTables.forEach(function (table) {
+    _NestedTable.NestedTableFactory.create('AcceptanceCriteriaTable', table);
+  });
+}
+
+if (datePickerFields.length > 0) {
+  datePickerFields.forEach(function (field) {
+    flatpickr(field, {
+      dateFormat: 'm/d/Y'
+    });
+  });
+}
+
 if (formTemplate) {
-  var form = new _FormTemplate.FormTemplate(formTemplate);
+  new _FormTemplate.FormTemplate(formTemplate);
 }
 
 if (logoutBtn) {
   logoutBtn.addEventListener('click', _logout.logout);
 }
 
-customElements.define('login-form', _authForm.authForm.loginForm, {
+customElements.define('login-form', _AuthForm.authForm.loginForm, {
   extends: 'form'
 });
-customElements.define('signup-form', _authForm.authForm.signupForm, {
+customElements.define('signup-form', _AuthForm.authForm.signupForm, {
   extends: 'form'
 });
-customElements.define('forgot-password-form', _authForm.authForm.forgotPasswordForm, {
+customElements.define('forgot-password-form', _AuthForm.authForm.forgotPasswordForm, {
   extends: 'form'
 });
-customElements.define('reset-password-form', _authForm.authForm.resetPasswordForm, {
+customElements.define('reset-password-form', _AuthForm.authForm.resetPasswordForm, {
   extends: 'form'
 });
-},{"core-js/modules/es6.array.copy-within":"../../../node_modules/core-js/modules/es6.array.copy-within.js","core-js/modules/es6.array.fill":"../../../node_modules/core-js/modules/es6.array.fill.js","core-js/modules/es6.array.find":"../../../node_modules/core-js/modules/es6.array.find.js","core-js/modules/es6.array.find-index":"../../../node_modules/core-js/modules/es6.array.find-index.js","core-js/modules/es7.array.flat-map":"../../../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.from":"../../../node_modules/core-js/modules/es6.array.from.js","core-js/modules/es7.array.includes":"../../../node_modules/core-js/modules/es7.array.includes.js","core-js/modules/es6.array.iterator":"../../../node_modules/core-js/modules/es6.array.iterator.js","core-js/modules/es6.array.of":"../../../node_modules/core-js/modules/es6.array.of.js","core-js/modules/es6.array.sort":"../../../node_modules/core-js/modules/es6.array.sort.js","core-js/modules/es6.array.species":"../../../node_modules/core-js/modules/es6.array.species.js","core-js/modules/es6.date.to-json":"../../../node_modules/core-js/modules/es6.date.to-json.js","core-js/modules/es6.date.to-primitive":"../../../node_modules/core-js/modules/es6.date.to-primitive.js","core-js/modules/es6.function.has-instance":"../../../node_modules/core-js/modules/es6.function.has-instance.js","core-js/modules/es6.function.name":"../../../node_modules/core-js/modules/es6.function.name.js","core-js/modules/es6.map":"../../../node_modules/core-js/modules/es6.map.js","core-js/modules/es6.math.acosh":"../../../node_modules/core-js/modules/es6.math.acosh.js","core-js/modules/es6.math.asinh":"../../../node_modules/core-js/modules/es6.math.asinh.js","core-js/modules/es6.math.atanh":"../../../node_modules/core-js/modules/es6.math.atanh.js","core-js/modules/es6.math.cbrt":"../../../node_modules/core-js/modules/es6.math.cbrt.js","core-js/modules/es6.math.clz32":"../../../node_modules/core-js/modules/es6.math.clz32.js","core-js/modules/es6.math.cosh":"../../../node_modules/core-js/modules/es6.math.cosh.js","core-js/modules/es6.math.expm1":"../../../node_modules/core-js/modules/es6.math.expm1.js","core-js/modules/es6.math.fround":"../../../node_modules/core-js/modules/es6.math.fround.js","core-js/modules/es6.math.hypot":"../../../node_modules/core-js/modules/es6.math.hypot.js","core-js/modules/es6.math.imul":"../../../node_modules/core-js/modules/es6.math.imul.js","core-js/modules/es6.math.log1p":"../../../node_modules/core-js/modules/es6.math.log1p.js","core-js/modules/es6.math.log10":"../../../node_modules/core-js/modules/es6.math.log10.js","core-js/modules/es6.math.log2":"../../../node_modules/core-js/modules/es6.math.log2.js","core-js/modules/es6.math.sign":"../../../node_modules/core-js/modules/es6.math.sign.js","core-js/modules/es6.math.sinh":"../../../node_modules/core-js/modules/es6.math.sinh.js","core-js/modules/es6.math.tanh":"../../../node_modules/core-js/modules/es6.math.tanh.js","core-js/modules/es6.math.trunc":"../../../node_modules/core-js/modules/es6.math.trunc.js","core-js/modules/es6.number.constructor":"../../../node_modules/core-js/modules/es6.number.constructor.js","core-js/modules/es6.number.epsilon":"../../../node_modules/core-js/modules/es6.number.epsilon.js","core-js/modules/es6.number.is-finite":"../../../node_modules/core-js/modules/es6.number.is-finite.js","core-js/modules/es6.number.is-integer":"../../../node_modules/core-js/modules/es6.number.is-integer.js","core-js/modules/es6.number.is-nan":"../../../node_modules/core-js/modules/es6.number.is-nan.js","core-js/modules/es6.number.is-safe-integer":"../../../node_modules/core-js/modules/es6.number.is-safe-integer.js","core-js/modules/es6.number.max-safe-integer":"../../../node_modules/core-js/modules/es6.number.max-safe-integer.js","core-js/modules/es6.number.min-safe-integer":"../../../node_modules/core-js/modules/es6.number.min-safe-integer.js","core-js/modules/es6.number.parse-float":"../../../node_modules/core-js/modules/es6.number.parse-float.js","core-js/modules/es6.number.parse-int":"../../../node_modules/core-js/modules/es6.number.parse-int.js","core-js/modules/es6.object.assign":"../../../node_modules/core-js/modules/es6.object.assign.js","core-js/modules/es7.object.define-getter":"../../../node_modules/core-js/modules/es7.object.define-getter.js","core-js/modules/es7.object.define-setter":"../../../node_modules/core-js/modules/es7.object.define-setter.js","core-js/modules/es7.object.entries":"../../../node_modules/core-js/modules/es7.object.entries.js","core-js/modules/es6.object.freeze":"../../../node_modules/core-js/modules/es6.object.freeze.js","core-js/modules/es6.object.get-own-property-descriptor":"../../../node_modules/core-js/modules/es6.object.get-own-property-descriptor.js","core-js/modules/es7.object.get-own-property-descriptors":"../../../node_modules/core-js/modules/es7.object.get-own-property-descriptors.js","core-js/modules/es6.object.get-own-property-names":"../../../node_modules/core-js/modules/es6.object.get-own-property-names.js","core-js/modules/es6.object.get-prototype-of":"../../../node_modules/core-js/modules/es6.object.get-prototype-of.js","core-js/modules/es7.object.lookup-getter":"../../../node_modules/core-js/modules/es7.object.lookup-getter.js","core-js/modules/es7.object.lookup-setter":"../../../node_modules/core-js/modules/es7.object.lookup-setter.js","core-js/modules/es6.object.prevent-extensions":"../../../node_modules/core-js/modules/es6.object.prevent-extensions.js","core-js/modules/es6.object.to-string":"../../../node_modules/core-js/modules/es6.object.to-string.js","core-js/modules/es6.object.is":"../../../node_modules/core-js/modules/es6.object.is.js","core-js/modules/es6.object.is-frozen":"../../../node_modules/core-js/modules/es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed":"../../../node_modules/core-js/modules/es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible":"../../../node_modules/core-js/modules/es6.object.is-extensible.js","core-js/modules/es6.object.keys":"../../../node_modules/core-js/modules/es6.object.keys.js","core-js/modules/es6.object.seal":"../../../node_modules/core-js/modules/es6.object.seal.js","core-js/modules/es7.object.values":"../../../node_modules/core-js/modules/es7.object.values.js","core-js/modules/es6.promise":"../../../node_modules/core-js/modules/es6.promise.js","core-js/modules/es7.promise.finally":"../../../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es6.reflect.apply":"../../../node_modules/core-js/modules/es6.reflect.apply.js","core-js/modules/es6.reflect.construct":"../../../node_modules/core-js/modules/es6.reflect.construct.js","core-js/modules/es6.reflect.define-property":"../../../node_modules/core-js/modules/es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property":"../../../node_modules/core-js/modules/es6.reflect.delete-property.js","core-js/modules/es6.reflect.get":"../../../node_modules/core-js/modules/es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor":"../../../node_modules/core-js/modules/es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of":"../../../node_modules/core-js/modules/es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has":"../../../node_modules/core-js/modules/es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible":"../../../node_modules/core-js/modules/es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys":"../../../node_modules/core-js/modules/es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions":"../../../node_modules/core-js/modules/es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set":"../../../node_modules/core-js/modules/es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of":"../../../node_modules/core-js/modules/es6.reflect.set-prototype-of.js","core-js/modules/es6.regexp.constructor":"../../../node_modules/core-js/modules/es6.regexp.constructor.js","core-js/modules/es6.regexp.flags":"../../../node_modules/core-js/modules/es6.regexp.flags.js","core-js/modules/es6.regexp.match":"../../../node_modules/core-js/modules/es6.regexp.match.js","core-js/modules/es6.regexp.replace":"../../../node_modules/core-js/modules/es6.regexp.replace.js","core-js/modules/es6.regexp.split":"../../../node_modules/core-js/modules/es6.regexp.split.js","core-js/modules/es6.regexp.search":"../../../node_modules/core-js/modules/es6.regexp.search.js","core-js/modules/es6.regexp.to-string":"../../../node_modules/core-js/modules/es6.regexp.to-string.js","core-js/modules/es6.set":"../../../node_modules/core-js/modules/es6.set.js","core-js/modules/es6.symbol":"../../../node_modules/core-js/modules/es6.symbol.js","core-js/modules/es7.symbol.async-iterator":"../../../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es6.string.anchor":"../../../node_modules/core-js/modules/es6.string.anchor.js","core-js/modules/es6.string.big":"../../../node_modules/core-js/modules/es6.string.big.js","core-js/modules/es6.string.blink":"../../../node_modules/core-js/modules/es6.string.blink.js","core-js/modules/es6.string.bold":"../../../node_modules/core-js/modules/es6.string.bold.js","core-js/modules/es6.string.code-point-at":"../../../node_modules/core-js/modules/es6.string.code-point-at.js","core-js/modules/es6.string.ends-with":"../../../node_modules/core-js/modules/es6.string.ends-with.js","core-js/modules/es6.string.fixed":"../../../node_modules/core-js/modules/es6.string.fixed.js","core-js/modules/es6.string.fontcolor":"../../../node_modules/core-js/modules/es6.string.fontcolor.js","core-js/modules/es6.string.fontsize":"../../../node_modules/core-js/modules/es6.string.fontsize.js","core-js/modules/es6.string.from-code-point":"../../../node_modules/core-js/modules/es6.string.from-code-point.js","core-js/modules/es6.string.includes":"../../../node_modules/core-js/modules/es6.string.includes.js","core-js/modules/es6.string.italics":"../../../node_modules/core-js/modules/es6.string.italics.js","core-js/modules/es6.string.iterator":"../../../node_modules/core-js/modules/es6.string.iterator.js","core-js/modules/es6.string.link":"../../../node_modules/core-js/modules/es6.string.link.js","core-js/modules/es7.string.pad-start":"../../../node_modules/core-js/modules/es7.string.pad-start.js","core-js/modules/es7.string.pad-end":"../../../node_modules/core-js/modules/es7.string.pad-end.js","core-js/modules/es6.string.raw":"../../../node_modules/core-js/modules/es6.string.raw.js","core-js/modules/es6.string.repeat":"../../../node_modules/core-js/modules/es6.string.repeat.js","core-js/modules/es6.string.small":"../../../node_modules/core-js/modules/es6.string.small.js","core-js/modules/es6.string.starts-with":"../../../node_modules/core-js/modules/es6.string.starts-with.js","core-js/modules/es6.string.strike":"../../../node_modules/core-js/modules/es6.string.strike.js","core-js/modules/es6.string.sub":"../../../node_modules/core-js/modules/es6.string.sub.js","core-js/modules/es6.string.sup":"../../../node_modules/core-js/modules/es6.string.sup.js","core-js/modules/es7.string.trim-left":"../../../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right":"../../../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/es6.typed.array-buffer":"../../../node_modules/core-js/modules/es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array":"../../../node_modules/core-js/modules/es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array":"../../../node_modules/core-js/modules/es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array":"../../../node_modules/core-js/modules/es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array":"../../../node_modules/core-js/modules/es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array":"../../../node_modules/core-js/modules/es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array":"../../../node_modules/core-js/modules/es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array":"../../../node_modules/core-js/modules/es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array":"../../../node_modules/core-js/modules/es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array":"../../../node_modules/core-js/modules/es6.typed.float64-array.js","core-js/modules/es6.weak-map":"../../../node_modules/core-js/modules/es6.weak-map.js","core-js/modules/es6.weak-set":"../../../node_modules/core-js/modules/es6.weak-set.js","core-js/modules/web.timers":"../../../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate":"../../../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable":"../../../node_modules/core-js/modules/web.dom.iterable.js","regenerator-runtime/runtime":"../../../node_modules/regenerator-runtime/runtime.js","./authForm":"authForm.js","./Multiselect":"Multiselect.js","./FormTemplate":"FormTemplate.js","./Checkbox":"Checkbox.js","./logout":"logout.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"core-js/modules/es6.array.copy-within":"../../../node_modules/core-js/modules/es6.array.copy-within.js","core-js/modules/es6.array.fill":"../../../node_modules/core-js/modules/es6.array.fill.js","core-js/modules/es6.array.find":"../../../node_modules/core-js/modules/es6.array.find.js","core-js/modules/es6.array.find-index":"../../../node_modules/core-js/modules/es6.array.find-index.js","core-js/modules/es7.array.flat-map":"../../../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.from":"../../../node_modules/core-js/modules/es6.array.from.js","core-js/modules/es7.array.includes":"../../../node_modules/core-js/modules/es7.array.includes.js","core-js/modules/es6.array.iterator":"../../../node_modules/core-js/modules/es6.array.iterator.js","core-js/modules/es6.array.of":"../../../node_modules/core-js/modules/es6.array.of.js","core-js/modules/es6.array.sort":"../../../node_modules/core-js/modules/es6.array.sort.js","core-js/modules/es6.array.species":"../../../node_modules/core-js/modules/es6.array.species.js","core-js/modules/es6.date.to-json":"../../../node_modules/core-js/modules/es6.date.to-json.js","core-js/modules/es6.date.to-primitive":"../../../node_modules/core-js/modules/es6.date.to-primitive.js","core-js/modules/es6.function.has-instance":"../../../node_modules/core-js/modules/es6.function.has-instance.js","core-js/modules/es6.function.name":"../../../node_modules/core-js/modules/es6.function.name.js","core-js/modules/es6.map":"../../../node_modules/core-js/modules/es6.map.js","core-js/modules/es6.math.acosh":"../../../node_modules/core-js/modules/es6.math.acosh.js","core-js/modules/es6.math.asinh":"../../../node_modules/core-js/modules/es6.math.asinh.js","core-js/modules/es6.math.atanh":"../../../node_modules/core-js/modules/es6.math.atanh.js","core-js/modules/es6.math.cbrt":"../../../node_modules/core-js/modules/es6.math.cbrt.js","core-js/modules/es6.math.clz32":"../../../node_modules/core-js/modules/es6.math.clz32.js","core-js/modules/es6.math.cosh":"../../../node_modules/core-js/modules/es6.math.cosh.js","core-js/modules/es6.math.expm1":"../../../node_modules/core-js/modules/es6.math.expm1.js","core-js/modules/es6.math.fround":"../../../node_modules/core-js/modules/es6.math.fround.js","core-js/modules/es6.math.hypot":"../../../node_modules/core-js/modules/es6.math.hypot.js","core-js/modules/es6.math.imul":"../../../node_modules/core-js/modules/es6.math.imul.js","core-js/modules/es6.math.log1p":"../../../node_modules/core-js/modules/es6.math.log1p.js","core-js/modules/es6.math.log10":"../../../node_modules/core-js/modules/es6.math.log10.js","core-js/modules/es6.math.log2":"../../../node_modules/core-js/modules/es6.math.log2.js","core-js/modules/es6.math.sign":"../../../node_modules/core-js/modules/es6.math.sign.js","core-js/modules/es6.math.sinh":"../../../node_modules/core-js/modules/es6.math.sinh.js","core-js/modules/es6.math.tanh":"../../../node_modules/core-js/modules/es6.math.tanh.js","core-js/modules/es6.math.trunc":"../../../node_modules/core-js/modules/es6.math.trunc.js","core-js/modules/es6.number.constructor":"../../../node_modules/core-js/modules/es6.number.constructor.js","core-js/modules/es6.number.epsilon":"../../../node_modules/core-js/modules/es6.number.epsilon.js","core-js/modules/es6.number.is-finite":"../../../node_modules/core-js/modules/es6.number.is-finite.js","core-js/modules/es6.number.is-integer":"../../../node_modules/core-js/modules/es6.number.is-integer.js","core-js/modules/es6.number.is-nan":"../../../node_modules/core-js/modules/es6.number.is-nan.js","core-js/modules/es6.number.is-safe-integer":"../../../node_modules/core-js/modules/es6.number.is-safe-integer.js","core-js/modules/es6.number.max-safe-integer":"../../../node_modules/core-js/modules/es6.number.max-safe-integer.js","core-js/modules/es6.number.min-safe-integer":"../../../node_modules/core-js/modules/es6.number.min-safe-integer.js","core-js/modules/es6.number.parse-float":"../../../node_modules/core-js/modules/es6.number.parse-float.js","core-js/modules/es6.number.parse-int":"../../../node_modules/core-js/modules/es6.number.parse-int.js","core-js/modules/es6.object.assign":"../../../node_modules/core-js/modules/es6.object.assign.js","core-js/modules/es7.object.define-getter":"../../../node_modules/core-js/modules/es7.object.define-getter.js","core-js/modules/es7.object.define-setter":"../../../node_modules/core-js/modules/es7.object.define-setter.js","core-js/modules/es7.object.entries":"../../../node_modules/core-js/modules/es7.object.entries.js","core-js/modules/es6.object.freeze":"../../../node_modules/core-js/modules/es6.object.freeze.js","core-js/modules/es6.object.get-own-property-descriptor":"../../../node_modules/core-js/modules/es6.object.get-own-property-descriptor.js","core-js/modules/es7.object.get-own-property-descriptors":"../../../node_modules/core-js/modules/es7.object.get-own-property-descriptors.js","core-js/modules/es6.object.get-own-property-names":"../../../node_modules/core-js/modules/es6.object.get-own-property-names.js","core-js/modules/es6.object.get-prototype-of":"../../../node_modules/core-js/modules/es6.object.get-prototype-of.js","core-js/modules/es7.object.lookup-getter":"../../../node_modules/core-js/modules/es7.object.lookup-getter.js","core-js/modules/es7.object.lookup-setter":"../../../node_modules/core-js/modules/es7.object.lookup-setter.js","core-js/modules/es6.object.prevent-extensions":"../../../node_modules/core-js/modules/es6.object.prevent-extensions.js","core-js/modules/es6.object.to-string":"../../../node_modules/core-js/modules/es6.object.to-string.js","core-js/modules/es6.object.is":"../../../node_modules/core-js/modules/es6.object.is.js","core-js/modules/es6.object.is-frozen":"../../../node_modules/core-js/modules/es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed":"../../../node_modules/core-js/modules/es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible":"../../../node_modules/core-js/modules/es6.object.is-extensible.js","core-js/modules/es6.object.keys":"../../../node_modules/core-js/modules/es6.object.keys.js","core-js/modules/es6.object.seal":"../../../node_modules/core-js/modules/es6.object.seal.js","core-js/modules/es7.object.values":"../../../node_modules/core-js/modules/es7.object.values.js","core-js/modules/es6.promise":"../../../node_modules/core-js/modules/es6.promise.js","core-js/modules/es7.promise.finally":"../../../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es6.reflect.apply":"../../../node_modules/core-js/modules/es6.reflect.apply.js","core-js/modules/es6.reflect.construct":"../../../node_modules/core-js/modules/es6.reflect.construct.js","core-js/modules/es6.reflect.define-property":"../../../node_modules/core-js/modules/es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property":"../../../node_modules/core-js/modules/es6.reflect.delete-property.js","core-js/modules/es6.reflect.get":"../../../node_modules/core-js/modules/es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor":"../../../node_modules/core-js/modules/es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of":"../../../node_modules/core-js/modules/es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has":"../../../node_modules/core-js/modules/es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible":"../../../node_modules/core-js/modules/es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys":"../../../node_modules/core-js/modules/es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions":"../../../node_modules/core-js/modules/es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set":"../../../node_modules/core-js/modules/es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of":"../../../node_modules/core-js/modules/es6.reflect.set-prototype-of.js","core-js/modules/es6.regexp.constructor":"../../../node_modules/core-js/modules/es6.regexp.constructor.js","core-js/modules/es6.regexp.flags":"../../../node_modules/core-js/modules/es6.regexp.flags.js","core-js/modules/es6.regexp.match":"../../../node_modules/core-js/modules/es6.regexp.match.js","core-js/modules/es6.regexp.replace":"../../../node_modules/core-js/modules/es6.regexp.replace.js","core-js/modules/es6.regexp.split":"../../../node_modules/core-js/modules/es6.regexp.split.js","core-js/modules/es6.regexp.search":"../../../node_modules/core-js/modules/es6.regexp.search.js","core-js/modules/es6.regexp.to-string":"../../../node_modules/core-js/modules/es6.regexp.to-string.js","core-js/modules/es6.set":"../../../node_modules/core-js/modules/es6.set.js","core-js/modules/es6.symbol":"../../../node_modules/core-js/modules/es6.symbol.js","core-js/modules/es7.symbol.async-iterator":"../../../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es6.string.anchor":"../../../node_modules/core-js/modules/es6.string.anchor.js","core-js/modules/es6.string.big":"../../../node_modules/core-js/modules/es6.string.big.js","core-js/modules/es6.string.blink":"../../../node_modules/core-js/modules/es6.string.blink.js","core-js/modules/es6.string.bold":"../../../node_modules/core-js/modules/es6.string.bold.js","core-js/modules/es6.string.code-point-at":"../../../node_modules/core-js/modules/es6.string.code-point-at.js","core-js/modules/es6.string.ends-with":"../../../node_modules/core-js/modules/es6.string.ends-with.js","core-js/modules/es6.string.fixed":"../../../node_modules/core-js/modules/es6.string.fixed.js","core-js/modules/es6.string.fontcolor":"../../../node_modules/core-js/modules/es6.string.fontcolor.js","core-js/modules/es6.string.fontsize":"../../../node_modules/core-js/modules/es6.string.fontsize.js","core-js/modules/es6.string.from-code-point":"../../../node_modules/core-js/modules/es6.string.from-code-point.js","core-js/modules/es6.string.includes":"../../../node_modules/core-js/modules/es6.string.includes.js","core-js/modules/es6.string.italics":"../../../node_modules/core-js/modules/es6.string.italics.js","core-js/modules/es6.string.iterator":"../../../node_modules/core-js/modules/es6.string.iterator.js","core-js/modules/es6.string.link":"../../../node_modules/core-js/modules/es6.string.link.js","core-js/modules/es7.string.pad-start":"../../../node_modules/core-js/modules/es7.string.pad-start.js","core-js/modules/es7.string.pad-end":"../../../node_modules/core-js/modules/es7.string.pad-end.js","core-js/modules/es6.string.raw":"../../../node_modules/core-js/modules/es6.string.raw.js","core-js/modules/es6.string.repeat":"../../../node_modules/core-js/modules/es6.string.repeat.js","core-js/modules/es6.string.small":"../../../node_modules/core-js/modules/es6.string.small.js","core-js/modules/es6.string.starts-with":"../../../node_modules/core-js/modules/es6.string.starts-with.js","core-js/modules/es6.string.strike":"../../../node_modules/core-js/modules/es6.string.strike.js","core-js/modules/es6.string.sub":"../../../node_modules/core-js/modules/es6.string.sub.js","core-js/modules/es6.string.sup":"../../../node_modules/core-js/modules/es6.string.sup.js","core-js/modules/es7.string.trim-left":"../../../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right":"../../../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/es6.typed.array-buffer":"../../../node_modules/core-js/modules/es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array":"../../../node_modules/core-js/modules/es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array":"../../../node_modules/core-js/modules/es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array":"../../../node_modules/core-js/modules/es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array":"../../../node_modules/core-js/modules/es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array":"../../../node_modules/core-js/modules/es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array":"../../../node_modules/core-js/modules/es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array":"../../../node_modules/core-js/modules/es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array":"../../../node_modules/core-js/modules/es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array":"../../../node_modules/core-js/modules/es6.typed.float64-array.js","core-js/modules/es6.weak-map":"../../../node_modules/core-js/modules/es6.weak-map.js","core-js/modules/es6.weak-set":"../../../node_modules/core-js/modules/es6.weak-set.js","core-js/modules/web.timers":"../../../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate":"../../../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable":"../../../node_modules/core-js/modules/web.dom.iterable.js","regenerator-runtime/runtime":"../../../node_modules/regenerator-runtime/runtime.js","./FormTemplate":"FormTemplate.js","./Components/AuthForm":"Components/AuthForm.js","./Components/Multiselect":"Components/Multiselect.js","./Components/NestedTable":"Components/NestedTable.js","./Components/Checkbox":"Components/Checkbox.js","./logout":"logout.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -8172,7 +8466,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54909" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51040" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

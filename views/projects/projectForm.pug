@@ -1,0 +1,68 @@
+extends ./../base.pug
+
+include ./../mixins/_multiselect.pug
+
+
+append head
+    link(rel="stylesheet", href="/css/spinner.css")
+    link(rel="stylesheet", href="/css/form-template.css")
+    link(rel="stylesheet", href="/lib/flatpickr/dist/themes/issue_tracker.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous")
+
+block content
+    main.main
+        .breadcrumb-container
+            ol.breadcrumb
+                li.breadcrumb__item: a.breadcrumb__link(href=`#`) PROJECTS
+                li.breadcrumb__item: a.breadcrumb__link(href=`#`) PROJECT#AADD
+                li.breadcrumb__item: a.breadcrumb__link(href=`#`) ISSUES
+                li.breadcrumb__item: a.breadcrumb__link(href=`#`) ISSUE#AADD-001
+        .app-wrapper
+            h1.heading-page= title
+            .app__header
+                if (formMode !== 'preview')
+                    a(href=`/projects`).btn.btn--small.btn--light.align--left Back to Projects
+                    a(href=`${formMode == 'create' ? `/projects`: `/projects/${project._id}`}`).btn.btn--small.btn--light.align--right Cancel
+                    button#saveFormBtn(form="projectForm", type="submit").btn.btn--small.btn--light.align--right Save
+                else 
+                    a(href=`/projects`).btn.btn--small.btn--light.align--left Back to Projects
+                    a(href=`/projects/${project._id}/issues/create`).btn.btn--small.btn--light.align--right Submit a new issue
+                    a(href=`/projects/${project._id}/issues`).btn.btn--small.btn--light.align--right View issue list
+                    a(href=`/projects/${project._id}/update`).btn.btn--small.btn--light.align--right Edit
+                    button#deleteFormBtn(form="projectForm", type="button").btn.btn--small.btn--light.align--right Delete
+        form#projectForm.form-template(data-resource="projects", data-id=formMode!=='create' ? project._id : '')
+            .form-template__field
+                label.form-template__label(for="prefix") Prefix
+                input#prefix.form-template__input(type=`text` disabled=formMode!=="create", name="prefix", value=`${formMode!=='create' ? project.prefix : ''}`)
+            .form-template__field
+                label.form-template__label(for="owner") Owner
+                input#owner.form-template__input(type="text" disabled, value=`${formMode!=='create' ? project.owner.name : ''}`)
+            .form-template__field
+                label.form-template__label(for="status") Status
+                select#status.form-template__select(name="status", disabled=formMode!=="update", value=`${formMode!=='create' ? project.status : ''}`)
+                    each option in statusOptions
+                        option(value=`${option}`, selected=option==project.status)= option
+                //- input#status.form-template__input(type="text" disabled=formMode!=="update", name="status", value=`${formMode!=='create' ? project.status : ''}`)
+            .form-template__field
+                label.form-template__label(for="progress") Progress
+                input#progress.form-template__input(type="number" disabled=formMode!=="update", name="progress", value=`${formMode!=='create' ? project.progress : ''}`)
+            .form-template__field
+                label.form-template__label(for="name") Name
+                input#name.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="name", value=`${formMode!=='create' ? project.name : ''}`)
+            .form-template__field
+                label.form-template__label(for="deadline") Deadline
+                input#deadline.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create" , name="deadline", value=`${formMode!=='create' && project.deadline ?  project.deadline.toLocaleDateString('en-GB') : ''}`)
+            .form-template__field
+                label.form-template__label(for="startDate") Start date
+                input#startDate.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create", name="startDate", value=`${formMode!=='create' && project.startDate ? project.startDate.toLocaleDateString('en-GB') : ''}`)
+            .form-template__field
+                label.form-template__label(for="endDate") End date
+                input#endDate.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create", name="endDate", value=`${formMode!=='create' && project.endDate ? project.endDate.toLocaleDateString('en-GB') : ''}`)
+            .form-template__field.colspan2
+                label.form-template__label(for="description") Description
+                textarea#description.form-template__textarea(style="resize: none;" disabled=formMode!=="update" && formMode !=="create", name="description")=`${formMode!=='create' ? project.description : ''}`
+            .form-template__field.colspan2.new-line
+                +userMultiselect("teamMembers", "Team members", (project) ?  project.teamMembers : [], users)
+
+prepend scripts
+    script(src="/lib/flatpickr/dist/flatpickr.min.js")

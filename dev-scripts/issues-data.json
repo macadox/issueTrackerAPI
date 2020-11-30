@@ -205,5 +205,66 @@
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-007"
+  },
+  {
+    "name": "Prepare a datepicker and SingleSelect",
+    "priority": "MUST",
+    "difficulty": "7",
+    "description": "Prepare a datepicker and select for fields that have dictionaries",
+    "acceptanceCriterias": [],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-008"
+  },
+  {
+    "name": "Add acceptance criteria table",
+    "priority": "MUST",
+    "difficulty": "7",
+    "description": "Add working acceptance criteria table",
+    "acceptanceCriterias": [
+      {
+        "criterion": "Acceptance criteria should save on create"
+      },
+      {
+        "criterion": "acceptance criteria should save on update || i should be able to edit content of AC"
+      },
+      {
+        "criterion": "i should be able to delete acceptance criteria freely"
+      },
+      {
+        "criterion": "checkbox should be checked if its true"
+      }
+    ],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-009"
+  },{
+    "name": "Implement user tab",
+    "priority": "MUST",
+    "difficulty": "7",
+    "description": "Implement user tab, that will allow them to change their passwords and user data",
+    "acceptanceCriterias": [
+      {
+        "criterion": "Users should be able to change their password on passwordUpdate route"
+      },
+      {
+        "criterion": "Users should be able to change their details on updateMe route"
+      },
+      {
+        "criterion": "rewrite the form wrapper, so its more genreric"
+      }
+    ],
+    "deadline": "2020-11-29",
+    "status": "New",
+    "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
+    "project": "5fba5b1455d45d4da00aee01",
+    "author": "5fba54c1dad2496b80d047d5",
+    "issueId": "ISS1-010"
   }
 ]

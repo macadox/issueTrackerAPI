@@ -1,0 +1,23 @@
+mixin nestedAcceptanceCriteria (id, label, resource, ...headings)
+    label.form-template__label(for=`${id}_container`)= label
+    .nestedTable.nestedTable--ac
+        input(type="text", id=`${id}`, name=`${id}`).input-hidden
+        table(id=`${id}_container`).list.list--ac
+            tr.list__row.list__row--form.list__row--heading
+                th.list__heading: span(id=`criterionId`) ID
+                th.list__heading: span(id=`criterionName`) Criterion
+                th.list__heading: span(id=`criterionCreated`) Created on
+                th.list__heading: span(id=`criterionSolved`) Solved
+                //- for deleteBtn
+                th.list__heading: span 
+            each criterion in resource || []
+                tr.list__row.list__row--form
+                    td.list__data.list__data--form: input.form-template__input(type="text", aria-labelledby="criterionId" disabled, value=`${criterion._id}`, data-key='_id') 
+                    td.list__data.list__data--form.list__data--textarea: textarea.form-template__textarea(aria-labelledby="criterionName", data-key='criterion')= criterion.criterion 
+                    td.list__data.list__data--form: input.form-template__input(type="text", aria-labelledby="criterionCreated" disabled, value=`${formMode!=='create' && criterion.createdOn ?  criterion.createdOn.toLocaleDateString('en-GB') : ''}`, data-key='createdOn') 
+                    td.list__data.list__data--form
+                        .checkbox(aria-labelledby="criterionSolved", data-key='solved', aria-checked=`${criterion.solved}`)
+                    //- for deleteBtn
+                    td.list__data.list__data--form.list__data--delete
+
+        button(type="button").btn.btn--small.btn--light.align--left.btn--noflex-start= `Add new ${label}`

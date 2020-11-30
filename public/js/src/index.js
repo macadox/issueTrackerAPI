@@ -1,14 +1,19 @@
 import '@babel/polyfill';
-import { authForm } from './authForm';
-import { MultiselectFactory } from './Multiselect';
 import { FormTemplate } from './FormTemplate';
-import { Checkbox } from './Checkbox';
+import { authForm } from './Components/AuthForm';
+import { MultiselectFactory } from './Components/Multiselect';
+import { NestedTableFactory } from './Components/NestedTable';
+import { Checkbox } from './Components/Checkbox';
 import { logout } from './logout';
 
 const logoutBtn = document.querySelector('.menu__link--logout');
-const multiSelects = document.querySelectorAll('.multiselect');
+const multiSelects = document.querySelectorAll('.multiselect--user');
+const acTables = document.querySelectorAll('.nestedTable--ac');
 const checkboxes = document.querySelectorAll('.checkbox');
 const formTemplate = document.querySelector('.form-template');
+const datePickerFields = document.querySelectorAll(
+  '.form-template__input--date'
+);
 
 if (multiSelects.length > 0) {
   multiSelects.forEach((multiselect) => {
@@ -19,11 +24,25 @@ if (multiSelects.length > 0) {
 if (checkboxes.length > 0) {
   checkboxes.forEach((checkbox) => {
     new Checkbox(checkbox);
-  })
+  });
+}
+
+if (acTables.length > 0) {
+  acTables.forEach((table) => {
+    NestedTableFactory.create('AcceptanceCriteriaTable', table);
+  });
+}
+
+if (datePickerFields.length > 0) {
+  datePickerFields.forEach((field) => {
+    flatpickr(field, {
+      dateFormat: 'm/d/Y',
+    });
+  });
 }
 
 if (formTemplate) {
-  const form = new FormTemplate(formTemplate);
+  new FormTemplate(formTemplate);
 }
 
 if (logoutBtn) {

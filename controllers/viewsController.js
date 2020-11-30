@@ -12,28 +12,28 @@ exports.getHome = (req, res) => {
 };
 
 exports.getLoginForm = (req, res) => {
-  res.status(200).render('login', {
+  res.status(200).render('auth/login', {
     title: 'Login',
     active: 'Login',
   });
 };
 
 exports.getSignupForm = (req, res) => {
-  res.status(200).render('signup', {
+  res.status(200).render('auth/signup', {
     title: 'Signup',
     active: 'Sign up',
   });
 };
 
 exports.getForgotPasswordForm = (req, res) => {
-  res.status(200).render('forgotPassword', {
+  res.status(200).render('auth/forgotPassword', {
     title: 'Forgot password?',
     active: 'Login',
   });
 };
 
 exports.getResetPasswordForm = (req, res) => {
-  res.status(200).render('resetPassword', {
+  res.status(200).render('auth/resetPassword', {
     title: 'Reset your password',
     token: req.params.token,
     active: 'Login',
@@ -46,13 +46,13 @@ exports.getAllProjects = catchAsync(async (req, res, next) => {
   else req.query.grid = true;
 
   if (req.query.grid) {
-    res.status(200).render('gridProjects', {
+    res.status(200).render('projects/gridProjects', {
       title: 'My projects',
       projects,
       active: 'Projects',
     });
   } else {
-    res.status(200).render('listProjects', {
+    res.status(200).render('projects/listProjects', {
       title: 'My projects',
       projects,
       active: 'Projects',
@@ -68,14 +68,14 @@ exports.getProjectDetails = catchAsync(async (req, res, next) => {
   else req.query.grid = true;
 
   if (req.query.grid) {
-    res.status(200).render('gridIssues', {
+    res.status(200).render('issues/gridIssues', {
       title: 'Project name',
       issues,
       projectId: req.params.projectId,
       active: 'Projects',
     });
   } else {
-    res.status(200).render('listIssues', {
+    res.status(200).render('issues/listIssues', {
       title: 'Project name',
       issues,
       projectId: req.params.projectId,
@@ -96,7 +96,7 @@ exports.getProjectForm = catchAsync(async (req, res, next) => {
       return next(new AppError('There is no project with such id!', 404));
   }
 
-  res.status(200).render('projectForm', {
+  res.status(200).render('projects/projectForm', {
     title:
       mode == 'create'
         ? 'Create a new project'
@@ -107,6 +107,7 @@ exports.getProjectForm = catchAsync(async (req, res, next) => {
     users,
     project,
     active: 'Projects',
+    statusOptions: Project.schema.path('status').enumValues,
   });
 });
 
@@ -132,9 +133,8 @@ exports.getIssueForm = catchAsync(async (req, res, next) => {
       404
       );
     }
-    console.log(issue.acceptanceCriterias)
 
-  res.status(200).render('issueForm', {
+  res.status(200).render('issues/issueForm', {
     title:
       mode == 'create'
         ? 'Submit a new issue'
@@ -146,5 +146,7 @@ exports.getIssueForm = catchAsync(async (req, res, next) => {
     users,
     issue,
     active: 'Projects',
+    statusOptions: Issue.schema.path('status').enumValues,
+    priorityOptions: Issue.schema.path('priority').enumValues
   });
 });

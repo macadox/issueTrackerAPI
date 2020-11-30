@@ -52,11 +52,11 @@ const projectSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      default: 'Unreleased',
+      default: 'Not released',
       enum: {
-        values: ['Unreleased', 'In progress', 'Released'],
+        values: ['Not released', 'In progress', 'Testing', 'Released'],
         message:
-          'Project status can only be Unreleased, In progress or Released',
+          'Project status can only be Unreleased, In progress, Testing or Released',
       },
     },
     description: {

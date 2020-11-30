@@ -30,7 +30,7 @@ const issueSchema = new mongoose.Schema({
     {
       criterion: {
         type: String,
-        required: [true, 'Acceptance criteria has to have a name'],
+        required: [true, 'Acceptance criteria has to have some content!'],
         minlength: 10,
       },
       solved: {

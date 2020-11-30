@@ -44,16 +44,16 @@
 - prepare edit, create and preview for forms [x]
 - CRUD operations on the forms [x]
 - prepare 404 pages if resource is unavailable [x]
+- Prepare Component for Setting date and Single Select ('MUST', 'SHOULD', 'COULD', 'WONT') [x]
+- Prepare editable table component for acceptance Criteria [x]
+- Prepare Datepicker [x]
 
 #### Todo
-- Prepare Component for Setting date and Single Select ('MUST', 'SHOULD', 'COULD', 'WONT') [ ]
-- Prepare editable table component for acceptance Criteria [ ]
-- Prepare Datepicker [ ]
 - save grid/table view preference in local storage [ ]
 - Prepare validator on the forms [ ]
 - Implement Breadcrumbs [ ]
 - prepare content if there is no issue for a project or no projects (Do you want to add one?)
-- Add alerts when changing page if form is opened
+- Add alerts when changing page if form is opened [ ]
 ### Modules
 
 #### Done

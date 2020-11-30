@@ -1,4 +1,4 @@
-import { Alert } from './Alert.js';
+import { Alert } from './Components/Alert.js';
 
 export const logout = async () => {
   try {
