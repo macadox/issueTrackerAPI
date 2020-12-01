@@ -40,6 +40,12 @@ exports.getResetPasswordForm = (req, res) => {
   });
 };
 
+exports.getMe = (req, res) => {
+  res.status(200).render('users/user', {
+    title: 'Account'
+  })
+}
+
 exports.getAllProjects = catchAsync(async (req, res, next) => {
   const projects = await Project.find().sort('_id');
   if (!req.query.grid) req.query.grid = false;

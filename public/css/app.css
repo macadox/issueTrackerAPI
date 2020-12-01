@@ -249,6 +249,11 @@ footer {
   padding: 0.5em 1.5em;
 }
 
+.btn--medium {
+  font-size: 1.7rem;
+  padding: 0.5em 1.5em;
+}
+
 .btn--small {
   font-size: 1.1rem;
   padding: 0.5em 1em;
@@ -306,7 +311,7 @@ footer {
   align-items: center;
 }
 
-.form {
+.form-wrapper {
   padding: 3.5em 5em 0 5em;
   background-color: #ffffff;
   border-radius: 4px;
@@ -314,11 +319,20 @@ footer {
   /* Boxshadow? */
 }
 
+.form-wrapper--user {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .form__heading {
   font-weight: 400;
   color: #4f5b77;
   text-transform: uppercase;
   font-size: 1.9rem;
+}
+
+.form__heading--bigger {
+  font-size: 2.4rem;
 }
 
 .form__description {
@@ -357,6 +371,10 @@ footer {
   transition: 0.25s ease-in-out;
   box-sizing: padding-box;
   font-size: 1.3rem;
+}
+
+.form__input--bigger {
+  width: 360px;
 }
 
 .form__input:focus {
@@ -442,6 +460,20 @@ footer {
 
 .form__link:hover {
   opacity: 1;
+}
+
+.form__photo-upload {
+  display: flex;
+  align-items: center;
+}
+
+.form__upload {
+width: 2px;
+}
+
+.form__user-photo {
+  max-width: 80px;
+  border-radius: 6px;
 }
 
 .search-input {
@@ -844,4 +876,63 @@ footer {
   height: 1px;
   background-color: #4f5b77;
   transform: rotate(-50deg);
+}
+
+/* Tab list */
+
+.tabs {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.15);
+  min-height: 50vh;
+}
+
+.tabs__tablist-container {
+  flex-basis: 20%;
+  background-color: #F2F2F2;
+}
+
+.tabs__tablist {
+  display: flex;
+  flex-direction: column;
+  padding-left: 4em;
+  padding-right: 2.25em;
+  padding: 7em 2.25em 10em 4em;
+}
+
+.tabs__tab {
+  border: none;
+  background: rgba(230, 230, 230, 0);
+  color: #636262;
+  cursor: pointer;
+  text-align: left;
+  padding: 0.5em;
+  font-size: 1.4rem;
+  outline: none;
+  transition: 0.2s ease-in-out;
+}
+
+.tabs__tab + .tabs__tab {
+  margin-top: 0.35em;
+}
+
+.tabs__tab--active {
+  background: rgba(230, 230, 230, 1);
+  color: #374056;
+  font-weight: 700;
+}
+
+.tabs__tab:hover,
+.tabs__tab:focus {
+  background: rgba(230, 230, 230, 1);
+}
+
+.tabs__tabpanel {
+  flex-basis: 80%;
+  display: none;
+}
+
+.tabs__tabpanel--active {
+  display: flex;
 }

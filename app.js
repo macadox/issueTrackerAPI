@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
+const authController = require('./controllers/authController');
 const globalErrorHandler = require('./controllers/errorHandler');
 const AppError = require('./utils/appError');
 
@@ -58,7 +59,7 @@ app.use('/', viewsRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/projects', projectRouter);
 
-app.all('*', (req, res, next) => {
+app.all('*', authController.isLoggedIn, (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 

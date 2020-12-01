@@ -1,0 +1,14 @@
+.form-wrapper.form-wrapper--user
+    h2.form__heading.form__heading--bigger Manage your password
+    form.form__body.form__body--update-password(is="auth-form")
+            .form__group
+                input#currentPassword.form__input.form__input--bigger(type="password", name="currentPassword", required)
+                label.form__label(for="currentPassword"): span Current password
+            .form__group
+                input#password.form__input.form__input--bigger(type="password", name="password", required)
+                label.form__label(for="password"): span New password
+            .form__group
+                input#confirmPassword.form__input.form__input--bigger(type="password", name="confirmPassword", required)
+                label.form__label(for="confirmPassword"): span Confirm password
+            .form__group
+                button.btn.btn--dark.btn--medium.btn--align-left.form__button--send Save

@@ -29,54 +29,55 @@ block content
                     a(href=`/projects/${projectId}/issues`).btn.btn--small.btn--light.align--left Back to Issues
                     a(href=`/projects/${projectId}/issues/${issue._id}/update`).btn.btn--small.btn--light.align--right Edit
                     button#deleteFormBtn(form="issueForm", type="button").btn.btn--small.btn--light.align--right Delete
-        form#issueForm.form-template(data-resource=`projects/${projectId}/issues`, data-id=formMode!=='create' ? issue._id : '')
-            .form-template__field
-                label.form-template__label(for="id") ID
-                input#id.form-template__input(type=`text` disabled, value=`${formMode!=='create' ? issue.issueId : ''}`)
-            .form-template__field
-                label.form-template__label(for="author") Author
-                input#author.form-template__input(type="text" disabled, value=`${formMode!=='create' ? issue.author.name : ''}`)
-            .form-template__field
-                label.form-template__label(for="status") Status
-                select#status.form-template__select(name="status", disabled=formMode!=="update", value=`${formMode!=='create' ? issue.status : ''}`)
-                    each option in statusOptions
-                        option(value=`${option}`, selected=option==issue.status)= option
-                //- input#status.form-template__input(type="text" disabled=formMode!=="update", name="status", value=`${formMode!=='create' ? issue.status : ''}`)
-            .form-template__field.new-line
-                label.form-template__label(for="name") Name
-                input#name.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="name", value=`${formMode!=='create' ? issue.name : ''}`)
-            .form-template__field
-                label.form-template__label(for="priority") Priority
-                select#priority.form-template__select(name="priority", disabled=formMode!=="update" && formMode !=="create", value=`${formMode!=='create' ? issue.priority : ''}`)
-                    each option in priorityOptions
-                        option(value=`${option}`, selected=option==issue.priority)= option
-                //- input#priority.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="priority", value=`${formMode!=='create' ? issue.priority : ''}`)  
-            .form-template__field
-                label.form-template__label(for="difficulty") Difficulty
-                input#difficulty.form-template__input(type="number" disabled=formMode!=="update" && formMode !=="create", name="difficulty", value=`${formMode!=='create' ? issue.difficulty : ''}`)             
-            .form-template__field
-                label.form-template__label(for="deadline") Deadline
-                input#deadline.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create" , name="deadline", value=`${formMode!=='create' && issue.deadline ?  issue.deadline.toLocaleDateString('en-GB') : ''}`)
-            .form-template__field.colspan2
-                label.form-template__label(for="description") Description
-                textarea#description.form-template__textarea(disabled=formMode!=="update" && formMode !=="create", name="description")=`${formMode!=='create' ? issue.description : ''}`
-            .form-template__field.colspan2.new-line
-                +userMultiselect("assignees", "Assignees", (issue) ?  issue.assignees : [], users)
-            .form-template__field.colspan3.new-line
-                if (formMode == 'preview')
-                    label.form-template__label(for="acceptanceCriterias") Acceptance Criteria
-                    table.list
-                        tr.list__row--heading
-                            th.list__heading: span Criterion
-                            th.list__heading: span Created
-                            th.list__heading: span Solved
-                        each criterion in issue.acceptanceCriterias
-                            tr.list__row.list__row--form
-                                td.list__data.list__data--form: span= criterion.criterion
-                                td.list__data.list__data--form: span= criterion.createdOn.toLocaleDateString('en-GB')
-                                td.list__data.list__data--form: span= criterion.solved
-                else
-                    +nestedAcceptanceCriteria('acceptanceCriterias', 'Acceptance Criteria', (issue) ?  issue.acceptanceCriterias : [], 'ID', 'Criterion', 'Created on', 'Solved')
+            .app__content
+                form#issueForm.form-template.form-template--grid(data-resource=`projects/${projectId}/issues`, data-id=formMode!=='create' ? issue._id : '')
+                    .form-template__field
+                        label.form-template__label(for="id") ID
+                        input#id.form-template__input(type=`text` disabled, value=`${formMode!=='create' ? issue.issueId : ''}`)
+                    .form-template__field
+                        label.form-template__label(for="author") Author
+                        input#author.form-template__input(type="text" disabled, value=`${formMode!=='create' ? issue.author.name : ''}`)
+                    .form-template__field
+                        label.form-template__label(for="status") Status
+                        select#status.form-template__select(name="status", disabled=formMode!=="update", value=`${formMode!=='create' ? issue.status : ''}`)
+                            each option in statusOptions
+                                option(value=`${option}`, selected=issue&&option==issue.status)= option
+                        //- input#status.form-template__input(type="text" disabled=formMode!=="update", name="status", value=`${formMode!=='create' ? issue.status : ''}`)
+                    .form-template__field.new-line
+                        label.form-template__label(for="name") Name
+                        input#name.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="name", value=`${formMode!=='create' ? issue.name : ''}`)
+                    .form-template__field
+                        label.form-template__label(for="priority") Priority
+                        select#priority.form-template__select(name="priority", disabled=formMode!=="update" && formMode !=="create", value=`${formMode!=='create' ? issue.priority : ''}`)
+                            each option in priorityOptions
+                                option(value=`${option}`, selected=issue&&option==issue.priority)= option
+                        //- input#priority.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="priority", value=`${formMode!=='create' ? issue.priority : ''}`)  
+                    .form-template__field
+                        label.form-template__label(for="difficulty") Difficulty
+                        input#difficulty.form-template__input(type="number" disabled=formMode!=="update" && formMode !=="create", name="difficulty", value=`${formMode!=='create' ? issue.difficulty : ''}`)             
+                    .form-template__field
+                        label.form-template__label(for="deadline") Deadline
+                        input#deadline.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create" , name="deadline", value=`${formMode!=='create' && issue.deadline ?  issue.deadline.toLocaleDateString('en-GB') : ''}`)
+                    .form-template__field.colspan2
+                        label.form-template__label(for="description") Description
+                        textarea#description.form-template__textarea(disabled=formMode!=="update" && formMode !=="create", name="description")=`${formMode!=='create' ? issue.description : ''}`
+                    .form-template__field.colspan2.new-line
+                        +userMultiselect("assignees", "Assignees", (issue) ?  issue.assignees : [], users)
+                    .form-template__field.colspan3.new-line
+                        if (formMode == 'preview')
+                            label.form-template__label(for="acceptanceCriterias") Acceptance Criteria
+                            table.list
+                                tr.list__row--heading
+                                    th.list__heading: span Criterion
+                                    th.list__heading: span Created
+                                    th.list__heading: span Solved
+                                each criterion in issue.acceptanceCriterias
+                                    tr.list__row.list__row--form
+                                        td.list__data.list__data--form: span= criterion.criterion
+                                        td.list__data.list__data--form: span= criterion.createdOn.toLocaleDateString('en-GB')
+                                        td.list__data.list__data--form: span= criterion.solved
+                        else
+                            +nestedAcceptanceCriteria('acceptanceCriterias', 'Acceptance Criteria', (issue) ?  issue.acceptanceCriterias : [], 'ID', 'Criterion', 'Created on', 'Solved')
 
 prepend scripts
     script(src="/lib/flatpickr/dist/flatpickr.min.js")

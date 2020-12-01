@@ -13,8 +13,8 @@ router.patch('/resetPassword/:token', authController.resetPassword);
 
 router.use(authController.protect);
 
-router.route('/updatePassword').patch(authController.updatePassword);
 router.route('/updateDetails').patch(userController.updateDetails);
+router.route('/updatePassword').patch(authController.updatePassword);
 
 // disabled admin, to be able to fetch data
 router.use(authController.restrict('admin'));

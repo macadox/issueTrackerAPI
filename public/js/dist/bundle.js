@@ -6677,14 +6677,6 @@ exports.FormTemplate = void 0;
 
 var _Alert = require("./Components/Alert");
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -6701,12 +6693,28 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var unload = function unload(e) {
+  e.preventDefault();
+  e.returnValue = 'Are you sure you want to leave?';
+};
+
+var removeBeforeUnload = function removeBeforeUnload() {
+  window.removeEventListener('beforeunload', unload);
+};
+
 var FormTemplate = /*#__PURE__*/function () {
   function FormTemplate(form) {
     _classCallCheck(this, FormTemplate);
 
     this.form = form;
-    var deleteBtn = document.querySelector('#deleteFormBtn');
+    this.formResource = this.form.dataset.resource;
+    this.formId = this.form.dataset.id;
+    var deleteBtn = document.querySelector('#deleteFormBtn'); // console.log(this.form);
+
+    if (/(\/update|\/create)$/.test(window.location.pathname)) {
+      console.log('added before unload');
+      window.addEventListener('beforeunload', unload);
+    }
 
     if (deleteBtn) {
       deleteBtn.addEventListener('click', this.deleteForm.bind(this));
@@ -6761,102 +6769,101 @@ var FormTemplate = /*#__PURE__*/function () {
             switch (_context2.prev = _context2.next) {
               case 0:
                 e.preventDefault();
+                console.log('should prompt save');
                 bodyObj = {};
                 formData = new FormData(this.form); // Build body object
 
                 _iterator = _createForOfIteratorHelper(formData.entries());
-                _context2.prev = 4;
+                _context2.prev = 5;
 
                 _iterator.s();
 
-              case 6:
+              case 7:
                 if ((_step = _iterator.n()).done) {
-                  _context2.next = 19;
+                  _context2.next = 20;
                   break;
                 }
 
                 pair = _step.value;
-                _context2.next = 10;
+                _context2.next = 11;
                 return this.isParsable(pair[1]);
 
-              case 10:
+              case 11:
                 if (!_context2.sent) {
-                  _context2.next = 14;
+                  _context2.next = 15;
                   break;
                 }
 
                 bodyObj[pair[0]] = JSON.parse(pair[1]);
-                _context2.next = 17;
+                _context2.next = 18;
                 break;
 
-              case 14:
+              case 15:
                 if (!(pair[1] == '')) {
-                  _context2.next = 16;
+                  _context2.next = 17;
                   break;
                 }
 
-                return _context2.abrupt("continue", 17);
-
-              case 16:
-                bodyObj[pair[0]] = pair[1];
+                return _context2.abrupt("continue", 18);
 
               case 17:
-                _context2.next = 6;
+                bodyObj[pair[0]] = pair[1];
+
+              case 18:
+                _context2.next = 7;
                 break;
 
-              case 19:
-                _context2.next = 24;
+              case 20:
+                _context2.next = 25;
                 break;
 
-              case 21:
-                _context2.prev = 21;
-                _context2.t0 = _context2["catch"](4);
+              case 22:
+                _context2.prev = 22;
+                _context2.t0 = _context2["catch"](5);
 
                 _iterator.e(_context2.t0);
 
-              case 24:
-                _context2.prev = 24;
+              case 25:
+                _context2.prev = 25;
 
                 _iterator.f();
 
-                return _context2.finish(24);
+                return _context2.finish(25);
 
-              case 27:
+              case 28:
                 args = [];
 
                 if (!/create$/gi.test(location.pathname)) {
-                  _context2.next = 32;
+                  _context2.next = 33;
                   break;
                 }
 
-                args = [this.form.dataset.resource, 'POST', bodyObj];
-                _context2.next = 37;
+                args = [this.formResource, 'POST', bodyObj];
+                _context2.next = 38;
                 break;
 
-              case 32:
+              case 33:
                 if (!/update$/gi.test(location.pathname)) {
-                  _context2.next = 36;
+                  _context2.next = 37;
                   break;
                 }
 
-                args = [this.form.dataset.resource, 'PATCH', bodyObj, this.form.dataset.id];
-                _context2.next = 37;
+                args = [this.formResource, 'PATCH', bodyObj, this.formId];
+                _context2.next = 38;
                 break;
-
-              case 36:
-                return _context2.abrupt("return", new _Alert.Alert('error', 'We do not cover that kind of request!'));
 
               case 37:
-                console.log(bodyObj);
-                _context2.next = 40;
-                return this.createReq.apply(this, _toConsumableArray(args));
+                return _context2.abrupt("return", new _Alert.Alert('error', 'We do not cover that kind of request!'));
 
-              case 40:
+              case 38:
+                removeBeforeUnload(); // await this.createReq(...args);
+
+              case 39:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[4, 21, 24, 27]]);
+        }, _callee2, this, [[5, 22, 25, 28]]);
       }));
 
       function saveForm(_x2) {
@@ -6950,41 +6957,42 @@ var FormTemplate = /*#__PURE__*/function () {
                 return _context4.abrupt("return");
 
               case 3:
-                _context4.prev = 3;
-                _context4.next = 6;
-                return fetch("".concat(window.location.protocol, "/api/v1/").concat(this.form.dataset.resource, "/").concat(this.form.dataset.id), {
+                removeBeforeUnload();
+                _context4.prev = 4;
+                _context4.next = 7;
+                return fetch("".concat(window.location.protocol, "/api/v1/").concat(this.formResource, "/").concat(this.formId), {
                   method: 'DELETE'
                 });
 
-              case 6:
+              case 7:
                 res = _context4.sent;
 
                 if (res.ok) {
-                  _context4.next = 9;
+                  _context4.next = 10;
                   break;
                 }
 
                 return _context4.abrupt("return", new _Alert.Alert('error', resData.message).showMessage());
 
-              case 9:
+              case 10:
                 new _Alert.Alert('success', 'Data successfully deleted').showMessage();
                 setTimeout(function () {
-                  return location.assign("".concat(window.location.protocol, "/").concat(_this.form.dataset.resource), 3000);
+                  return location.assign("".concat(window.location.protocol, "/").concat(_this.formResource), 3000);
                 }, 2000);
-                _context4.next = 16;
+                _context4.next = 17;
                 break;
 
-              case 13:
-                _context4.prev = 13;
-                _context4.t0 = _context4["catch"](3);
+              case 14:
+                _context4.prev = 14;
+                _context4.t0 = _context4["catch"](4);
                 new _Alert.Alert('error', _context4.t0).showMessage();
 
-              case 16:
+              case 17:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[3, 13]]);
+        }, _callee4, this, [[4, 14]]);
       }));
 
       function deleteForm() {
@@ -7065,15 +7073,21 @@ exports.FormTemplate = FormTemplate;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.authForm = void 0;
+exports.AuthForm = void 0;
 
 var _Alert = require("./Alert");
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7112,9 +7126,12 @@ var AuthForm = /*#__PURE__*/function (_HTMLFormElement) {
     _classCallCheck(this, AuthForm);
 
     _this = _super.call(this);
+    _this.button = _this.querySelector('.form__button--send');
     _this.inputs = _this.querySelectorAll('.form__input');
 
     _this.inputs.forEach(function (input) {
+      _this.handleLabels.call(input);
+
       input.addEventListener('input', _this.handleLabels);
       input.addEventListener('focusin', function () {
         input.classList.add('form__input--float-label');
@@ -7128,184 +7145,151 @@ var AuthForm = /*#__PURE__*/function (_HTMLFormElement) {
   _createClass(AuthForm, [{
     key: "handleLabels",
     value: function handleLabels() {
-      if (this.value.trim()) {
+      console.log(this.value);
+
+      if (this.value) {
         this.classList.add('form__input--float-label');
       } else {
         this.classList.remove('form__input--float-label');
       }
     }
-  }]);
-
-  return AuthForm;
-}( /*#__PURE__*/_wrapNativeSuper(HTMLFormElement));
-
-var LoginForm = /*#__PURE__*/function (_AuthForm) {
-  _inherits(LoginForm, _AuthForm);
-
-  var _super2 = _createSuper(LoginForm);
-
-  function LoginForm() {
-    _classCallCheck(this, LoginForm);
-
-    return _super2.call(this);
-  }
-
-  _createClass(LoginForm, [{
-    key: "connectedCallback",
-    value: function connectedCallback() {
-      var _this2 = this;
-
-      this.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        _this2.login(_this2.email.value, _this2.password.value);
-      });
-    }
   }, {
-    key: "login",
+    key: "collectBodyAndSend",
     value: function () {
-      var _login = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(email, password) {
-        var res, resData, alert;
+      var _collectBodyAndSend = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(options, successMessage, callbackFunc) {
+        var body, formData, buttonText, _iterator, _step, pair;
+
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
-                return fetch("".concat(window.location.protocol, "/api/v1/users/login"), {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    email: email,
-                    password: password
-                  })
-                });
+                body = {};
+                formData = new FormData(this);
+                _iterator = _createForOfIteratorHelper(formData.entries());
+                _context.prev = 3;
 
-              case 3:
-                res = _context.sent;
-                _context.next = 6;
-                return res.json();
+                _iterator.s();
 
-              case 6:
-                resData = _context.sent;
-
-                if (res.ok) {
-                  _context.next = 10;
+              case 5:
+                if ((_step = _iterator.n()).done) {
+                  _context.next = 12;
                   break;
                 }
 
-                alert = new _Alert.Alert('error', resData.message);
-                return _context.abrupt("return", alert.showMessage());
+                pair = _step.value;
+
+                if (!(pair[1] == '')) {
+                  _context.next = 9;
+                  break;
+                }
+
+                return _context.abrupt("continue", 10);
+
+              case 9:
+                body[pair[0]] = pair[1];
 
               case 10:
-                new _Alert.Alert('success', "Logged in as: ".concat(resData.data.user.name)).showMessage();
-                setTimeout(function () {
-                  return location.assign('/');
-                }, 2000);
+                _context.next = 5;
+                break;
+
+              case 12:
                 _context.next = 17;
                 break;
 
               case 14:
                 _context.prev = 14;
-                _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
+                _context.t0 = _context["catch"](3);
+
+                _iterator.e(_context.t0);
 
               case 17:
+                _context.prev = 17;
+
+                _iterator.f();
+
+                return _context.finish(17);
+
+              case 20:
+                options.body = body; // Animate button
+
+                if (options.runSpinner) {
+                  buttonText = this.runSpinner();
+                } // Send request
+
+
+                _context.next = 24;
+                return this.sendAsync(options, successMessage, callbackFunc);
+
+              case 24:
+                // Stop animate button
+                if (options.runSpinner) {
+                  this.stopSpinner(buttonText);
+                }
+
+              case 25:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 14]]);
+        }, _callee, this, [[3, 14, 17, 20]]);
       }));
 
-      function login(_x, _x2) {
-        return _login.apply(this, arguments);
+      function collectBodyAndSend(_x, _x2, _x3) {
+        return _collectBodyAndSend.apply(this, arguments);
       }
 
-      return login;
+      return collectBodyAndSend;
     }()
-  }]);
-
-  return LoginForm;
-}(AuthForm);
-
-var SignupForm = /*#__PURE__*/function (_AuthForm2) {
-  _inherits(SignupForm, _AuthForm2);
-
-  var _super3 = _createSuper(SignupForm);
-
-  function SignupForm() {
-    _classCallCheck(this, SignupForm);
-
-    return _super3.call(this);
-  }
-
-  _createClass(SignupForm, [{
-    key: "connectedCallback",
-    value: function connectedCallback() {
-      var _this3 = this;
-
-      this.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        _this3.sendConfirmationToken({
-          email: _this3.email.value,
-          name: _this3.name.value,
-          password: _this3.password.value,
-          confirmPassword: _this3.confirmPassword.value
-        });
-      });
-    }
   }, {
-    key: "sendConfirmationToken",
+    key: "sendAsync",
     value: function () {
-      var _sendConfirmationToken = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(data) {
-        var button, buttonText, res, resData;
+      var _sendAsync = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(options, successMessage, callbackFunc) {
+        var endpoint, method, headers, body, res, resData;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                // Button animation
-                button = this.querySelector('.form__button');
-                buttonText = button.textContent;
-                button.innerHTML = "<div class=\"spinner\"></div>"; // FETCH
-
-                _context2.next = 6;
-                return fetch("".concat(window.location.protocol, "/api/v1/users/signup"), {
-                  method: 'POST',
+                endpoint = options.endpoint, method = options.method, headers = options.headers, body = options.body;
+                _context2.prev = 1;
+                _context2.next = 4;
+                return fetch(endpoint, {
+                  method: method,
                   headers: {
                     'Content-Type': 'application/json'
                   },
-                  body: JSON.stringify(data)
+                  body: JSON.stringify(body)
                 });
 
-              case 6:
+              case 4:
                 res = _context2.sent;
-                _context2.next = 9;
+                _context2.next = 7;
                 return res.json();
 
-              case 9:
+              case 7:
                 resData = _context2.sent;
-                button.innerHTML = buttonText;
+                console.log(resData);
 
                 if (res.ok) {
-                  _context2.next = 13;
+                  _context2.next = 11;
                   break;
                 }
 
                 return _context2.abrupt("return", new _Alert.Alert('error', resData.message).showMessage());
 
-              case 13:
-                new _Alert.Alert('success', 'Success, please confirm your email address').showMessage();
+              case 11:
+                new _Alert.Alert('success', successMessage).showMessage();
+
+                if (callbackFunc && typeof callbackFunc === 'function') {
+                  callbackFunc();
+                }
+
                 _context2.next = 19;
                 break;
 
-              case 16:
-                _context2.prev = 16;
-                _context2.t0 = _context2["catch"](0);
+              case 15:
+                _context2.prev = 15;
+                _context2.t0 = _context2["catch"](1);
+                console.log(_context2.t0);
                 new _Alert.Alert('error', _context2.t0).showMessage();
 
               case 19:
@@ -7313,211 +7297,192 @@ var SignupForm = /*#__PURE__*/function (_AuthForm2) {
                 return _context2.stop();
             }
           }
-        }, _callee2, this, [[0, 16]]);
+        }, _callee2, null, [[1, 15]]);
       }));
 
-      function sendConfirmationToken(_x3) {
-        return _sendConfirmationToken.apply(this, arguments);
+      function sendAsync(_x4, _x5, _x6) {
+        return _sendAsync.apply(this, arguments);
       }
 
-      return sendConfirmationToken;
+      return sendAsync;
     }()
-  }]);
-
-  return SignupForm;
-}(AuthForm);
-
-var ForgotPasswordForm = /*#__PURE__*/function (_AuthForm3) {
-  _inherits(ForgotPasswordForm, _AuthForm3);
-
-  var _super4 = _createSuper(ForgotPasswordForm);
-
-  function ForgotPasswordForm() {
-    _classCallCheck(this, ForgotPasswordForm);
-
-    return _super4.call(this);
-  }
-
-  _createClass(ForgotPasswordForm, [{
-    key: "connectedCallback",
-    value: function connectedCallback() {
-      var _this4 = this;
-
-      this.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        _this4.sendResetLink(_this4.email.value);
-      });
+  }, {
+    key: "runSpinner",
+    value: function runSpinner() {
+      var buttonText = this.button.textContent;
+      this.button.innerHTML = "<div class=\"spinner\"></div>";
+      return buttonText;
     }
   }, {
-    key: "sendResetLink",
-    value: function () {
-      var _sendResetLink = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(email) {
-        var button, buttonText, res, resData;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                _context3.prev = 0;
-                // Button anim
-                button = this.querySelector('.form__button');
-                buttonText = button.textContent;
-                button.innerHTML = "<div class=\"spinner\"></div>"; // FETCH
-
-                _context3.next = 6;
-                return fetch("".concat(window.location.protocol, "/api/v1/users/forgotPassword"), {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    email: email
-                  })
-                });
-
-              case 6:
-                res = _context3.sent;
-                _context3.next = 9;
-                return res.json();
-
-              case 9:
-                resData = _context3.sent;
-                button.innerHTML = buttonText;
-
-                if (res.ok) {
-                  _context3.next = 13;
-                  break;
-                }
-
-                return _context3.abrupt("return", new _Alert.Alert('error', resData.message).showMessage());
-
-              case 13:
-                new _Alert.Alert('success', 'Reset token has been sent!').showMessage();
-                _context3.next = 19;
-                break;
-
-              case 16:
-                _context3.prev = 16;
-                _context3.t0 = _context3["catch"](0);
-                new _Alert.Alert('error', _context3.t0).showMessage();
-
-              case 19:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, this, [[0, 16]]);
-      }));
-
-      function sendResetLink(_x4) {
-        return _sendResetLink.apply(this, arguments);
-      }
-
-      return sendResetLink;
-    }()
-  }]);
-
-  return ForgotPasswordForm;
-}(AuthForm);
-
-var ResetPasswordForm = /*#__PURE__*/function (_AuthForm4) {
-  _inherits(ResetPasswordForm, _AuthForm4);
-
-  var _super5 = _createSuper(ResetPasswordForm);
-
-  function ResetPasswordForm() {
-    _classCallCheck(this, ResetPasswordForm);
-
-    return _super5.call(this);
-  }
-
-  _createClass(ResetPasswordForm, [{
-    key: "connectedCallback",
-    value: function connectedCallback() {
-      var _this5 = this;
-
-      this.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        _this5.resetPassword(_this5.password.value, _this5.confirmPassword.value, _this5.dataset.token);
-      });
+    key: "stopSpinner",
+    value: function stopSpinner(buttonText) {
+      this.button.innerHTML = buttonText;
     }
-  }, {
-    key: "resetPassword",
-    value: function () {
-      var _resetPassword = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(password, confirmPassword, token) {
-        var res, resData;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                _context4.prev = 0;
-                _context4.next = 3;
-                return fetch("".concat(window.location.protocol, "/api/v1/users/resetPassword/").concat(token), {
-                  method: 'PATCH',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({
-                    password: password,
-                    confirmPassword: confirmPassword
-                  })
-                });
-
-              case 3:
-                res = _context4.sent;
-                _context4.next = 6;
-                return res.json();
-
-              case 6:
-                resData = _context4.sent;
-
-                if (res.ok) {
-                  _context4.next = 9;
-                  break;
-                }
-
-                return _context4.abrupt("return", new _Alert.Alert('error', resData.message).showMessage());
-
-              case 9:
-                new _Alert.Alert('success', 'Password reset successfully!').showMessage();
-                setTimeout(function () {
-                  return location.assign('/');
-                }, 2000);
-                _context4.next = 16;
-                break;
-
-              case 13:
-                _context4.prev = 13;
-                _context4.t0 = _context4["catch"](0);
-                new _Alert.Alert('error', _context4.t0).showMessage();
-
-              case 16:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[0, 13]]);
-      }));
-
-      function resetPassword(_x5, _x6, _x7) {
-        return _resetPassword.apply(this, arguments);
-      }
-
-      return resetPassword;
-    }()
   }]);
 
-  return ResetPasswordForm;
-}(AuthForm);
+  return AuthForm;
+}( /*#__PURE__*/_wrapNativeSuper(HTMLFormElement)); // class LoginForm extends AuthForm {
+//   constructor() {
+//     super();
+//   }
+//   connectedCallback() {
+//     this.addEventListener('submit', (e) => {
+//       e.preventDefault();
+//       this.login(this.email.value, this.password.value);
+//     });
+//   }
+//   async login(email, password) {
+//     try {
+//       const res = await fetch(
+//         `${window.location.protocol}/api/v1/users/login`,
+//         {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify({ email, password }),
+//         }
+//       );
+//       const resData = await res.json();
+//       if (!res.ok) {
+//         const alert = new Alert('error', resData.message);
+//         return alert.showMessage();
+//       }
+//       new Alert(
+//         'success',
+//         `Logged in as: ${resData.data.user.name}`
+//       ).showMessage();
+//       setTimeout(() => location.assign('/'), 2000);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+// }
+// class SignupForm extends AuthForm {
+//   constructor() {
+//     super();
+//   }
+//   connectedCallback() {
+//     this.addEventListener('submit', (e) => {
+//       e.preventDefault();
+//       this.sendConfirmationToken({
+//         email: this.email.value,
+//         name: this.name.value,
+//         password: this.password.value,
+//         confirmPassword: this.confirmPassword.value,
+//       });
+//     });
+//   }
+//   async sendConfirmationToken(data) {
+//     try {
+//       // Button animation
+//       const button = this.querySelector('.form__button--send');
+//       const buttonText = button.textContent;
+//       button.innerHTML = `<div class="spinner"></div>`;
+//       // FETCH
+//       const res = await fetch(
+//         `${window.location.protocol}/api/v1/users/signup`,
+//         {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify(data),
+//         }
+//       );
+//       const resData = await res.json();
+//       button.innerHTML = buttonText;
+//       if (!res.ok) {
+//         return new Alert('error', resData.message).showMessage();
+//       }
+//       new Alert(
+//         'success',
+//         'Success, please confirm your email address'
+//       ).showMessage();
+//     } catch (err) {
+//       new Alert('error', err).showMessage();
+//     }
+//   }
+// }
+// class ForgotPasswordForm extends AuthForm {
+//   constructor() {
+//     super();
+//   }
+//   connectedCallback() {
+//     this.addEventListener('submit', (e) => {
+//       e.preventDefault();
+//       this.sendResetLink(this.email.value);
+//     });
+//   }
+//   async sendResetLink(email) {
+//     try {
+//       // Button anim
+//       const button = this.querySelector('.form__button--send');
+//       const buttonText = button.textContent;
+//       button.innerHTML = `<div class="spinner"></div>`;
+//       // FETCH
+//       const res = await fetch(
+//         `${window.location.protocol}/api/v1/users/forgotPassword`,
+//         {
+//           method: 'POST',
+//           headers: { 'Content-Type': 'application/json' },
+//           body: JSON.stringify({ email }),
+//         }
+//       );
+//       const resData = await res.json();
+//       button.innerHTML = buttonText;
+//       if (!res.ok) {
+//         return new Alert('error', resData.message).showMessage();
+//       }
+//       new Alert('success', 'Reset token has been sent!').showMessage();
+//     } catch (err) {
+//       new Alert('error', err).showMessage();
+//     }
+//   }
+// }
+// class ResetPasswordForm extends AuthForm {
+//   constructor() {
+//     super();
+//   }
+//   connectedCallback() {
+//     this.addEventListener('submit', (e) => {
+//       e.preventDefault();
+//       this.resetPassword(
+//         this.password.value,
+//         this.confirmPassword.value,
+//         this.dataset.token
+//       );
+//     });
+//   }
+//   async resetPassword(password, confirmPassword, token) {
+//     try {
+//       const res = await fetch(
+//         `${window.location.protocol}/api/v1/users/resetPassword/${token}`,
+//         {
+//           method: 'PATCH',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify({
+//             password,
+//             confirmPassword,
+//           }),
+//         }
+//       );
+//       const resData = await res.json();
+//       if (!res.ok) {
+//         return new Alert('error', resData.message).showMessage();
+//       }
+//       new Alert('success', 'Password reset successfully!').showMessage();
+//       setTimeout(() => location.assign('/'), 2000);
+//     } catch (err) {
+//       new Alert('error', err).showMessage();
+//     }
+//   }
+// }
 
-var authForm = {
-  loginForm: LoginForm,
-  forgotPasswordForm: ForgotPasswordForm,
-  resetPasswordForm: ResetPasswordForm,
-  signupForm: SignupForm
-};
-exports.authForm = authForm;
+
+exports.AuthForm = AuthForm;
 },{"./Alert":"Components/Alert.js"}],"Components/Multiselect.js":[function(require,module,exports) {
 "use strict";
 
@@ -8052,7 +8017,116 @@ exports.NestedTableFactory = NestedTableFactory;
 _defineProperty(NestedTableFactory, "dictionary", {
   AcceptanceCriteriaTable: AcceptanceCriteriaTable
 });
-},{"./Checkbox":"Components/Checkbox.js"}],"logout.js":[function(require,module,exports) {
+},{"./Checkbox":"Components/Checkbox.js"}],"Components/TabbedInterface.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TabbedInterface = void 0;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var TabbedInterface = /*#__PURE__*/function () {
+  function TabbedInterface(element) {
+    var _this = this;
+
+    _classCallCheck(this, TabbedInterface);
+
+    this.tabList = element.querySelector('.tabs__tablist');
+    this.tabButtons = this.tabList.querySelectorAll('.tabs__tab');
+    this.tabPanels = element.querySelectorAll('.tabs__tabpanel');
+    this._active = 0; // Init tablist vith values
+
+    this.init();
+    console.log(this.tabList);
+    console.log(this.tabButtons);
+    console.log(this.tabPanels); // Event listeners for keydown and mouseclick
+
+    this.tabButtons.forEach(function (button) {
+      button.addEventListener('click', _this.handleClick.bind(_this));
+    });
+  }
+
+  _createClass(TabbedInterface, [{
+    key: "init",
+    value: function init() {
+      this.tabList.setAttribute('role', 'tablist');
+      this.tabList.setAttribute('aria-orientation', 'vertical');
+      this.tabButtons.forEach(function (tab, index) {
+        if (index == 0) {
+          tab.classList.add('tabs__tab--active');
+        }
+
+        tab.setAttribute('role', 'tab');
+        tab.setAttribute('aria-controls', "panel_".concat(index));
+        tab.id = "tab_".concat(index);
+      });
+      this.tabPanels.forEach(function (panel, index) {
+        if (index == 0) {
+          panel.setAttribute('aria-selected', true);
+          panel.classList.add('tabs__tabpanel--active');
+        } else {
+          panel.setAttribute('aria-selected', false);
+        }
+
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', "tab_".concat(index));
+        panel.id = "panel_".concat(index);
+      });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      var button = e.target.closest('button');
+
+      var index = _toConsumableArray(this.tabButtons).indexOf(button);
+
+      this.active = index;
+    }
+  }, {
+    key: "active",
+    get: function get() {
+      return this._active;
+    },
+    set: function set(val) {
+      var oldActivePanel = this.tabPanels[this.active];
+      var oldActiveButton = this.tabButtons[this.active];
+      var newActivePanel = this.tabPanels[val];
+      var newActiveButton = this.tabButtons[val]; // Change oldActive selected to false
+
+      oldActivePanel.setAttribute('aria-selected', false);
+      oldActivePanel.classList.remove('tabs__tabpanel--active');
+      oldActiveButton.classList.remove('tabs__tab--active'); // Change newActive selected to true
+
+      newActivePanel.setAttribute('aria-selected', true);
+      newActivePanel.classList.add('tabs__tabpanel--active');
+      newActiveButton.classList.add('tabs__tab--active');
+      this._active = val;
+    }
+  }]);
+
+  return TabbedInterface;
+}();
+
+exports.TabbedInterface = TabbedInterface;
+},{}],"logout.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8383,14 +8457,26 @@ var _NestedTable = require("./Components/NestedTable");
 
 var _Checkbox = require("./Components/Checkbox");
 
+var _TabbedInterface = require("./Components/TabbedInterface");
+
 var _logout = require("./logout");
 
-var logoutBtn = document.querySelector('.menu__link--logout');
+// Components
 var multiSelects = document.querySelectorAll('.multiselect--user');
 var acTables = document.querySelectorAll('.nestedTable--ac');
 var checkboxes = document.querySelectorAll('.checkbox');
-var formTemplate = document.querySelector('.form-template');
 var datePickerFields = document.querySelectorAll('.form-template__input--date');
+var tabsMe = document.querySelector('.tabs--me'); // form templates
+
+var formTemplates = document.querySelectorAll('.form-template'); // auth forms
+
+var loginForm = document.querySelector('.form__body--login');
+var signupForm = document.querySelector('.form__body--signup');
+var resetPasswordForm = document.querySelector('.form__body--reset-password');
+var forgotPasswordForm = document.querySelector('.form__body--forgot-password');
+var updateMeForm = document.querySelector('.form__body--update-me');
+var updatePasswordForm = document.querySelector('.form__body--update-password');
+var logoutBtn = document.querySelector('.menu__link--logout');
 
 if (multiSelects.length > 0) {
   multiSelects.forEach(function (multiselect) {
@@ -8418,27 +8504,102 @@ if (datePickerFields.length > 0) {
   });
 }
 
-if (formTemplate) {
-  new _FormTemplate.FormTemplate(formTemplate);
+if (tabsMe) {
+  new _TabbedInterface.TabbedInterface(tabsMe);
+}
+
+if (formTemplates.length > 0) {
+  formTemplates.forEach(function (template) {
+    new _FormTemplate.FormTemplate(template);
+  });
+}
+
+if (loginForm) {
+  loginForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.collectBodyAndSend({
+      endpoint: "".concat(window.location.protocol, "/api/v1/users/login"),
+      method: 'POST'
+    }, 'User logged in', function () {
+      return setTimeout(function () {
+        return location.assign('/');
+      }, 2000);
+    });
+  });
+}
+
+if (signupForm) {
+  signupForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.collectBodyAndSend({
+      endpoint: "".concat(window.location.protocol, "/api/v1/users/signup"),
+      method: 'POST',
+      runSpinner: true
+    }, 'Success, please confirm your email address');
+  });
+}
+
+if (forgotPasswordForm) {
+  forgotPasswordForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.collectBodyAndSend({
+      endpoint: "".concat(window.location.protocol, "/api/v1/users/forgotPassword"),
+      method: 'POST',
+      runSpinner: true
+    }, 'Reset token sent, check your email');
+  });
+}
+
+if (resetPasswordForm) {
+  resetPasswordForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.collectBodyAndSend({
+      endpoint: "".concat(window.location.protocol, "/api/v1/users/resetPassword/").concat(resetPasswordForm.dataset.token),
+      method: 'PATCH'
+    }, 'Password reset successfully', function () {
+      return setTimeout(function () {
+        return location.assign('/');
+      }, 2000);
+    });
+  });
+}
+
+if (updateMeForm) {
+  updateMeForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.collectBodyAndSend({
+      endpoint: "".concat(window.location.protocol, "/api/v1/users/updateDetails"),
+      method: 'PATCH'
+    }, 'User details updated', function () {
+      return setTimeout(function () {
+        return location.assign(location.pathname);
+      }, 2000);
+    });
+  });
+}
+
+if (updatePasswordForm) {
+  updatePasswordForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    this.collectBodyAndSend({
+      endpoint: "".concat(window.location.protocol, "/api/v1/users/updatePassword"),
+      method: 'PATCH'
+    }, 'Password changed', function () {
+      return setTimeout(function () {
+        return location.assign(location.pathname);
+      }, 2000);
+    });
+  });
 }
 
 if (logoutBtn) {
   logoutBtn.addEventListener('click', _logout.logout);
 }
 
-customElements.define('login-form', _AuthForm.authForm.loginForm, {
+customElements.define('auth-form', _AuthForm.AuthForm, {
   extends: 'form'
 });
-customElements.define('signup-form', _AuthForm.authForm.signupForm, {
-  extends: 'form'
-});
-customElements.define('forgot-password-form', _AuthForm.authForm.forgotPasswordForm, {
-  extends: 'form'
-});
-customElements.define('reset-password-form', _AuthForm.authForm.resetPasswordForm, {
-  extends: 'form'
-});
-},{"core-js/modules/es6.array.copy-within":"../../../node_modules/core-js/modules/es6.array.copy-within.js","core-js/modules/es6.array.fill":"../../../node_modules/core-js/modules/es6.array.fill.js","core-js/modules/es6.array.find":"../../../node_modules/core-js/modules/es6.array.find.js","core-js/modules/es6.array.find-index":"../../../node_modules/core-js/modules/es6.array.find-index.js","core-js/modules/es7.array.flat-map":"../../../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.from":"../../../node_modules/core-js/modules/es6.array.from.js","core-js/modules/es7.array.includes":"../../../node_modules/core-js/modules/es7.array.includes.js","core-js/modules/es6.array.iterator":"../../../node_modules/core-js/modules/es6.array.iterator.js","core-js/modules/es6.array.of":"../../../node_modules/core-js/modules/es6.array.of.js","core-js/modules/es6.array.sort":"../../../node_modules/core-js/modules/es6.array.sort.js","core-js/modules/es6.array.species":"../../../node_modules/core-js/modules/es6.array.species.js","core-js/modules/es6.date.to-json":"../../../node_modules/core-js/modules/es6.date.to-json.js","core-js/modules/es6.date.to-primitive":"../../../node_modules/core-js/modules/es6.date.to-primitive.js","core-js/modules/es6.function.has-instance":"../../../node_modules/core-js/modules/es6.function.has-instance.js","core-js/modules/es6.function.name":"../../../node_modules/core-js/modules/es6.function.name.js","core-js/modules/es6.map":"../../../node_modules/core-js/modules/es6.map.js","core-js/modules/es6.math.acosh":"../../../node_modules/core-js/modules/es6.math.acosh.js","core-js/modules/es6.math.asinh":"../../../node_modules/core-js/modules/es6.math.asinh.js","core-js/modules/es6.math.atanh":"../../../node_modules/core-js/modules/es6.math.atanh.js","core-js/modules/es6.math.cbrt":"../../../node_modules/core-js/modules/es6.math.cbrt.js","core-js/modules/es6.math.clz32":"../../../node_modules/core-js/modules/es6.math.clz32.js","core-js/modules/es6.math.cosh":"../../../node_modules/core-js/modules/es6.math.cosh.js","core-js/modules/es6.math.expm1":"../../../node_modules/core-js/modules/es6.math.expm1.js","core-js/modules/es6.math.fround":"../../../node_modules/core-js/modules/es6.math.fround.js","core-js/modules/es6.math.hypot":"../../../node_modules/core-js/modules/es6.math.hypot.js","core-js/modules/es6.math.imul":"../../../node_modules/core-js/modules/es6.math.imul.js","core-js/modules/es6.math.log1p":"../../../node_modules/core-js/modules/es6.math.log1p.js","core-js/modules/es6.math.log10":"../../../node_modules/core-js/modules/es6.math.log10.js","core-js/modules/es6.math.log2":"../../../node_modules/core-js/modules/es6.math.log2.js","core-js/modules/es6.math.sign":"../../../node_modules/core-js/modules/es6.math.sign.js","core-js/modules/es6.math.sinh":"../../../node_modules/core-js/modules/es6.math.sinh.js","core-js/modules/es6.math.tanh":"../../../node_modules/core-js/modules/es6.math.tanh.js","core-js/modules/es6.math.trunc":"../../../node_modules/core-js/modules/es6.math.trunc.js","core-js/modules/es6.number.constructor":"../../../node_modules/core-js/modules/es6.number.constructor.js","core-js/modules/es6.number.epsilon":"../../../node_modules/core-js/modules/es6.number.epsilon.js","core-js/modules/es6.number.is-finite":"../../../node_modules/core-js/modules/es6.number.is-finite.js","core-js/modules/es6.number.is-integer":"../../../node_modules/core-js/modules/es6.number.is-integer.js","core-js/modules/es6.number.is-nan":"../../../node_modules/core-js/modules/es6.number.is-nan.js","core-js/modules/es6.number.is-safe-integer":"../../../node_modules/core-js/modules/es6.number.is-safe-integer.js","core-js/modules/es6.number.max-safe-integer":"../../../node_modules/core-js/modules/es6.number.max-safe-integer.js","core-js/modules/es6.number.min-safe-integer":"../../../node_modules/core-js/modules/es6.number.min-safe-integer.js","core-js/modules/es6.number.parse-float":"../../../node_modules/core-js/modules/es6.number.parse-float.js","core-js/modules/es6.number.parse-int":"../../../node_modules/core-js/modules/es6.number.parse-int.js","core-js/modules/es6.object.assign":"../../../node_modules/core-js/modules/es6.object.assign.js","core-js/modules/es7.object.define-getter":"../../../node_modules/core-js/modules/es7.object.define-getter.js","core-js/modules/es7.object.define-setter":"../../../node_modules/core-js/modules/es7.object.define-setter.js","core-js/modules/es7.object.entries":"../../../node_modules/core-js/modules/es7.object.entries.js","core-js/modules/es6.object.freeze":"../../../node_modules/core-js/modules/es6.object.freeze.js","core-js/modules/es6.object.get-own-property-descriptor":"../../../node_modules/core-js/modules/es6.object.get-own-property-descriptor.js","core-js/modules/es7.object.get-own-property-descriptors":"../../../node_modules/core-js/modules/es7.object.get-own-property-descriptors.js","core-js/modules/es6.object.get-own-property-names":"../../../node_modules/core-js/modules/es6.object.get-own-property-names.js","core-js/modules/es6.object.get-prototype-of":"../../../node_modules/core-js/modules/es6.object.get-prototype-of.js","core-js/modules/es7.object.lookup-getter":"../../../node_modules/core-js/modules/es7.object.lookup-getter.js","core-js/modules/es7.object.lookup-setter":"../../../node_modules/core-js/modules/es7.object.lookup-setter.js","core-js/modules/es6.object.prevent-extensions":"../../../node_modules/core-js/modules/es6.object.prevent-extensions.js","core-js/modules/es6.object.to-string":"../../../node_modules/core-js/modules/es6.object.to-string.js","core-js/modules/es6.object.is":"../../../node_modules/core-js/modules/es6.object.is.js","core-js/modules/es6.object.is-frozen":"../../../node_modules/core-js/modules/es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed":"../../../node_modules/core-js/modules/es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible":"../../../node_modules/core-js/modules/es6.object.is-extensible.js","core-js/modules/es6.object.keys":"../../../node_modules/core-js/modules/es6.object.keys.js","core-js/modules/es6.object.seal":"../../../node_modules/core-js/modules/es6.object.seal.js","core-js/modules/es7.object.values":"../../../node_modules/core-js/modules/es7.object.values.js","core-js/modules/es6.promise":"../../../node_modules/core-js/modules/es6.promise.js","core-js/modules/es7.promise.finally":"../../../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es6.reflect.apply":"../../../node_modules/core-js/modules/es6.reflect.apply.js","core-js/modules/es6.reflect.construct":"../../../node_modules/core-js/modules/es6.reflect.construct.js","core-js/modules/es6.reflect.define-property":"../../../node_modules/core-js/modules/es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property":"../../../node_modules/core-js/modules/es6.reflect.delete-property.js","core-js/modules/es6.reflect.get":"../../../node_modules/core-js/modules/es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor":"../../../node_modules/core-js/modules/es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of":"../../../node_modules/core-js/modules/es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has":"../../../node_modules/core-js/modules/es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible":"../../../node_modules/core-js/modules/es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys":"../../../node_modules/core-js/modules/es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions":"../../../node_modules/core-js/modules/es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set":"../../../node_modules/core-js/modules/es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of":"../../../node_modules/core-js/modules/es6.reflect.set-prototype-of.js","core-js/modules/es6.regexp.constructor":"../../../node_modules/core-js/modules/es6.regexp.constructor.js","core-js/modules/es6.regexp.flags":"../../../node_modules/core-js/modules/es6.regexp.flags.js","core-js/modules/es6.regexp.match":"../../../node_modules/core-js/modules/es6.regexp.match.js","core-js/modules/es6.regexp.replace":"../../../node_modules/core-js/modules/es6.regexp.replace.js","core-js/modules/es6.regexp.split":"../../../node_modules/core-js/modules/es6.regexp.split.js","core-js/modules/es6.regexp.search":"../../../node_modules/core-js/modules/es6.regexp.search.js","core-js/modules/es6.regexp.to-string":"../../../node_modules/core-js/modules/es6.regexp.to-string.js","core-js/modules/es6.set":"../../../node_modules/core-js/modules/es6.set.js","core-js/modules/es6.symbol":"../../../node_modules/core-js/modules/es6.symbol.js","core-js/modules/es7.symbol.async-iterator":"../../../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es6.string.anchor":"../../../node_modules/core-js/modules/es6.string.anchor.js","core-js/modules/es6.string.big":"../../../node_modules/core-js/modules/es6.string.big.js","core-js/modules/es6.string.blink":"../../../node_modules/core-js/modules/es6.string.blink.js","core-js/modules/es6.string.bold":"../../../node_modules/core-js/modules/es6.string.bold.js","core-js/modules/es6.string.code-point-at":"../../../node_modules/core-js/modules/es6.string.code-point-at.js","core-js/modules/es6.string.ends-with":"../../../node_modules/core-js/modules/es6.string.ends-with.js","core-js/modules/es6.string.fixed":"../../../node_modules/core-js/modules/es6.string.fixed.js","core-js/modules/es6.string.fontcolor":"../../../node_modules/core-js/modules/es6.string.fontcolor.js","core-js/modules/es6.string.fontsize":"../../../node_modules/core-js/modules/es6.string.fontsize.js","core-js/modules/es6.string.from-code-point":"../../../node_modules/core-js/modules/es6.string.from-code-point.js","core-js/modules/es6.string.includes":"../../../node_modules/core-js/modules/es6.string.includes.js","core-js/modules/es6.string.italics":"../../../node_modules/core-js/modules/es6.string.italics.js","core-js/modules/es6.string.iterator":"../../../node_modules/core-js/modules/es6.string.iterator.js","core-js/modules/es6.string.link":"../../../node_modules/core-js/modules/es6.string.link.js","core-js/modules/es7.string.pad-start":"../../../node_modules/core-js/modules/es7.string.pad-start.js","core-js/modules/es7.string.pad-end":"../../../node_modules/core-js/modules/es7.string.pad-end.js","core-js/modules/es6.string.raw":"../../../node_modules/core-js/modules/es6.string.raw.js","core-js/modules/es6.string.repeat":"../../../node_modules/core-js/modules/es6.string.repeat.js","core-js/modules/es6.string.small":"../../../node_modules/core-js/modules/es6.string.small.js","core-js/modules/es6.string.starts-with":"../../../node_modules/core-js/modules/es6.string.starts-with.js","core-js/modules/es6.string.strike":"../../../node_modules/core-js/modules/es6.string.strike.js","core-js/modules/es6.string.sub":"../../../node_modules/core-js/modules/es6.string.sub.js","core-js/modules/es6.string.sup":"../../../node_modules/core-js/modules/es6.string.sup.js","core-js/modules/es7.string.trim-left":"../../../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right":"../../../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/es6.typed.array-buffer":"../../../node_modules/core-js/modules/es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array":"../../../node_modules/core-js/modules/es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array":"../../../node_modules/core-js/modules/es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array":"../../../node_modules/core-js/modules/es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array":"../../../node_modules/core-js/modules/es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array":"../../../node_modules/core-js/modules/es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array":"../../../node_modules/core-js/modules/es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array":"../../../node_modules/core-js/modules/es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array":"../../../node_modules/core-js/modules/es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array":"../../../node_modules/core-js/modules/es6.typed.float64-array.js","core-js/modules/es6.weak-map":"../../../node_modules/core-js/modules/es6.weak-map.js","core-js/modules/es6.weak-set":"../../../node_modules/core-js/modules/es6.weak-set.js","core-js/modules/web.timers":"../../../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate":"../../../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable":"../../../node_modules/core-js/modules/web.dom.iterable.js","regenerator-runtime/runtime":"../../../node_modules/regenerator-runtime/runtime.js","./FormTemplate":"FormTemplate.js","./Components/AuthForm":"Components/AuthForm.js","./Components/Multiselect":"Components/Multiselect.js","./Components/NestedTable":"Components/NestedTable.js","./Components/Checkbox":"Components/Checkbox.js","./logout":"logout.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"core-js/modules/es6.array.copy-within":"../../../node_modules/core-js/modules/es6.array.copy-within.js","core-js/modules/es6.array.fill":"../../../node_modules/core-js/modules/es6.array.fill.js","core-js/modules/es6.array.find":"../../../node_modules/core-js/modules/es6.array.find.js","core-js/modules/es6.array.find-index":"../../../node_modules/core-js/modules/es6.array.find-index.js","core-js/modules/es7.array.flat-map":"../../../node_modules/core-js/modules/es7.array.flat-map.js","core-js/modules/es6.array.from":"../../../node_modules/core-js/modules/es6.array.from.js","core-js/modules/es7.array.includes":"../../../node_modules/core-js/modules/es7.array.includes.js","core-js/modules/es6.array.iterator":"../../../node_modules/core-js/modules/es6.array.iterator.js","core-js/modules/es6.array.of":"../../../node_modules/core-js/modules/es6.array.of.js","core-js/modules/es6.array.sort":"../../../node_modules/core-js/modules/es6.array.sort.js","core-js/modules/es6.array.species":"../../../node_modules/core-js/modules/es6.array.species.js","core-js/modules/es6.date.to-json":"../../../node_modules/core-js/modules/es6.date.to-json.js","core-js/modules/es6.date.to-primitive":"../../../node_modules/core-js/modules/es6.date.to-primitive.js","core-js/modules/es6.function.has-instance":"../../../node_modules/core-js/modules/es6.function.has-instance.js","core-js/modules/es6.function.name":"../../../node_modules/core-js/modules/es6.function.name.js","core-js/modules/es6.map":"../../../node_modules/core-js/modules/es6.map.js","core-js/modules/es6.math.acosh":"../../../node_modules/core-js/modules/es6.math.acosh.js","core-js/modules/es6.math.asinh":"../../../node_modules/core-js/modules/es6.math.asinh.js","core-js/modules/es6.math.atanh":"../../../node_modules/core-js/modules/es6.math.atanh.js","core-js/modules/es6.math.cbrt":"../../../node_modules/core-js/modules/es6.math.cbrt.js","core-js/modules/es6.math.clz32":"../../../node_modules/core-js/modules/es6.math.clz32.js","core-js/modules/es6.math.cosh":"../../../node_modules/core-js/modules/es6.math.cosh.js","core-js/modules/es6.math.expm1":"../../../node_modules/core-js/modules/es6.math.expm1.js","core-js/modules/es6.math.fround":"../../../node_modules/core-js/modules/es6.math.fround.js","core-js/modules/es6.math.hypot":"../../../node_modules/core-js/modules/es6.math.hypot.js","core-js/modules/es6.math.imul":"../../../node_modules/core-js/modules/es6.math.imul.js","core-js/modules/es6.math.log1p":"../../../node_modules/core-js/modules/es6.math.log1p.js","core-js/modules/es6.math.log10":"../../../node_modules/core-js/modules/es6.math.log10.js","core-js/modules/es6.math.log2":"../../../node_modules/core-js/modules/es6.math.log2.js","core-js/modules/es6.math.sign":"../../../node_modules/core-js/modules/es6.math.sign.js","core-js/modules/es6.math.sinh":"../../../node_modules/core-js/modules/es6.math.sinh.js","core-js/modules/es6.math.tanh":"../../../node_modules/core-js/modules/es6.math.tanh.js","core-js/modules/es6.math.trunc":"../../../node_modules/core-js/modules/es6.math.trunc.js","core-js/modules/es6.number.constructor":"../../../node_modules/core-js/modules/es6.number.constructor.js","core-js/modules/es6.number.epsilon":"../../../node_modules/core-js/modules/es6.number.epsilon.js","core-js/modules/es6.number.is-finite":"../../../node_modules/core-js/modules/es6.number.is-finite.js","core-js/modules/es6.number.is-integer":"../../../node_modules/core-js/modules/es6.number.is-integer.js","core-js/modules/es6.number.is-nan":"../../../node_modules/core-js/modules/es6.number.is-nan.js","core-js/modules/es6.number.is-safe-integer":"../../../node_modules/core-js/modules/es6.number.is-safe-integer.js","core-js/modules/es6.number.max-safe-integer":"../../../node_modules/core-js/modules/es6.number.max-safe-integer.js","core-js/modules/es6.number.min-safe-integer":"../../../node_modules/core-js/modules/es6.number.min-safe-integer.js","core-js/modules/es6.number.parse-float":"../../../node_modules/core-js/modules/es6.number.parse-float.js","core-js/modules/es6.number.parse-int":"../../../node_modules/core-js/modules/es6.number.parse-int.js","core-js/modules/es6.object.assign":"../../../node_modules/core-js/modules/es6.object.assign.js","core-js/modules/es7.object.define-getter":"../../../node_modules/core-js/modules/es7.object.define-getter.js","core-js/modules/es7.object.define-setter":"../../../node_modules/core-js/modules/es7.object.define-setter.js","core-js/modules/es7.object.entries":"../../../node_modules/core-js/modules/es7.object.entries.js","core-js/modules/es6.object.freeze":"../../../node_modules/core-js/modules/es6.object.freeze.js","core-js/modules/es6.object.get-own-property-descriptor":"../../../node_modules/core-js/modules/es6.object.get-own-property-descriptor.js","core-js/modules/es7.object.get-own-property-descriptors":"../../../node_modules/core-js/modules/es7.object.get-own-property-descriptors.js","core-js/modules/es6.object.get-own-property-names":"../../../node_modules/core-js/modules/es6.object.get-own-property-names.js","core-js/modules/es6.object.get-prototype-of":"../../../node_modules/core-js/modules/es6.object.get-prototype-of.js","core-js/modules/es7.object.lookup-getter":"../../../node_modules/core-js/modules/es7.object.lookup-getter.js","core-js/modules/es7.object.lookup-setter":"../../../node_modules/core-js/modules/es7.object.lookup-setter.js","core-js/modules/es6.object.prevent-extensions":"../../../node_modules/core-js/modules/es6.object.prevent-extensions.js","core-js/modules/es6.object.to-string":"../../../node_modules/core-js/modules/es6.object.to-string.js","core-js/modules/es6.object.is":"../../../node_modules/core-js/modules/es6.object.is.js","core-js/modules/es6.object.is-frozen":"../../../node_modules/core-js/modules/es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed":"../../../node_modules/core-js/modules/es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible":"../../../node_modules/core-js/modules/es6.object.is-extensible.js","core-js/modules/es6.object.keys":"../../../node_modules/core-js/modules/es6.object.keys.js","core-js/modules/es6.object.seal":"../../../node_modules/core-js/modules/es6.object.seal.js","core-js/modules/es7.object.values":"../../../node_modules/core-js/modules/es7.object.values.js","core-js/modules/es6.promise":"../../../node_modules/core-js/modules/es6.promise.js","core-js/modules/es7.promise.finally":"../../../node_modules/core-js/modules/es7.promise.finally.js","core-js/modules/es6.reflect.apply":"../../../node_modules/core-js/modules/es6.reflect.apply.js","core-js/modules/es6.reflect.construct":"../../../node_modules/core-js/modules/es6.reflect.construct.js","core-js/modules/es6.reflect.define-property":"../../../node_modules/core-js/modules/es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property":"../../../node_modules/core-js/modules/es6.reflect.delete-property.js","core-js/modules/es6.reflect.get":"../../../node_modules/core-js/modules/es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor":"../../../node_modules/core-js/modules/es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of":"../../../node_modules/core-js/modules/es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has":"../../../node_modules/core-js/modules/es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible":"../../../node_modules/core-js/modules/es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys":"../../../node_modules/core-js/modules/es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions":"../../../node_modules/core-js/modules/es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set":"../../../node_modules/core-js/modules/es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of":"../../../node_modules/core-js/modules/es6.reflect.set-prototype-of.js","core-js/modules/es6.regexp.constructor":"../../../node_modules/core-js/modules/es6.regexp.constructor.js","core-js/modules/es6.regexp.flags":"../../../node_modules/core-js/modules/es6.regexp.flags.js","core-js/modules/es6.regexp.match":"../../../node_modules/core-js/modules/es6.regexp.match.js","core-js/modules/es6.regexp.replace":"../../../node_modules/core-js/modules/es6.regexp.replace.js","core-js/modules/es6.regexp.split":"../../../node_modules/core-js/modules/es6.regexp.split.js","core-js/modules/es6.regexp.search":"../../../node_modules/core-js/modules/es6.regexp.search.js","core-js/modules/es6.regexp.to-string":"../../../node_modules/core-js/modules/es6.regexp.to-string.js","core-js/modules/es6.set":"../../../node_modules/core-js/modules/es6.set.js","core-js/modules/es6.symbol":"../../../node_modules/core-js/modules/es6.symbol.js","core-js/modules/es7.symbol.async-iterator":"../../../node_modules/core-js/modules/es7.symbol.async-iterator.js","core-js/modules/es6.string.anchor":"../../../node_modules/core-js/modules/es6.string.anchor.js","core-js/modules/es6.string.big":"../../../node_modules/core-js/modules/es6.string.big.js","core-js/modules/es6.string.blink":"../../../node_modules/core-js/modules/es6.string.blink.js","core-js/modules/es6.string.bold":"../../../node_modules/core-js/modules/es6.string.bold.js","core-js/modules/es6.string.code-point-at":"../../../node_modules/core-js/modules/es6.string.code-point-at.js","core-js/modules/es6.string.ends-with":"../../../node_modules/core-js/modules/es6.string.ends-with.js","core-js/modules/es6.string.fixed":"../../../node_modules/core-js/modules/es6.string.fixed.js","core-js/modules/es6.string.fontcolor":"../../../node_modules/core-js/modules/es6.string.fontcolor.js","core-js/modules/es6.string.fontsize":"../../../node_modules/core-js/modules/es6.string.fontsize.js","core-js/modules/es6.string.from-code-point":"../../../node_modules/core-js/modules/es6.string.from-code-point.js","core-js/modules/es6.string.includes":"../../../node_modules/core-js/modules/es6.string.includes.js","core-js/modules/es6.string.italics":"../../../node_modules/core-js/modules/es6.string.italics.js","core-js/modules/es6.string.iterator":"../../../node_modules/core-js/modules/es6.string.iterator.js","core-js/modules/es6.string.link":"../../../node_modules/core-js/modules/es6.string.link.js","core-js/modules/es7.string.pad-start":"../../../node_modules/core-js/modules/es7.string.pad-start.js","core-js/modules/es7.string.pad-end":"../../../node_modules/core-js/modules/es7.string.pad-end.js","core-js/modules/es6.string.raw":"../../../node_modules/core-js/modules/es6.string.raw.js","core-js/modules/es6.string.repeat":"../../../node_modules/core-js/modules/es6.string.repeat.js","core-js/modules/es6.string.small":"../../../node_modules/core-js/modules/es6.string.small.js","core-js/modules/es6.string.starts-with":"../../../node_modules/core-js/modules/es6.string.starts-with.js","core-js/modules/es6.string.strike":"../../../node_modules/core-js/modules/es6.string.strike.js","core-js/modules/es6.string.sub":"../../../node_modules/core-js/modules/es6.string.sub.js","core-js/modules/es6.string.sup":"../../../node_modules/core-js/modules/es6.string.sup.js","core-js/modules/es7.string.trim-left":"../../../node_modules/core-js/modules/es7.string.trim-left.js","core-js/modules/es7.string.trim-right":"../../../node_modules/core-js/modules/es7.string.trim-right.js","core-js/modules/es6.typed.array-buffer":"../../../node_modules/core-js/modules/es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array":"../../../node_modules/core-js/modules/es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array":"../../../node_modules/core-js/modules/es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array":"../../../node_modules/core-js/modules/es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array":"../../../node_modules/core-js/modules/es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array":"../../../node_modules/core-js/modules/es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array":"../../../node_modules/core-js/modules/es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array":"../../../node_modules/core-js/modules/es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array":"../../../node_modules/core-js/modules/es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array":"../../../node_modules/core-js/modules/es6.typed.float64-array.js","core-js/modules/es6.weak-map":"../../../node_modules/core-js/modules/es6.weak-map.js","core-js/modules/es6.weak-set":"../../../node_modules/core-js/modules/es6.weak-set.js","core-js/modules/web.timers":"../../../node_modules/core-js/modules/web.timers.js","core-js/modules/web.immediate":"../../../node_modules/core-js/modules/web.immediate.js","core-js/modules/web.dom.iterable":"../../../node_modules/core-js/modules/web.dom.iterable.js","regenerator-runtime/runtime":"../../../node_modules/regenerator-runtime/runtime.js","./FormTemplate":"FormTemplate.js","./Components/AuthForm":"Components/AuthForm.js","./Components/Multiselect":"Components/Multiselect.js","./Components/NestedTable":"Components/NestedTable.js","./Components/Checkbox":"Components/Checkbox.js","./Components/TabbedInterface":"Components/TabbedInterface.js","./logout":"logout.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -8466,7 +8627,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51040" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51139" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

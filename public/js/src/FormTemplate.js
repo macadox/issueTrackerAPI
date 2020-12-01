@@ -1,14 +1,29 @@
 import { Alert } from './Components/Alert';
 
+const unload = (e) => {
+  e.preventDefault();
+  e.returnValue = 'Are you sure you want to leave?';
+};
+
+const removeBeforeUnload = () => {
+  window.removeEventListener('beforeunload', unload);
+};
+
 export class FormTemplate {
   constructor(form) {
     this.form = form;
+    this.formResource = this.form.dataset.resource;
+    this.formId = this.form.dataset.id
     const deleteBtn = document.querySelector('#deleteFormBtn');
+    // console.log(this.form);
 
+    if (/(\/update|\/create)$/.test(window.location.pathname)) {
+      console.log('added before unload')
+      window.addEventListener('beforeunload', unload);
+    }
     if (deleteBtn) {
       deleteBtn.addEventListener('click', this.deleteForm.bind(this));
     }
-
     this.form.addEventListener('submit', this.saveForm.bind(this));
   }
 
@@ -23,6 +38,7 @@ export class FormTemplate {
 
   async saveForm(e) {
     e.preventDefault();
+    console.log('should prompt save')
     const bodyObj = {};
     const formData = new FormData(this.form);
     // Build body object
@@ -36,20 +52,20 @@ export class FormTemplate {
     }
     let args = [];
     if (/create$/gi.test(location.pathname)) {
-      args = [this.form.dataset.resource, 'POST', bodyObj];
+      args = [this.formResource, 'POST', bodyObj];
     } else if (/update$/gi.test(location.pathname)) {
       args = [
-        this.form.dataset.resource,
+        this.formResource,
         'PATCH',
         bodyObj,
-        this.form.dataset.id,
+        this.formId,
       ];
     } else {
       return new Alert('error', 'We do not cover that kind of request!');
     }
 
-    console.log(bodyObj);
-    await this.createReq(...args);
+    removeBeforeUnload();
+    // await this.createReq(...args);
   }
 
   async createReq(resource, method, body, projectId) {
@@ -90,10 +106,11 @@ export class FormTemplate {
     //   Later add some custom delete
     const result = confirm('Do you really want to delete the form?');
     if (!result) return;
+    removeBeforeUnload();
 
     try {
       const res = await fetch(
-        `${window.location.protocol}/api/v1/${this.form.dataset.resource}/${this.form.dataset.id}`,
+        `${window.location.protocol}/api/v1/${this.formResource}/${this.formId}`,
         {
           method: 'DELETE',
         }
@@ -106,7 +123,7 @@ export class FormTemplate {
       setTimeout(
         () =>
           location.assign(
-            `${window.location.protocol}/${this.form.dataset.resource}`,
+            `${window.location.protocol}/${this.formResource}`,
             3000
           ),
         2000
