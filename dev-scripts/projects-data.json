@@ -11,7 +11,7 @@
     "prefix": "AA01",
     "deadline": "2020-11-14",
     "startDate": "2020-10-01",
-    "owner": "5fba548657c77e2d803c869d",
+    "teamLead": "5fba548657c77e2d803c869d",
     "icon": "https://loremicon.com/grad/128/128/7475176/jpeg"
   },
   {
@@ -30,7 +30,7 @@
     "prefix": "ISS1",
     "deadline": "2020-12-31",
     "startDate": "2020-11-01",
-    "owner": "5fba548657c77e2d803c869d",
+    "teamLead": "5fba548657c77e2d803c869d",
     "icon": "https://loremicon.com/grad/128/128/3025648/jpeg"
   },
   {
@@ -48,7 +48,7 @@
     "prefix": "QCDL",
     "deadline": "2020-11-27",
     "startDate": "2020-10-29",
-    "owner": "5fba54dadad2496b80d047d6",
+    "teamLead": "5fba54dadad2496b80d047d6",
     "icon": "https://loremicon.com/grad/128/128/9431673/jpeg"
   },
   {
@@ -67,7 +67,7 @@
     "prefix": "VBUG",
     "deadline": "2020-10-12",
     "startDate": "2020-10-05",
-    "owner": "5fba54eadad2496b80d047d7",
+    "teamLead": "5fba54eadad2496b80d047d7",
     "icon": "https://loremicon.com/grad/128/128/3678139/jpeg"
   },
   {
@@ -86,7 +86,7 @@
     "prefix": "VBRA",
     "deadline": "2020-10-23",
     "startDate": "2020-09-30",
-    "owner": "5fba54eadad2496b80d047d7",
+    "teamLead": "5fba54eadad2496b80d047d7",
     "icon": "https://loremicon.com/grad/128/128/4190390/jpeg"
   },
   {
@@ -106,7 +106,7 @@
     "prefix": "SDBB",
     "deadline": "2020-09-10",
     "startDate": "2020-07-27",
-    "owner": "5fba54eadad2496b80d047d7",
+    "teamLead": "5fba54eadad2496b80d047d7",
     "icon": "https://loremicon.com/grad/128/128/3129926/jpeg"
   },
   {
@@ -127,7 +127,7 @@
     "prefix": "HTML",
     "deadline": "2020-12-31",
     "startDate": "2020-11-22",
-    "owner": "5fba54dadad2496b80d047d6",
+    "teamLead": "5fba54dadad2496b80d047d6",
     "icon": "https://loremicon.com/grad/128/128/9855856/jpeg"
   }
 ]

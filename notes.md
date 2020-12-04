@@ -48,11 +48,11 @@
 - Prepare editable table component for acceptance Criteria [x]
 - Prepare Datepicker [x]
 - Add alerts when changing page if form is opened [x]
+- Implement Breadcrumbs [x]
 
 #### Todo
 - save grid/table view preference in local storage [ ]
 - Prepare validator on the forms [ ]
-- Implement Breadcrumbs [ ]
 - Add sorting and filtering options on lists, tabular data [ ]
 - Find another way to collect NESTED data in Array than stringifying into an input [ ]
 ### Modules

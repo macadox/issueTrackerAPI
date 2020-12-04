@@ -13,11 +13,11 @@ block content
     main.main
         .breadcrumb-container
             ol.breadcrumb
-                li.breadcrumb__item: a.breadcrumb__link(href=`#`) Admin
-                li.breadcrumb__item: a.breadcrumb__link(href=`#`) Admin - Users
+                li.breadcrumb__item: a.breadcrumb__link(href=`/admin`) Admin
+                li.breadcrumb__item: a.breadcrumb__link= `${editedUser ? editedUser.name : 'Add new user'}`
 
         .wrapper--app
-            h1.heading-page= title
+            h1.heading-title= title
             .app__header
                 if (formMode !== 'preview')
                     a(href=`/admin`).btn.btn--small.btn--light.align--left Back to Admin panel

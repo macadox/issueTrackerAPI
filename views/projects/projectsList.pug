@@ -1,12 +1,15 @@
 extends ./../base.pug
 
+append head
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous")
+
 block content
     main.main
         .breadcrumb-container
             ol.breadcrumb
-                li.breadcrumb__item: a.breadcrumb__link(href=`#`) PROJECTS
+                li.breadcrumb__item: a.breadcrumb__link PROJECTS
         .wrapper--app
-            h1.heading-page My projects
+            h1.heading-title My projects
             .app__header
                 input.search-input(type="text", aria-label="Search for a project", placeholder="Search for a project")
                 a(href="/projects/create").btn.btn--small.btn--light.align--right Create a new project
@@ -17,32 +20,32 @@ block content
                         th.list__heading Prefix
                         th.list__heading Project
                         th.list__heading Description
-                        th.list__heading Owner
+                        th.list__heading Project Lead
                         th.list__heading Deadline
                         th.list__heading Status
                         th.list__heading Progress
-                        th.list__heading Assignees
+                        th.list__heading Team Members
                         th.list__heading Action
                     each project in projects
                         tr.list__row
                             td.list__data
-                                a.list__content(href=`/projects/${project._id}/preview`)= project.prefix
+                                a.list__content(href=`/projects/${project._id}/issues`)= project.prefix
                                 - const nameLength = 35
                             td.list__data
-                                a.list__content(href=`/projects/${project._id}/preview`)= `${(project.name.length > nameLength) ? project.name.slice(0, nameLength) + project.name.slice(nameLength).split(' ')[0] + '...' : project.name}`
+                                a.list__content(href=`/projects/${project._id}/issues`)= `${(project.name.length > nameLength) ? project.name.slice(0, nameLength) + project.name.slice(nameLength).split(' ')[0] + '...' : project.name}`
                                 - const descriptionLength = 50
                             td.list__data
-                                a.list__content(href=`/projects/${project._id}/preview`)= `${(project.description.length > descriptionLength) ? project.description.slice(0, descriptionLength) + project.description.slice(descriptionLength).split(' ')[0] + '...' : project.description}`
+                                a.list__content(href=`/projects/${project._id}/issues`)= `${(project.description.length > descriptionLength) ? project.description.slice(0, descriptionLength) + project.description.slice(descriptionLength).split(' ')[0] + '...' : project.description}`
                             td.list__data
-                                a.list__content(href=`/projects/${project._id}/preview`)= project.owner.name
+                                a.list__content(href=`/projects/${project._id}/issues`)= project.teamLead.name
                             td.list__data
-                                a.list__content(href=`/projects/${project._id}/preview`)= `${project.deadline ? project.deadline.toLocaleDateString('en-GB') : ''}`
+                                a.list__content(href=`/projects/${project._id}/issues`)= `${project.deadline ? project.deadline.toLocaleDateString('en-GB') : ''}`
                             td.list__data
-                                a.list__content(href=`/projects/${project._id}/preview`)= project.status
+                                a.list__content(href=`/projects/${project._id}/issues`)= project.status
                             td.list__data
-                                a.list__content(href=`/projects/${project._id}/preview`)= `${project.progress}%`
+                                a.list__content(href=`/projects/${project._id}/issues`)= `${project.progress}%`
                             td.list__data
-                                a.list__content(href=`/projects/${project._id}/preview`) 
+                                a.list__content(href=`/projects/${project._id}/issues`) 
                                     .team-members
                                         - const numPortraits = 3
                                         - if (project.teamMembers.length > numPortraits)
@@ -53,4 +56,4 @@ block content
                                             each member in project.teamMembers
                                                 img.team-members__user-icon--list(src=`/img/users/${member.photo}`, alt=`${member.name}`)
                             td.list__data
-                                a(href=`/projects/${project._id}/issues`).btn.btn--small.btn--light Issues
+                                a(href=`/projects/${project._id}/preview`).btn.btn--icon.btn--transparent: <i class="far fa-edit"></i>

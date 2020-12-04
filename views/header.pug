@@ -15,7 +15,8 @@ header
             if user
                 +menuItem('dashboard.svg', 'Dashboard', '/dashboard')
                 +menuItem('briefing.svg', 'Projects', '/projects')
-                +menuItem('settings.svg', 'Admin', '/admin')
+                if (user.roles.includes('admin'))
+                    +menuItem('settings.svg', 'Admin', '/admin')
                 +menuItem('user.svg', 'User', '/me')
                 li.menu__item: button.btn.menu__link.menu__link--logout
                     img.menu__icon(src=`/img/ui/logout.svg`, alt=`logout icon`, class=`menu__icon--logout}`, role="menuitem")

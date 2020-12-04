@@ -76,14 +76,14 @@ exports.getProjectDetails = catchAsync(async (req, res, next) => {
 
   if (req.query.grid) {
     res.status(200).render('issues/issuesGrid', {
-      title: 'Project name',
+      title: 'Issue list',
       issues,
       projectId: req.params.projectId,
       active: 'Projects',
     });
   } else {
     res.status(200).render('issues/issuesList', {
-      title: 'Project name',
+      title: 'Issue list',
       issues,
       projectId: req.params.projectId,
       active: 'Projects',
@@ -106,10 +106,8 @@ exports.getProjectForm = catchAsync(async (req, res, next) => {
   res.status(200).render('projects/projectForm', {
     title:
       mode == 'create'
-        ? 'Create a new project'
-        : mode == 'update'
-        ? `Update project ${project.prefix}`
-        : `Preview project ${project.prefix}`,
+        ? 'New project'
+        : `${project.name}`,
     formMode: mode,
     users,
     project,
@@ -144,10 +142,8 @@ exports.getIssueForm = catchAsync(async (req, res, next) => {
   res.status(200).render('issues/issueForm', {
     title:
       mode == 'create'
-        ? 'Submit a new issue'
-        : mode == 'update'
-        ? `Update issue ${issue.issueId}`
-        : `Preview issue ${issue.issueId}`,
+        ? 'New issue'
+        : `${issue.name}`,
     formMode: mode,
     projectId: req.params.projectId,
     users,
@@ -184,10 +180,8 @@ exports.getUserForm = catchAsync(async (req, res, next) => {
   res.status(200).render('admin/forms/userForm.pug', {
     title:
       mode == 'create'
-        ? 'Create a new user'
-        : mode == 'update'
-        ? `Update user ${user.name}`
-        : `Preview user ${user.name}`,
+        ? 'New User'
+        : `${user.name}`,
     formMode: mode,
     active: 'Admin',
     editedUser: user,

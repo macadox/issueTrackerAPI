@@ -7,7 +7,7 @@ exports.getAllProjects = factory.getAll(Project);
 exports.getProject = factory.getOne(Project);
 exports.createProject = catchAsync(async (req, res, next) => {
   // Allow nested route
-  if (!req.body.owner) req.body.owner = req.user.id;
+  if (!req.body.teamLead) req.body.teamLead = req.user.id;
 
   const newDoc = await Project.create(req.body);
 

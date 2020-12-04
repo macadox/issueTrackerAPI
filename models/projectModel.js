@@ -69,10 +69,10 @@ const projectSchema = mongoose.Schema(
     endDate: {
       type: Date,
     },
-    owner: {
+    teamLead: {
       type: mongoose.Schema.ObjectId,
       ref: 'User',
-      required: [true, 'A project must have an owner'],
+      required: [true, 'A project must have a team lead!'],
     },
     teamMembers: [
       {
@@ -92,7 +92,7 @@ const projectSchema = mongoose.Schema(
 //   // console.log(req)
 //   this.p = await this.findOne()
 //   console.log(this.p);
-//   // this.find({ $or: [{ owner: req.user._id }, { teamMembers: req.user._id }] });
+//   // this.find({ $or: [{ teamLead: req.user._id }, { teamMembers: req.user._id }] });
 //   next();
 // });
 
@@ -102,7 +102,7 @@ projectSchema.virtual('numIssues').get(function () {
 
 projectSchema.pre(/^find/, function (next) {
   this.populate({
-    path: 'owner teamMembers',
+    path: 'teamLead teamMembers',
     select: '-roles',
   });
 

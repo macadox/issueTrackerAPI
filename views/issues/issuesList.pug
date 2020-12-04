@@ -4,12 +4,10 @@ block content
     main.main
         .breadcrumb-container
             ol.breadcrumb
-                li.breadcrumb__item: a.breadcrumb__link(href=`#`) PROJECTS
-                li.breadcrumb__item: a.breadcrumb__link(href=`#`) PROJECT#AADD
-                li.breadcrumb__item: a.breadcrumb__link(href=`#`) ISSUES
-                //- li.breadcrumb__item: a.breadcrumb__link(href=`#`) ISSUE#AADD-001
+                li.breadcrumb__item: a.breadcrumb__link(href=`/projects`) PROJECTS
+                li.breadcrumb__item: a.breadcrumb__link ISSUES
         .wrapper--app
-            h1.heading-page= title
+            h1.heading-title= title
             .app__header
                 a(href=`/projects`).btn.btn--small.btn--light.align--left Back to Projects
                 a(href=`/projects/${projectId}/issues/create`).btn.btn--small.btn--light.align--right Submit a new issue

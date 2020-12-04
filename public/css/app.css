@@ -259,6 +259,11 @@ footer {
   padding: 0.5em 1em;
 }
 
+.btn--icon {
+  font-size: 1.8rem;
+  margin: 0.5em 0.3em;
+}
+
 .btn--dark {
   color: #f2f2f2;
   background-color: #374056;
@@ -277,6 +282,18 @@ footer {
 .btn--light:focus,
 .btn--light:hover {
   background-color: #374056;
+}
+
+.btn--transparent {
+  color: #6e778d;
+  background-color: transparent;
+  opacity: 0.6;
+}
+
+.btn--transparent:focus,
+.btn--transparent:hover {
+  opacity: 1
+  ;
 }
 
 .btn--noflex-start {
