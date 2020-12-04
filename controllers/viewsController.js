@@ -41,8 +41,9 @@ exports.getResetPasswordForm = (req, res) => {
 };
 
 exports.getMe = (req, res) => {
-  res.status(200).render('users/user', {
-    title: 'Account'
+  res.status(200).render('account/user', {
+    title: 'Account',
+    active: 'User'
   })
 }
 
@@ -52,13 +53,13 @@ exports.getAllProjects = catchAsync(async (req, res, next) => {
   else req.query.grid = true;
 
   if (req.query.grid) {
-    res.status(200).render('projects/gridProjects', {
+    res.status(200).render('projects/projectsGrid', {
       title: 'My projects',
       projects,
       active: 'Projects',
     });
   } else {
-    res.status(200).render('projects/listProjects', {
+    res.status(200).render('projects/projectsList', {
       title: 'My projects',
       projects,
       active: 'Projects',
@@ -74,14 +75,14 @@ exports.getProjectDetails = catchAsync(async (req, res, next) => {
   else req.query.grid = true;
 
   if (req.query.grid) {
-    res.status(200).render('issues/gridIssues', {
+    res.status(200).render('issues/issuesGrid', {
       title: 'Project name',
       issues,
       projectId: req.params.projectId,
       active: 'Projects',
     });
   } else {
-    res.status(200).render('issues/listIssues', {
+    res.status(200).render('issues/issuesList', {
       title: 'Project name',
       issues,
       projectId: req.params.projectId,
@@ -154,5 +155,42 @@ exports.getIssueForm = catchAsync(async (req, res, next) => {
     active: 'Projects',
     statusOptions: Issue.schema.path('status').enumValues,
     priorityOptions: Issue.schema.path('priority').enumValues
+  });
+});
+
+// Restricted
+
+exports.getAdminPanel = catchAsync( async(req, res, next) => {
+  const users = await User.find().select('+createdOn');
+
+  res.status(200).render('admin/admin', {
+    title: 'Admin panel',
+    users,
+    active: 'Admin'
+  })
+})
+
+exports.getUserForm = catchAsync(async (req, res, next) => {
+  let user;
+  const parts = req.path.split('/');
+  const mode = parts[parts.length - 1];
+
+  if (mode !== 'create') {
+    user = await User.findById(req.params.userId);
+    if (!user)
+      return next(new AppError('There is no user with such id!', 404));
+  }
+
+  res.status(200).render('admin/forms/userForm.pug', {
+    title:
+      mode == 'create'
+        ? 'Create a new user'
+        : mode == 'update'
+        ? `Update user ${user.name}`
+        : `Preview user ${user.name}`,
+    formMode: mode,
+    active: 'Admin',
+    editedUser: user,
+    rolesOptions: User.schema.path('roles.0').enumValues,
   });
 });

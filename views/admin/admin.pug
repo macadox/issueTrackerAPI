@@ -1,0 +1,19 @@
+extends ./../base.pug
+
+append head
+    link(rel="stylesheet", href="/css/form-template.css")
+    link(rel="stylesheet", href="/css/spinner.css")
+
+block content
+    main.main
+        .wrapper--app
+            .app__header
+                h1#adminPanel.heading-title= title
+            .app__content
+                .tabs
+                    .tabs__tablist-container
+                        .tabs__tablist(aria-labelledby="adminPanel")
+                            button.tabs__tab Users
+                    .tabs__tabpanel
+                        .wrapper--admin-list
+                            include ./includes/usersList.pug

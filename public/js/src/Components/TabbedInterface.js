@@ -7,9 +7,6 @@ export class TabbedInterface {
 
     // Init tablist vith values
     this.init();
-    console.log(this.tabList);
-    console.log(this.tabButtons);
-    console.log(this.tabPanels);
     // Event listeners for keydown and mouseclick
     this.tabButtons.forEach((button) => {
       button.addEventListener('click', this.handleClick.bind(this));

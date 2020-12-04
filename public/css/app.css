@@ -311,7 +311,7 @@ footer {
   align-items: center;
 }
 
-.form-wrapper {
+.wrapper--form {
   padding: 3.5em 5em 0 5em;
   background-color: #ffffff;
   border-radius: 4px;
@@ -319,7 +319,7 @@ footer {
   /* Boxshadow? */
 }
 
-.form-wrapper--user {
+.wrapper--user-form {
   margin-left: auto;
   margin-right: auto;
 }
@@ -465,10 +465,11 @@ footer {
 .form__photo-upload {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .form__upload {
-width: 2px;
+  display: none;
 }
 
 .form__user-photo {
@@ -501,18 +502,23 @@ width: 2px;
     color: red;
 } */
 
-.app-wrapper {
+.wrapper--app {
   padding: 2em;
 }
 
-.app-wrapper > * + * {
+.wrapper--app > * + * {
   margin-top: 2em;
 }
 
-.app__header {
+.app__header,
+.tab__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.tab__header {
+  margin-bottom: 2em;
 }
 
 /* GRID VIEW */
@@ -838,8 +844,8 @@ width: 2px;
 }
 
 .error__message {
-    font-size: 1.8rem;
-    color: inherit;
+  font-size: 1.8rem;
+  color: inherit;
 }
 
 .checkbox {
@@ -850,6 +856,7 @@ width: 2px;
   border-radius: 4px;
   cursor: pointer;
   position: relative;
+  margin-top: 4px;
 }
 
 .checkbox:focus {
@@ -857,9 +864,9 @@ width: 2px;
 }
 
 .checkbox--checked::before {
-  content: "";
+  content: '';
   position: absolute;
-  top:8px;
+  top: 8px;
   left: 1px;
   width: 5px;
   height: 1px;
@@ -868,7 +875,7 @@ width: 2px;
 }
 
 .checkbox--checked::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 6px;
   left: 3px;
@@ -890,7 +897,7 @@ width: 2px;
 
 .tabs__tablist-container {
   flex-basis: 20%;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
 }
 
 .tabs__tablist {
@@ -935,4 +942,9 @@ width: 2px;
 
 .tabs__tabpanel--active {
   display: flex;
+}
+
+.wrapper--admin-list {
+  width: 100%;
+  padding: 3em;
 }

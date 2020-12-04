@@ -6677,6 +6677,14 @@ exports.FormTemplate = void 0;
 
 var _Alert = require("./Components/Alert");
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -6707,8 +6715,10 @@ var FormTemplate = /*#__PURE__*/function () {
     _classCallCheck(this, FormTemplate);
 
     this.form = form;
-    this.formResource = this.form.dataset.resource;
-    this.formId = this.form.dataset.id;
+    this.optionalRoute = this.form.dataset.optionalroute ? this.form.dataset.optionalroute + '/' : '';
+    this.redirectRoute = this.form.dataset.redirectroute ? this.form.dataset.redirectroute + '/' : this.optionalRoute;
+    this.resource = this.form.dataset.resource;
+    this.documentId = this.form.dataset.id;
     var deleteBtn = document.querySelector('#deleteFormBtn'); // console.log(this.form);
 
     if (/(\/update|\/create)$/.test(window.location.pathname)) {
@@ -6838,7 +6848,7 @@ var FormTemplate = /*#__PURE__*/function () {
                   break;
                 }
 
-                args = [this.formResource, 'POST', bodyObj];
+                args = [this.resource, 'POST', bodyObj, this.optionalRoute];
                 _context2.next = 38;
                 break;
 
@@ -6848,7 +6858,7 @@ var FormTemplate = /*#__PURE__*/function () {
                   break;
                 }
 
-                args = [this.formResource, 'PATCH', bodyObj, this.formId];
+                args = [this.resource, 'PATCH', bodyObj, this.optionalRoute];
                 _context2.next = 38;
                 break;
 
@@ -6856,9 +6866,12 @@ var FormTemplate = /*#__PURE__*/function () {
                 return _context2.abrupt("return", new _Alert.Alert('error', 'We do not cover that kind of request!'));
 
               case 38:
-                removeBeforeUnload(); // await this.createReq(...args);
+                console.log(bodyObj);
+                removeBeforeUnload();
+                _context2.next = 42;
+                return this.createReq.apply(this, _toConsumableArray(args));
 
-              case 39:
+              case 42:
               case "end":
                 return _context2.stop();
             }
@@ -6875,7 +6888,9 @@ var FormTemplate = /*#__PURE__*/function () {
   }, {
     key: "createReq",
     value: function () {
-      var _createReq = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(resource, method, body, projectId) {
+      var _createReq = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(resource, method, body, optionalRoute) {
+        var _this = this;
+
         var res, _resData;
 
         return regeneratorRuntime.wrap(function _callee3$(_context3) {
@@ -6884,7 +6899,7 @@ var FormTemplate = /*#__PURE__*/function () {
               case 0:
                 _context3.prev = 0;
                 _context3.next = 3;
-                return fetch("".concat(window.location.protocol, "/api/v1/").concat(resource).concat(projectId ? "/".concat(projectId) : ''), {
+                return fetch("".concat(window.location.protocol, "/api/v1/").concat(optionalRoute).concat(resource, "/").concat(this.documentId), {
                   method: method,
                   headers: {
                     'Content-type': 'application/json'
@@ -6911,7 +6926,7 @@ var FormTemplate = /*#__PURE__*/function () {
               case 10:
                 new _Alert.Alert('success', 'Data has been saved').showMessage();
                 setTimeout(function () {
-                  return location.assign("".concat(window.location.protocol, "/").concat(resource, "/").concat(_resData.data.data._id, "/preview"), 3000);
+                  return location.assign("".concat(window.location.protocol, "/").concat(_this.redirectRoute).concat(resource, "/").concat(_resData.data.data._id, "/preview"), 3000);
                 }, 2000);
                 _context3.next = 17;
                 break;
@@ -6926,7 +6941,7 @@ var FormTemplate = /*#__PURE__*/function () {
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[0, 14]]);
+        }, _callee3, this, [[0, 14]]);
       }));
 
       function createReq(_x3, _x4, _x5, _x6) {
@@ -6939,7 +6954,7 @@ var FormTemplate = /*#__PURE__*/function () {
     key: "deleteForm",
     value: function () {
       var _deleteForm = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
-        var _this = this;
+        var _this2 = this;
 
         var result, res;
         return regeneratorRuntime.wrap(function _callee4$(_context4) {
@@ -6960,7 +6975,7 @@ var FormTemplate = /*#__PURE__*/function () {
                 removeBeforeUnload();
                 _context4.prev = 4;
                 _context4.next = 7;
-                return fetch("".concat(window.location.protocol, "/api/v1/").concat(this.formResource, "/").concat(this.formId), {
+                return fetch("".concat(window.location.protocol, "/api/v1/").concat(this.optionalRoute).concat(this.resource, "/").concat(this.documentId), {
                   method: 'DELETE'
                 });
 
@@ -6977,7 +6992,7 @@ var FormTemplate = /*#__PURE__*/function () {
               case 10:
                 new _Alert.Alert('success', 'Data successfully deleted').showMessage();
                 setTimeout(function () {
-                  return location.assign("".concat(window.location.protocol, "/").concat(_this.formResource), 3000);
+                  return location.assign("".concat(window.location.protocol, "/").concat(_this2.redirectRoute).concat(_this2.resource), 3000);
                 }, 2000);
                 _context4.next = 17;
                 break;
@@ -7079,12 +7094,6 @@ var _Alert = require("./Alert");
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -7145,8 +7154,6 @@ var AuthForm = /*#__PURE__*/function (_HTMLFormElement) {
   _createClass(AuthForm, [{
     key: "handleLabels",
     value: function handleLabels() {
-      console.log(this.value);
-
       if (this.value) {
         this.classList.add('form__input--float-label');
       } else {
@@ -7157,81 +7164,50 @@ var AuthForm = /*#__PURE__*/function (_HTMLFormElement) {
     key: "collectBodyAndSend",
     value: function () {
       var _collectBodyAndSend = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(options, successMessage, callbackFunc) {
-        var body, formData, buttonText, _iterator, _step, pair;
-
+        var formData, buttonText;
         return regeneratorRuntime.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                body = {};
                 formData = new FormData(this);
-                _iterator = _createForOfIteratorHelper(formData.entries());
-                _context.prev = 3;
-
-                _iterator.s();
-
-              case 5:
-                if ((_step = _iterator.n()).done) {
-                  _context.next = 12;
-                  break;
-                }
-
-                pair = _step.value;
-
-                if (!(pair[1] == '')) {
-                  _context.next = 9;
-                  break;
-                }
-
-                return _context.abrupt("continue", 10);
-
-              case 9:
-                body[pair[0]] = pair[1];
-
-              case 10:
-                _context.next = 5;
-                break;
-
-              case 12:
-                _context.next = 17;
-                break;
-
-              case 14:
-                _context.prev = 14;
-                _context.t0 = _context["catch"](3);
-
-                _iterator.e(_context.t0);
-
-              case 17:
-                _context.prev = 17;
-
-                _iterator.f();
-
-                return _context.finish(17);
-
-              case 20:
-                options.body = body; // Animate button
+                // Append to formData
+                // for (let element of this.elements) {
+                //   if (element.hasAttribute('name')) {
+                //     if (element.getAttribute('type') == 'file') {
+                //       formData.append(
+                //         element.getAttribute('name'),
+                //         this[element.getAttribute('name')].files[0]
+                //       );
+                //     } else {
+                //       formData.append(
+                //         element.getAttribute('name'),
+                //         this[element.getAttribute('name')].value
+                //       );
+                //     }
+                //   }
+                // }
+                options.body = formData; // Animate button
 
                 if (options.runSpinner) {
                   buttonText = this.runSpinner();
-                } // Send request
+                } // // Send request
 
 
-                _context.next = 24;
+                _context.next = 5;
                 return this.sendAsync(options, successMessage, callbackFunc);
 
-              case 24:
-                // Stop animate button
+              case 5:
+                // // Stop animate button
                 if (options.runSpinner) {
                   this.stopSpinner(buttonText);
                 }
 
-              case 25:
+              case 6:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, this, [[3, 14, 17, 20]]);
+        }, _callee, this);
       }));
 
       function collectBodyAndSend(_x, _x2, _x3) {
@@ -7244,20 +7220,17 @@ var AuthForm = /*#__PURE__*/function (_HTMLFormElement) {
     key: "sendAsync",
     value: function () {
       var _sendAsync = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(options, successMessage, callbackFunc) {
-        var endpoint, method, headers, body, res, resData;
+        var endpoint, method, body, res, resData;
         return regeneratorRuntime.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                endpoint = options.endpoint, method = options.method, headers = options.headers, body = options.body;
+                endpoint = options.endpoint, method = options.method, body = options.body;
                 _context2.prev = 1;
                 _context2.next = 4;
                 return fetch(endpoint, {
                   method: method,
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify(body)
+                  body: body
                 });
 
               case 4:
@@ -7652,6 +7625,26 @@ var Multiselect = /*#__PURE__*/function () {
       // );
     }
   }, {
+    key: "transformToOption",
+    value: function transformToOption(el) {
+      var span = el.querySelector('span');
+      var icon = el.querySelector('.chosen__button');
+      el.className = 'dropdown__option';
+      span.className = 'dropdown__value';
+      icon.className = 'chosen__button chosen__button--hidden';
+      return el;
+    }
+  }, {
+    key: "transformToChoice",
+    value: function transformToChoice(el) {
+      var span = el.querySelector('span');
+      var icon = el.querySelector('.chosen__button');
+      el.className = 'chosen__choice chosen__choice--edit';
+      span.className = 'chosen__value';
+      icon.className = 'chosen__button';
+      return el;
+    }
+  }, {
     key: "active",
     get: function get() {
       return this._active;
@@ -7680,60 +7673,36 @@ var UserMultiselect = /*#__PURE__*/function (_Multiselect) {
     _classCallCheck(this, UserMultiselect);
 
     return _super.call(this, element);
-  }
+  } // async getResources() {
+  //   const users = await this.fetchUsers();
+  //   this.options = users
+  //     .filter((user) => {
+  //       return !this.valuess.map((li) => li.dataset.id).includes(user._id);
+  //     })
+  //     .map((user) => {
+  //       const dropdownOption = document.createElement('div');
+  //       dropdownOption.className = 'dropdown__option';
+  //       dropdownOption.setAttribute('role', 'option');
+  //       dropdownOption.setAttribute('aria-selected', 'false');
+  //       const dropdownValue = document.createElement('span');
+  //       dropdownValue.className = 'dropdown__value';
+  //       dropdownValue.textContent = `${user.name} (${user.mainRole})`;
+  //       dropdownOption.append(dropdownValue);
+  //       return dropdownOption;
+  //     });
+  //   this.display();
+  // }
+  // async fetchUsers() {
+  //   try {
+  //     const res = await fetch(
+  //       `${window.location.protocol}/api/v1/users?limit=100`
+  //     );
+  //     const resData = await res.json();
+  //     return resData.data.data;
+  //   } catch (err) {}
+  // }
+  // fetching data for the resource
 
-  _createClass(UserMultiselect, [{
-    key: "transformToOption",
-    value: function transformToOption(el) {
-      var span = el.querySelector('span');
-      var icon = el.querySelector('.chosen__button');
-      el.className = 'dropdown__option';
-      span.className = 'dropdown__value';
-      icon.className = 'chosen__button chosen__button--hidden';
-      el.setAttribute('aria-selected', 'false');
-      return el;
-    }
-  }, {
-    key: "transformToChoice",
-    value: function transformToChoice(el) {
-      var span = el.querySelector('span');
-      var icon = el.querySelector('.chosen__button');
-      el.className = 'chosen__choice chosen__choice--edit';
-      span.className = 'chosen__value';
-      icon.className = 'chosen__button';
-      el.setAttribute('aria-selected', 'true');
-      return el;
-    } // async getResources() {
-    //   const users = await this.fetchUsers();
-    //   this.options = users
-    //     .filter((user) => {
-    //       return !this.valuess.map((li) => li.dataset.id).includes(user._id);
-    //     })
-    //     .map((user) => {
-    //       const dropdownOption = document.createElement('div');
-    //       dropdownOption.className = 'dropdown__option';
-    //       dropdownOption.setAttribute('role', 'option');
-    //       dropdownOption.setAttribute('aria-selected', 'false');
-    //       const dropdownValue = document.createElement('span');
-    //       dropdownValue.className = 'dropdown__value';
-    //       dropdownValue.textContent = `${user.name} (${user.mainRole})`;
-    //       dropdownOption.append(dropdownValue);
-    //       return dropdownOption;
-    //     });
-    //   this.display();
-    // }
-    // async fetchUsers() {
-    //   try {
-    //     const res = await fetch(
-    //       `${window.location.protocol}/api/v1/users?limit=100`
-    //     );
-    //     const resData = await res.json();
-    //     return resData.data.data;
-    //   } catch (err) {}
-    // }
-    // fetching data for the resource
-
-  }]);
 
   return UserMultiselect;
 }(Multiselect);
@@ -7777,6 +7746,7 @@ var Checkbox = /*#__PURE__*/function () {
     _classCallCheck(this, Checkbox);
 
     this.element = element;
+    this.input = document.getElementById(element.dataset.id);
     this._checked = this.element.getAttribute('aria-checked') === 'true';
     this.event = new Event('input', {
       bubbles: true,
@@ -7820,6 +7790,11 @@ var Checkbox = /*#__PURE__*/function () {
       this._checked = val;
       this.element.setAttribute('aria-checked', val);
       this.element.dispatchEvent(this.event);
+
+      if (this.input) {
+        this.input.value = val;
+        console.log(this.input.value);
+      }
 
       if (this._checked) {
         this.element.classList.add('checkbox--checked');
@@ -8054,10 +8029,7 @@ var TabbedInterface = /*#__PURE__*/function () {
     this.tabPanels = element.querySelectorAll('.tabs__tabpanel');
     this._active = 0; // Init tablist vith values
 
-    this.init();
-    console.log(this.tabList);
-    console.log(this.tabButtons);
-    console.log(this.tabPanels); // Event listeners for keydown and mouseclick
+    this.init(); // Event listeners for keydown and mouseclick
 
     this.tabButtons.forEach(function (button) {
       button.addEventListener('click', _this.handleClick.bind(_this));
@@ -8466,7 +8438,7 @@ var multiSelects = document.querySelectorAll('.multiselect--user');
 var acTables = document.querySelectorAll('.nestedTable--ac');
 var checkboxes = document.querySelectorAll('.checkbox');
 var datePickerFields = document.querySelectorAll('.form-template__input--date');
-var tabsMe = document.querySelector('.tabs--me'); // form templates
+var tabsMe = document.querySelector('.tabs'); // form templates
 
 var formTemplates = document.querySelectorAll('.form-template'); // auth forms
 
@@ -8627,7 +8599,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51139" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55960" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

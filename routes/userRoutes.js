@@ -4,16 +4,26 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.post('/signup', authController.signup);
-router.get('/signup/:token', authController.confirmSignup)
-router.post('/login', authController.login);
+router.post('/signup', userController.textMultipart, authController.signup);
+router.get('/signup/:token', authController.confirmSignup);
+router.post('/login', userController.textMultipart, authController.login);
 router.get('/logout', authController.logout);
-router.post('/forgotPassword', authController.forgotPassword);
-router.patch('/resetPassword/:token', authController.resetPassword);
+router.post(
+  '/forgotPassword',
+  userController.textMultipart,
+  authController.forgotPassword
+);
+router.patch(
+  '/resetPassword/:token',
+  userController.textMultipart,
+  authController.resetPassword
+);
 
 router.use(authController.protect);
 
-router.route('/updateDetails').patch(userController.updateDetails);
+router
+  .route('/updateDetails')
+  .patch(userController.uploadUserPhoto, userController.updateDetails);
 router.route('/updatePassword').patch(authController.updatePassword);
 
 // disabled admin, to be able to fetch data
@@ -27,7 +37,7 @@ router
 router
   .route('/:id')
   .get(userController.getUser)
-  .patch(userController.updateUser)
+  .patch(userController.uploadUserPhoto, userController.updateUser)
   .delete(userController.deleteUser);
 
 module.exports = router;

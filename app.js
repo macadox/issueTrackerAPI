@@ -25,6 +25,7 @@ app.use(
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       'img-src': ["'self'", 'https://loremicon.com'],
+      'connect-src': ["'self'", 'ws://localhost:55960']
     },
   })
 );
@@ -55,9 +56,9 @@ app.use((req, res, next) => {
 });
 
 // app.use('/api/v1/issues', issueRouter);
-app.use('/', viewsRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/projects', projectRouter);
+app.use('/', viewsRouter);
 
 app.all('*', authController.isLoggedIn, (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

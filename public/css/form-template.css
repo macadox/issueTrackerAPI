@@ -39,7 +39,7 @@
 }
 
 .form-template__input--checkbox {
-  box-shadow: none;
+  display: none;
 }
 
 .form-template__label {

@@ -53,16 +53,18 @@
 - save grid/table view preference in local storage [ ]
 - Prepare validator on the forms [ ]
 - Implement Breadcrumbs [ ]
+- Add sorting and filtering options on lists, tabular data [ ]
+- Find another way to collect NESTED data in Array than stringifying into an input [ ]
 ### Modules
 
 #### Done
 - design the webpage Home, Projects, Users (admin), User Data, Logout || Home, Login, Signup [x]
+- Implement Admin tab to manage users [x]
+- Implement User tab, updating preferences, password, user name, email, photo [x]
 
 #### Todo
 - Design Dashboard [ ]
 - Implement Dashboard [ ]
-- Implement Admin tab to manage users [ ]
-- Implement User tab, updating preferences, password, user name, email, photo [ ]
 
 
 

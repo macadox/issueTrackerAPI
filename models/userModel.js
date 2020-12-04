@@ -30,6 +30,7 @@ const userSchema = mongoose.Schema(
       type: String,
       default: 'default.png',
     },
+    organization: String,
     roles: [
       {
         type: String,
@@ -91,8 +92,7 @@ const userSchema = mongoose.Schema(
     passwordResetExpires: Date,
     active: {
       type: Boolean,
-      default: false,
-      select: false,
+      default: false
     },
     userConfirmationToken: String,
   },
@@ -130,13 +130,13 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-userSchema.pre(/^find/, function (next) {
-  this.select(
-    '-__v -createdOn -passwordChangedAt -passwordResetExpires -passwordResetToken'
-  );
+// userSchema.pre(/^find/, function (next) {
+//   this.select(
+//     '-__v -passwordChangedAt -passwordResetExpires -passwordResetToken'
+//   );
 
-  next();
-});
+//   next();
+// });
 
 userSchema.pre(/^find/, function (next) {
   // this.populate({

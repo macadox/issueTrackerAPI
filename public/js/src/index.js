@@ -14,7 +14,7 @@ const checkboxes = document.querySelectorAll('.checkbox');
 const datePickerFields = document.querySelectorAll(
   '.form-template__input--date'
 );
-const tabsMe = document.querySelector('.tabs--me');
+const tabsMe = document.querySelector('.tabs');
 // form templates
 const formTemplates = document.querySelectorAll('.form-template');
 // auth forms

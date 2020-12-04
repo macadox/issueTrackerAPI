@@ -1,0 +1,65 @@
+extends ./../../base.pug
+
+include ./../../mixins/_multiselect.pug
+
+
+append head
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous")
+    link(rel="stylesheet", href="/css/spinner.css")
+    link(rel="stylesheet", href="/css/form-template.css")
+
+
+block content
+    main.main
+        .breadcrumb-container
+            ol.breadcrumb
+                li.breadcrumb__item: a.breadcrumb__link(href=`#`) Admin
+                li.breadcrumb__item: a.breadcrumb__link(href=`#`) Admin - Users
+
+        .wrapper--app
+            h1.heading-page= title
+            .app__header
+                if (formMode !== 'preview')
+                    a(href=`/admin`).btn.btn--small.btn--light.align--left Back to Admin panel
+                    a(href=`${formMode == 'create' ? `/admin`: `/admin/users/${editedUser._id}/preview`}`).btn.btn--small.btn--light.align--right Cancel
+                    button#saveFormBtn(form="userForm", type="submit").btn.btn--small.btn--light.align--right Save
+                else 
+                    a(href=`/admin`).btn.btn--small.btn--light.align--left Back to Admin panel
+                    a(href=`/admin/users/${editedUser._id}/update`).btn.btn--small.btn--light.align--right Edit
+            .app__content
+                form#userForm.form-template.form-template--grid(data-resource=`users`, data-redirectroute='admin' data-id=formMode!=='create' ? editedUser._id : '')
+                    if (editedUser)
+                        .form-template__field.colspan2.new-line
+                            label.form-template__label Photo
+                            .form__group.form__photo-upload
+                                img.form__user-photo(src=`/img/users/${editedUser.photo}`, alt=`${editedUser.name}`)
+                                input#photo.form__upload(type="file", accept="image/*", name="photo")
+                                //- label.btn.btn--small.btn--dark(for="photo") Choose a new photo
+                    .form-template__field
+                        label.form-template__label(for="createdOn") Created
+                        input#createdOn.form-template__input(type="text", placeholder="MM/DD/YYYY" disabled, value=`${formMode!=='create' && editedUser.createdOn ?  editedUser.createdOn.toLocaleDateString('en-GB') : ''}`)
+                    .form-template__field
+                        if (formMode=="update")
+                            label.form-template__label Active
+                                .checkbox(aria-checked=`${formMode!=='create' ? editedUser.active : ''}` data-id="active")
+                                input#active.form-template__input--checkbox(type="checkbox", name="active", value=`${formMode!=='create' ? editedUser.active : ''}`)
+                        else
+                            label.form-template__label(for="active") Active
+                            input.form-template__input(disabled, value=`${editedUser ? editedUser.active : 'false'}`)
+                    .form-template__field.new-line
+                        label.form-template__label(for="name") Name
+                        input#name.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="name", value=`${formMode!=='create' ? editedUser.name : ''}`)
+                    .form-template__field
+                        label.form-template__label(for="email") Email
+                        input#email.form-template__input(type="email" disabled=formMode!=="update" && formMode !=="create", name="email", value=`${formMode!=='create' ? editedUser.email : ''}`)
+                    .form-template__field
+                        label.form-template__label(for="organization") Organization
+                        input#organization.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="organization", value=`${formMode!=='create' && editedUser.organization ? editedUser.organization : ''}`)
+                    .form-template__field.new-line
+                        label.form-template__label(for="password") Password
+                        input#password.form-template__input(type="password" disabled=formMode=="preview", name="password")
+                    .form-template__field
+                        label.form-template__label(for="confirmPassword") Confirm password
+                        input#confirmPassword.form-template__input(type="password" disabled=formMode=="preview", name="confirmPassword")
+                    .form-template__field.colspan2.new-line
+                        +roleMultiselect("roles", "Roles", (editedUser) ?  editedUser.roles : [], rolesOptions)

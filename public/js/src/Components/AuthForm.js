@@ -17,7 +17,6 @@ export class AuthForm extends HTMLFormElement {
   }
 
   handleLabels() {
-    console.log(this.value)
     if (this.value) {
       this.classList.add('form__input--float-label');
     } else {
@@ -26,36 +25,43 @@ export class AuthForm extends HTMLFormElement {
   }
 
   async collectBodyAndSend(options, successMessage, callbackFunc) {
-    const body = {};
     const formData = new FormData(this);
     let buttonText;
-
-    for (let pair of formData.entries()) {
-      if (pair[1] == '') continue;
-      body[pair[0]] = pair[1];
-    }
-    options.body = body;
+    // Append to formData
+    // for (let element of this.elements) {
+    //   if (element.hasAttribute('name')) {
+    //     if (element.getAttribute('type') == 'file') {
+    //       formData.append(
+    //         element.getAttribute('name'),
+    //         this[element.getAttribute('name')].files[0]
+    //       );
+    //     } else {
+    //       formData.append(
+    //         element.getAttribute('name'),
+    //         this[element.getAttribute('name')].value
+    //       );
+    //     }
+    //   }
+    // }
+    options.body = formData;
     // Animate button
     if (options.runSpinner) {
       buttonText = this.runSpinner();
     }
-    // Send request
+    // // Send request
     await this.sendAsync(options, successMessage, callbackFunc);
-    // Stop animate button
+    // // Stop animate button
     if (options.runSpinner) {
       this.stopSpinner(buttonText);
     }
   }
 
   async sendAsync(options, successMessage, callbackFunc) {
-    const { endpoint, method, headers, body } = options;
+    const { endpoint, method, body } = options;
     try {
       const res = await fetch(endpoint, {
         method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
+        body,
       });
 
       const resData = await res.json();

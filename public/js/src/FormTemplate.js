@@ -12,13 +12,19 @@ const removeBeforeUnload = () => {
 export class FormTemplate {
   constructor(form) {
     this.form = form;
-    this.formResource = this.form.dataset.resource;
-    this.formId = this.form.dataset.id
+    this.optionalRoute = this.form.dataset.optionalroute
+      ? this.form.dataset.optionalroute + '/'
+      : '';
+      this.redirectRoute = this.form.dataset.redirectroute
+      ? this.form.dataset.redirectroute + '/'
+      : this.optionalRoute;
+    this.resource = this.form.dataset.resource;
+    this.documentId = this.form.dataset.id;
     const deleteBtn = document.querySelector('#deleteFormBtn');
     // console.log(this.form);
 
     if (/(\/update|\/create)$/.test(window.location.pathname)) {
-      console.log('added before unload')
+      console.log('added before unload');
       window.addEventListener('beforeunload', unload);
     }
     if (deleteBtn) {
@@ -38,7 +44,7 @@ export class FormTemplate {
 
   async saveForm(e) {
     e.preventDefault();
-    console.log('should prompt save')
+    console.log('should prompt save');
     const bodyObj = {};
     const formData = new FormData(this.form);
     // Build body object
@@ -52,28 +58,22 @@ export class FormTemplate {
     }
     let args = [];
     if (/create$/gi.test(location.pathname)) {
-      args = [this.formResource, 'POST', bodyObj];
+      args = [this.resource, 'POST', bodyObj, this.optionalRoute];
     } else if (/update$/gi.test(location.pathname)) {
-      args = [
-        this.formResource,
-        'PATCH',
-        bodyObj,
-        this.formId,
-      ];
+      args = [this.resource, 'PATCH', bodyObj, this.optionalRoute];
     } else {
       return new Alert('error', 'We do not cover that kind of request!');
     }
-
+    console.log(bodyObj)
     removeBeforeUnload();
-    // await this.createReq(...args);
+    await this.createReq(...args);
   }
 
-  async createReq(resource, method, body, projectId) {
+  async createReq(resource, method, body, optionalRoute) {
     try {
+      // window.location.protocol/{route = api/v1/}{optionalRoute = projects/:projectId/}{resource = issues}{documentId}
       const res = await fetch(
-        `${window.location.protocol}/api/v1/${resource}${
-          projectId ? `/${projectId}` : ''
-        }`,
+        `${window.location.protocol}/api/v1/${optionalRoute}${resource}/${this.documentId}`,
         {
           method: method,
           headers: {
@@ -92,7 +92,7 @@ export class FormTemplate {
       setTimeout(
         () =>
           location.assign(
-            `${window.location.protocol}/${resource}/${resData.data.data._id}/preview`,
+            `${window.location.protocol}/${this.redirectRoute}${resource}/${resData.data.data._id}/preview`,
             3000
           ),
         2000
@@ -107,10 +107,9 @@ export class FormTemplate {
     const result = confirm('Do you really want to delete the form?');
     if (!result) return;
     removeBeforeUnload();
-
     try {
       const res = await fetch(
-        `${window.location.protocol}/api/v1/${this.formResource}/${this.formId}`,
+        `${window.location.protocol}/api/v1/${this.optionalRoute}${this.resource}/${this.documentId}`,
         {
           method: 'DELETE',
         }
@@ -123,7 +122,7 @@ export class FormTemplate {
       setTimeout(
         () =>
           location.assign(
-            `${window.location.protocol}/${this.formResource}`,
+            `${window.location.protocol}/${this.redirectRoute}${this.resource}`,
             3000
           ),
         2000

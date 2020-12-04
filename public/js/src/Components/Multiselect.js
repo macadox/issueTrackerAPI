@@ -145,12 +145,6 @@ class Multiselect {
     newOption.classList.add('dropdown__option--focused');
     oldOption.classList.remove('dropdown__option--focused');
   }
-}
-
-class UserMultiselect extends Multiselect {
-  constructor(element) {
-    super(element);
-  }
 
   transformToOption(el) {
     const span = el.querySelector('span');
@@ -159,8 +153,6 @@ class UserMultiselect extends Multiselect {
     el.className = 'dropdown__option';
     span.className = 'dropdown__value';
     icon.className = 'chosen__button chosen__button--hidden';
-
-    el.setAttribute('aria-selected', 'false');
 
     return el;
   }
@@ -173,10 +165,16 @@ class UserMultiselect extends Multiselect {
     span.className = 'chosen__value';
     icon.className = 'chosen__button';
 
-    el.setAttribute('aria-selected', 'true');
-
     return el;
   }
+
+}
+
+class UserMultiselect extends Multiselect {
+  constructor(element) {
+    super(element);
+  }
+
 
   // async getResources() {
   //   const users = await this.fetchUsers();

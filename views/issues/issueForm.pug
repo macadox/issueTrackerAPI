@@ -18,7 +18,7 @@ block content
                 li.breadcrumb__item: a.breadcrumb__link(href=`#`) PROJECT#AADD
                 li.breadcrumb__item: a.breadcrumb__link(href=`#`) ISSUES
                 li.breadcrumb__item: a.breadcrumb__link(href=`#`) ISSUE#AADD-001
-        .app-wrapper
+        .wrapper--app
             h1.heading-page= title
             .app__header
                 if (formMode !== 'preview')
@@ -30,7 +30,7 @@ block content
                     a(href=`/projects/${projectId}/issues/${issue._id}/update`).btn.btn--small.btn--light.align--right Edit
                     button#deleteFormBtn(form="issueForm", type="button").btn.btn--small.btn--light.align--right Delete
             .app__content
-                form#issueForm.form-template.form-template--grid(data-resource=`projects/${projectId}/issues`, data-id=formMode!=='create' ? issue._id : '')
+                form#issueForm.form-template.form-template--grid(data-optionalroute=`projects/${projectId}` data-resource=`issues`, data-id=formMode!=='create' ? issue._id : '')
                     .form-template__field
                         label.form-template__label(for="id") ID
                         input#id.form-template__input(type=`text` disabled, value=`${formMode!=='create' ? issue.issueId : ''}`)

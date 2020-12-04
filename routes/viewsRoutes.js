@@ -10,46 +10,33 @@ router.get('/signup', viewsController.getSignupForm);
 router.get('/forgotPassword', viewsController.getForgotPasswordForm);
 router.get('/resetPassword/:token', viewsController.getResetPasswordForm);
 
-router.get('/me', authController.protect, viewsController.getMe);
+router.use(authController.protect);
 
-router.get('/projects', authController.protect, viewsController.getAllProjects);
+router.get('/me', viewsController.getMe);
 
-router.get(
-  '/projects/create',
-  authController.protect,
-  viewsController.getProjectForm
-);
-router.get(
-  '/projects/:projectId/update',
-  authController.protect,
-  viewsController.getProjectForm
-);
-router.get(
-  '/projects/:projectId/preview',
-  authController.protect,
-  viewsController.getProjectForm
-);
+router.get('/projects', viewsController.getAllProjects);
+router.get('/projects/create', viewsController.getProjectForm);
+router.get('/projects/:projectId/update', viewsController.getProjectForm);
+router.get('/projects/:projectId/preview', viewsController.getProjectForm);
 
-router.get(
-  '/projects/:projectId/issues',
-  authController.protect,
-  viewsController.getProjectDetails
-);
+router.get('/projects/:projectId/issues', viewsController.getProjectDetails);
 
-router.get(
-  '/projects/:projectId/issues/create',
-  authController.protect,
-  viewsController.getIssueForm
-);
+router.get('/projects/:projectId/issues/create', viewsController.getIssueForm);
 router.get(
   '/projects/:projectId/issues/:issueId/update',
-  authController.protect,
   viewsController.getIssueForm
 );
 router.get(
   '/projects/:projectId/issues/:issueId/preview',
-  authController.protect,
   viewsController.getIssueForm
 );
+
+router.use(authController.restrict('admin'));
+
+router.get('/admin', viewsController.getAdminPanel);
+router.get('/admin/users', viewsController.getAdminPanel);
+router.get('/admin/users/create', viewsController.getUserForm);
+router.get('/admin/users/:userId/preview', viewsController.getUserForm);
+router.get('/admin/users/:userId/update', viewsController.getUserForm);
 
 module.exports = router;
