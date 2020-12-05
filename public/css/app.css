@@ -694,6 +694,12 @@ footer {
   font-weight: 400;
   padding-top: 0.4em;
   padding-bottom: 0.4em;
+  outline: none;
+}
+
+.list__heading:focus > * {
+  text-decoration: underline;
+  color: #111;
 }
 
 .list__heading:first-of-type {
@@ -726,6 +732,12 @@ footer {
   padding-top: 8px;
   padding-bottom: 8px;
   cursor: default;
+  outline: none;
+}
+
+.list__data:focus > * {
+  text-decoration: underline;
+  color: #111;
 }
 
 .list__content {
@@ -964,4 +976,17 @@ footer {
 .wrapper--admin-list {
   width: 100%;
   padding: 3em;
+}
+
+.datatable-icon {
+  height: 12px
+}
+
+.datatable-sort-order {
+  font-size: 0.8rem;
+  margin-left: -2px
+}
+
+[data-sortable] {
+  cursor: pointer;
 }

@@ -55,6 +55,7 @@
 - Prepare validator on the forms [ ]
 - Add sorting and filtering options on lists, tabular data [ ]
 - Find another way to collect NESTED data in Array than stringifying into an input [ ]
+- Add design to tables (status, team member info on hover, email alias)
 ### Modules
 
 #### Done
