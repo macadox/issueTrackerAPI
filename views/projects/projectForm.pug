@@ -14,7 +14,7 @@ block content
         .breadcrumb-container
             ol.breadcrumb
                 li.breadcrumb__item: a.breadcrumb__link(href=`/projects`) PROJECTS
-                li.breadcrumb__item: a.breadcrumb__link()= `PROJECT#${project ? project.prefix : ''}`
+                li.breadcrumb__item: a.breadcrumb__link()= `PROJECT#${project && project.prefix}`
         .wrapper--app
             h1.heading-title= title
             .app__header
@@ -29,39 +29,39 @@ block content
                     a(href=`/projects/${project._id}/update`).btn.btn--small.btn--light.align--right Edit
                     button#deleteFormBtn(form="projectForm", type="button").btn.btn--small.btn--light.align--right Delete
             .app__content
-                form#projectForm.form-template.form-template--grid(data-resource="projects", data-id=formMode!=='create' ? project._id : '')
+                form#projectForm.form-template.form-template--grid(data-resource="projects", data-id=project && project._id)
                     .form-template__field
                         label.form-template__label(for="prefix") Prefix
-                        input#prefix.form-template__input(type=`text` disabled=formMode!=="create", name="prefix", value=`${formMode!=='create' ? project.prefix : ''}`)
+                        input#prefix.form-template__input(type=`text` disabled=formMode!=="create", name="prefix", value=project && project.prefix)
                     .form-template__field
                         label.form-template__label(for="teamLead") Project Lead
-                        input#teamLead.form-template__input(type="text" disabled, value=`${formMode!=='create' ? project.teamLead.name : ''}`)
+                        input#teamLead.form-template__input(type="text" disabled, value=project && project.teamLead.name)
                     .form-template__field
                         label.form-template__label(for="status") Status
-                        select#status.form-template__select(name="status", disabled=formMode!=="update", value=`${formMode!=='create' ? project.status : ''}`)
+                        select#status.form-template__select(name="status", disabled=formMode!=="update", value=project && project.status)
                             each option in statusOptions
                                 option(value=`${option}`, selected=project&&option==project.status)= option
                         //- input#status.form-template__input(type="text" disabled=formMode!=="update", name="status", value=`${formMode!=='create' ? project.status : ''}`)
                     .form-template__field
                         label.form-template__label(for="progress") Progress
-                        input#progress.form-template__input(type="number" disabled=formMode!=="update", name="progress", value=`${formMode!=='create' ? project.progress : ''}`)
+                        input#progress.form-template__input(type="number" disabled=formMode!=="update", name="progress", value=project && project.progress)
                     .form-template__field
                         label.form-template__label(for="name") Name
-                        input#name.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="name", value=`${formMode!=='create' ? project.name : ''}`)
+                        input#name.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="name", value=project && project.name)
                     .form-template__field
                         label.form-template__label(for="deadline") Deadline
-                        input#deadline.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create" , name="deadline", value=`${formMode!=='create' && project.deadline ?  project.deadline.toLocaleDateString('en-GB') : ''}`)
+                        input#deadline.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create" , name="deadline", value=(project && project.deadline) &&  project.deadline.toLocaleDateString('en-GB'))
                     .form-template__field
                         label.form-template__label(for="startDate") Start date
-                        input#startDate.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create", name="startDate", value=`${formMode!=='create' && project.startDate ? project.startDate.toLocaleDateString('en-GB') : ''}`)
+                        input#startDate.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create", name="startDate", value=(project && project.startDate) &&  project.startDate.toLocaleDateString('en-GB'))
                     .form-template__field
                         label.form-template__label(for="endDate") End date
-                        input#endDate.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create", name="endDate", value=`${formMode!=='create' && project.endDate ? project.endDate.toLocaleDateString('en-GB') : ''}`)
+                        input#endDate.form-template__input.form-template__input--date(type="text", placeholder="MM/DD/YYYY" disabled=formMode!=="update" && formMode !=="create", name="endDate", value=(project && project.endDate) &&  project.endDate.toLocaleDateString('en-GB'))
                     .form-template__field.colspan2
                         label.form-template__label(for="description") Description
-                        textarea#description.form-template__textarea(style="resize: none;" disabled=formMode!=="update" && formMode !=="create", name="description")=`${formMode!=='create' ? project.description : ''}`
+                        textarea#description.form-template__textarea(style="resize: none;" disabled=formMode!=="update" && formMode !=="create", name="description")=project && project.description
                     .form-template__field.colspan2.new-line
-                        +userMultiselect("teamMembers", "Team members", (project) ?  project.teamMembers : [], users)
+                        +userMultiselect("teamMembers", "Team members", project && project.teamMembers, users)
 
 prepend scripts
     script(src="/lib/flatpickr/dist/flatpickr.min.js")

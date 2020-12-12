@@ -25,7 +25,7 @@ app.use(
     directives: {
       ...helmet.contentSecurityPolicy.getDefaultDirectives(),
       'img-src': ["'self'", 'https://loremicon.com'],
-      'connect-src': ["'self'", 'ws://localhost:55960']
+      'connect-src': ["'self'", 'ws://localhost:55960'],
     },
   })
 );
@@ -53,6 +53,12 @@ app.use(xss());
 app.use((req, res, next) => {
   console.log('Hello from the middleware in express app');
   console.log(req.cookies);
+  next();
+});
+
+// Helpers
+app.use((req, res, next) => {
+  res.locals.currentPath = req.path;
   next();
 });
 

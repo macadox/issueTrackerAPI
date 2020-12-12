@@ -32,10 +32,10 @@ block content
                             .card__footer
                                 .ui-label.ui-label--info.align--left
                                     img.ui-label__icon(src="/img/ui/lightbulb.svg", alt="created on")
-                                    span.ui-label__text= `${issue.createdOn ? issue.createdOn.toLocaleDateString('en-GB') : ''}`
+                                    span.ui-label__text= `${issue.createdOn && issue.createdOn.toLocaleDateString('en-GB')}`
                                 .ui-label.ui-label--info.align--left
                                     img.ui-label__icon(src="/img/ui/wall-clock.svg", alt="deadline")
-                                    span.ui-label__text= `${issue.deadline ? issue.deadline.toLocaleDateString('en-GB') : ''}`
+                                    span.ui-label__text= `${issue.deadline && issue.deadline.toLocaleDateString('en-GB') }`
                                 .team-members
                                     - const numPortraits = 2
                                     - if (issue.assignees.length > numPortraits)

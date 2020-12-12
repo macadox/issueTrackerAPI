@@ -4,12 +4,14 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router({ caseSensitive: true });
 
-router.get('/', authController.isLoggedIn, viewsController.getHome);
+router.get('/', (req, res) => res.redirect('/home'));
+router.get('/home', authController.isLoggedIn, viewsController.getHome);
 router.get('/login', viewsController.getLoginForm);
 router.get('/signup', viewsController.getSignupForm);
 router.get('/forgotPassword', viewsController.getForgotPasswordForm);
 router.get('/resetPassword/:token', viewsController.getResetPasswordForm);
 
+// Protect from not logged in users
 router.use(authController.protect);
 
 router.get('/me', viewsController.getMe);
@@ -31,6 +33,7 @@ router.get(
   viewsController.getIssueForm
 );
 
+// Restrict permissions to administrators
 router.use(authController.restrict('admin'));
 
 router.get('/admin', viewsController.getAdminPanel);

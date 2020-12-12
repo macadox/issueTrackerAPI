@@ -13,7 +13,7 @@
                 label.form__label(for="email"): span Email address
 
             .form__group
-                input#organization.form__input.form__input--bigger(type="text", name="organization", value=`${user.organization ? user.organization : ''}`)
+                input#organization.form__input.form__input--bigger(type="text", name="organization", value=user.organization)
                 label.form__label(for="organization"): span Organization
             .form__group
                 button.btn.btn--dark.btn--medium.btn--align-left.form__button--send Save

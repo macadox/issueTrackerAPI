@@ -1,6 +1,6 @@
 mixin menuItem (iconPath, text, link)
 
-    li.menu__item: a.menu__link(href=`${link}`, class=`${active == text ? 'menu__link--active' : ''}`)
+    li.menu__item: a.menu__link(href=`${link}`, class=`${currentPath.startsWith(link) ? 'menu__link--active' : ''}`)
         img.menu__icon(src=`/img/ui/${iconPath}`, alt=`${text} icon`, class=`menu__icon--${text.toLowerCase().replace(' ', '')}`, role="menuitem")
         span.menu__text= text
 //- TODO/ Add roving tab index
@@ -11,7 +11,7 @@ header
             p.logo__logged-in-as= `Logged in as: ${user.name}`
     nav
         ul.menu(role="menu", )
-            +menuItem('home.svg', 'Home', '/')
+            +menuItem('home.svg', 'Home', '/home')
             if user
                 +menuItem('dashboard.svg', 'Dashboard', '/dashboard')
                 +menuItem('briefing.svg', 'Projects', '/projects')

@@ -27,7 +27,7 @@ block content
                     a(href=`/admin`).btn.btn--small.btn--light.align--left Back to Admin panel
                     a(href=`/admin/users/${editedUser._id}/update`).btn.btn--small.btn--light.align--right Edit
             .app__content
-                form#userForm.form-template.form-template--grid(data-resource=`users`, data-redirectroute='admin' data-id=formMode!=='create' ? editedUser._id : '')
+                form#userForm.form-template.form-template--grid(data-resource=`users`, data-redirectroute='admin' data-id=editedUser && editedUser._id)
                     if (editedUser)
                         .form-template__field.colspan2.new-line
                             label.form-template__label Photo
@@ -37,7 +37,7 @@ block content
                                 //- label.btn.btn--small.btn--dark(for="photo") Choose a new photo
                     .form-template__field
                         label.form-template__label(for="createdOn") Created
-                        input#createdOn.form-template__input(type="text", placeholder="MM/DD/YYYY" disabled, value=`${formMode!=='create' && editedUser.createdOn ?  editedUser.createdOn.toLocaleDateString('en-GB') : ''}`)
+                        input#createdOn.form-template__input(type="text", placeholder="MM/DD/YYYY" disabled, value=(editedUser && editedUser.createdOn) &&  editedUser.createdOn.toLocaleDateString('en-GB'))
                     .form-template__field
                         if (formMode=="update")
                             label.form-template__label Active
@@ -48,13 +48,13 @@ block content
                             input.form-template__input(disabled, value=`${editedUser ? editedUser.active : 'false'}`)
                     .form-template__field.new-line
                         label.form-template__label(for="name") Name
-                        input#name.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="name", value=`${formMode!=='create' ? editedUser.name : ''}`)
+                        input#name.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="name", value=editedUser && editedUser.name)
                     .form-template__field
                         label.form-template__label(for="email") Email
-                        input#email.form-template__input(type="email" disabled=formMode!=="update" && formMode !=="create", name="email", value=`${formMode!=='create' ? editedUser.email : ''}`)
+                        input#email.form-template__input(type="email" disabled=formMode!=="update" && formMode !=="create", name="email", value=editedUser && editedUser.email)
                     .form-template__field
                         label.form-template__label(for="organization") Organization
-                        input#organization.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="organization", value=`${formMode!=='create' && editedUser.organization ? editedUser.organization : ''}`)
+                        input#organization.form-template__input(type="text" disabled=formMode!=="update" && formMode !=="create", name="organization", value=(editedUser && editedUser.organization) && editedUser.organization)
                     .form-template__field.new-line
                         label.form-template__label(for="password") Password
                         input#password.form-template__input(type="password" disabled=formMode=="preview", name="password")
@@ -62,4 +62,4 @@ block content
                         label.form-template__label(for="confirmPassword") Confirm password
                         input#confirmPassword.form-template__input(type="password" disabled=formMode=="preview", name="confirmPassword")
                     .form-template__field.colspan2.new-line
-                        +roleMultiselect("roles", "Roles", (editedUser) ?  editedUser.roles : [], rolesOptions)
+                        +roleMultiselect("roles", "Roles", editedUser && editedUser.roles, rolesOptions)

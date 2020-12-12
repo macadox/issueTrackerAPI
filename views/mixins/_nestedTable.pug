@@ -1,4 +1,4 @@
-mixin nestedAcceptanceCriteria (id, label, resource, ...headings)
+mixin nestedAcceptanceCriteria (id, label, resource = [], ...headings)
     label.form-template__label(for=`${id}_container`)= label
     .nestedTable.nestedTable--ac
         input(type="text", id=`${id}`, name=`${id}`).input-hidden

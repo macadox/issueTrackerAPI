@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Project = require('./projectModel');
-const AppError = require('./../utils/appError');
+const AppError = require('../utils/appError');
 
 const issueSchema = new mongoose.Schema({
   name: {
