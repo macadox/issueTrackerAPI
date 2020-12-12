@@ -5,6 +5,7 @@ import { MultiselectFactory } from './Components/Multiselect';
 import { NestedTableFactory } from './Components/NestedTable';
 import { Checkbox } from './Components/Checkbox';
 import { TabbedInterface } from './Components/TabbedInterface';
+import { DataTable } from './Components/DataTable';
 import { logout } from './logout';
 
 // Components
@@ -15,6 +16,7 @@ const datePickerFields = document.querySelectorAll(
   '.form-template__input--date'
 );
 const tabsMe = document.querySelector('.tabs');
+const dataTables = document.querySelectorAll('.list');
 // form templates
 const formTemplates = document.querySelectorAll('.form-template');
 // auth forms
@@ -25,7 +27,9 @@ const forgotPasswordForm = document.querySelector(
   '.form__body--forgot-password'
 );
 const updateMeForm = document.querySelector('.form__body--update-me');
-const updatePasswordForm = document.querySelector('.form__body--update-password')
+const updatePasswordForm = document.querySelector(
+  '.form__body--update-password'
+);
 const logoutBtn = document.querySelector('.menu__link--logout');
 
 if (multiSelects.length > 0) {
@@ -56,6 +60,14 @@ if (datePickerFields.length > 0) {
 
 if (tabsMe) {
   new TabbedInterface(tabsMe);
+}
+
+if (dataTables.length > 0) {
+  // init table
+  dataTables.forEach((table) => {
+    console.log(table);
+    const dataTable = new DataTable(table);
+  });
 }
 
 if (formTemplates.length > 0) {
@@ -123,32 +135,33 @@ if (resetPasswordForm) {
 if (updateMeForm) {
   updateMeForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    this.collectBodyAndSend({
-      endpoint: `${window.location.protocol}/api/v1/users/updateDetails`,
-      method: 'PATCH'
-    },
-    'User details updated',
-    () => setTimeout(() => location.assign(location.pathname), 2000)
-    )
-  })
+    this.collectBodyAndSend(
+      {
+        endpoint: `${window.location.protocol}/api/v1/users/updateDetails`,
+        method: 'PATCH',
+      },
+      'User details updated',
+      () => setTimeout(() => location.assign(location.pathname), 2000)
+    );
+  });
 }
 
 if (updatePasswordForm) {
   updatePasswordForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    this.collectBodyAndSend({
-      endpoint: `${window.location.protocol}/api/v1/users/updatePassword`,
-      method: 'PATCH'
-    },
-    'Password changed',
-    () => setTimeout(() => location.assign(location.pathname), 2000)
-    )
-  })
+    this.collectBodyAndSend(
+      {
+        endpoint: `${window.location.protocol}/api/v1/users/updatePassword`,
+        method: 'PATCH',
+      },
+      'Password changed',
+      () => setTimeout(() => location.assign(location.pathname), 2000)
+    );
+  });
 }
 
 if (logoutBtn) {
   logoutBtn.addEventListener('click', logout);
 }
-
 
 customElements.define('auth-form', AuthForm, { extends: 'form' });

@@ -15,7 +15,7 @@
         "criterion": "no templating engine should be included"
       }
     ],
-    "deadline": "2020-11-29",
+    "deadline": "2020-11-28",
     "status": "New",
     "assignees": [
       "5fba548657c77e2d803c869d",
@@ -41,7 +41,7 @@
         "criterion": "No data lost for games"
       }
     ],
-    "deadline": "2020-11-31",
+    "deadline": "2020-11-28",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5aa355d45d4da00aee00",
@@ -64,7 +64,7 @@
         "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
       }
     ],
-    "deadline": "2020-11-29",
+    "deadline": "2020-11-31",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5aa355d45d4da00aee00",
@@ -87,7 +87,7 @@
         "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
       }
     ],
-    "deadline": "2020-11-29",
+    "deadline": "2020-11-31",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5aa355d45d4da00aee00",
@@ -143,7 +143,7 @@
         "criterion": "Error should be displayed on the frontend in the Custom alert that I have created"
       }
     ],
-    "deadline": "2020-11-29",
+    "deadline": "2020-11-30",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
@@ -160,7 +160,7 @@
         "criterion": "The forms should not be hardcoded and have similar logic"
       }
     ],
-    "deadline": "2020-11-29",
+    "deadline": "2020-11-30",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
@@ -173,7 +173,7 @@
     "difficulty": "4",
     "description": "For some wrong responses, 404 pages should be rendered",
     "acceptanceCriterias": [],
-    "deadline": "2020-11-29",
+    "deadline": "2020-11-15",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
@@ -186,7 +186,7 @@
     "difficulty": "2",
     "description": "As above",
     "acceptanceCriterias": [],
-    "deadline": "2020-11-29",
+    "deadline": "2020-11-21",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
@@ -199,7 +199,7 @@
     "difficulty": "2",
     "description": "Users, should be able to only view and edit projects that they participate in!",
     "acceptanceCriterias": [],
-    "deadline": "2020-11-29",
+    "deadline": "2020-11-28",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",
@@ -212,7 +212,7 @@
     "difficulty": "7",
     "description": "Prepare a datepicker and select for fields that have dictionaries",
     "acceptanceCriterias": [],
-    "deadline": "2020-11-29",
+    "deadline": "2020-12-01",
     "status": "New",
     "assignees": ["5fba548657c77e2d803c869d", "5fba54c1dad2496b80d047d5"],
     "project": "5fba5b1455d45d4da00aee01",

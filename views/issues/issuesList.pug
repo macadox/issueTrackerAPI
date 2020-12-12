@@ -16,15 +16,15 @@ block content
             .app__content
                 table.list.list--projects
                     tr.list__row--heading
-                        th.list__heading(role="columnheader") ID
-                        th.list__heading(role="columnheader") Issue
-                        th.list__heading(role="columnheader") Description
-                        th.list__heading(role="columnheader") Priority
-                        th.list__heading(role="columnheader") Author
-                        th.list__heading(role="columnheader") Created
-                        th.list__heading(role="columnheader") Deadline
-                        th.list__heading(role="columnheader") Status
-                        th.list__heading(role="columnheader") Assignees
+                        th.list__heading(data-sortable="true", data-sortval="issueId"): span ID
+                        th.list__heading(data-sortable="true", data-sortval="name"): span Issue
+                        th.list__heading: span Description
+                        th.list__heading(data-sortable="true", data-sortval="priority"): span Priority
+                        th.list__heading: span Author
+                        th.list__heading(data-sortable="true", data-sortval="createdOn"): span Created
+                        th.list__heading(data-sortable="true", data-sortval="deadline"): span Deadline
+                        th.list__heading(data-sortable="true", data-sortval="status"): span Status
+                        th.list__heading: span Assignees
                     each issue in issues
                         tr.list__row
                             td.list__data(role="cell")

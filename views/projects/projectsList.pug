@@ -11,21 +11,22 @@ block content
         .wrapper--app
             h1.heading-title My projects
             .app__header
-                input.search-input(type="text", aria-label="Search for a project", placeholder="Search for a project")
+
+                input.search-input(type="search", aria-label="Search for a project", placeholder="Search for a project", aria-controls="projects")
                 a(href="/projects/create").btn.btn--small.btn--light.align--right Create a new project
                 a(href="/projects?grid=true").btn.btn--small.btn--light.align--right Toggle grid view
             .app__content
-                table.list.list--projects
+                table#projects.list.list--projects
                     tr.list__row--heading
-                        th.list__heading Prefix
-                        th.list__heading Project
-                        th.list__heading Description
-                        th.list__heading Project Lead
-                        th.list__heading Deadline
-                        th.list__heading Status
-                        th.list__heading Progress
-                        th.list__heading Team Members
-                        th.list__heading Action
+                        th.list__heading(data-sortable="true", data-sortval="prefix"): span Prefix
+                        th.list__heading(data-sortable="true", data-sortval="name"): span Project
+                        th.list__heading: span Description
+                        th.list__heading: span Project Lead
+                        th.list__heading(data-sortable="true", data-sortval="deadline"): span Deadline
+                        th.list__heading(data-sortable="true", data-sortval="status"): span Status
+                        th.list__heading(data-sortable="true", data-sortval="progress"): span Progress
+                        th.list__heading: span Team Members
+                        th.list__heading: span Action
                     each project in projects
                         tr.list__row
                             td.list__data
