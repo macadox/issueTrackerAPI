@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:prod": "cross-env NODE_ENV=production nodemon server.js",
-    "start": "nodemon server.js",
+    "start": "node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "watch:js": "parcel watch ./public/js/src/index.js --out-dir ./public/js/dist --out-file bundle.js --hmr-port 55960",
     "build": "parcel build ./public/js/src/index.js --out-dir ./public/js/dist --out-file bundle.js",
-    "debug": "ndb server.js",
+    "debug": "ndb index.js",
     "importDB": "cross-env NODE_ENV=import node ./dev-scripts/import.js --import",
     "deleteDB": "cross-env NODE_ENV=import node ./dev-scripts/import.js --delete"
   },

@@ -1,4 +1,6 @@
 config.env
+config.env.now
 node_modules
 .cache
 .vscode
+.vercel
