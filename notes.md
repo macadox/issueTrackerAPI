@@ -34,6 +34,9 @@
 #### Todo
 - prepare json files, from which I can import sample projects + users [ ]
 - Add functions that calculate Quantity of Issues and updates it on the Project model with pre /^findOneAnd/ and post /^findOneAnd/ hooks [ ]
+- import the models when initiating connection to DB and get them through mongoose singleton [ ]
+- change the routes and file names (index.js for all viewRoutes, all model names) [ ]
+- rewrite the photo upload func, and add resize middleware (jimp, uuid) [ ]
 
 ### Templates
 
@@ -55,7 +58,9 @@
 - Prepare validator on the forms [ ]
 - Add sorting and filtering options on lists, tabular data [ ]
 - Find another way to collect NESTED data in Array than stringifying into an input [ ]
-- Add design to tables (status, team member info on hover, email alias)
+- Add design to tables (status, team member info on hover, email alias) [ ]
+- Add better active page class: class=(currentPath.startsWith('/hearts') ? 'nav__link--active' : '')
+- Add default values to the templates if the value coming from in the server response is undefined. Like: project.projectId || '' or (issue.owner && issue.owner.name)
 ### Modules
 
 #### Done
