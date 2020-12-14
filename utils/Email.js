@@ -12,7 +12,13 @@ module.exports = class Email {
 
   newTransport() {
     if (process.env.NODE_ENV === 'production') {
-      // implement sendgrid after
+      return nodemailer.createTransport({
+        service: 'SendGrid',
+        auth: {
+          user: process.env.SENDGRID_USERNAME,
+          pass: process.env.SENDGRID_PASSWORD,
+        },
+      });
     }
     return nodemailer.createTransport({
       host: process.env.SMTP_HOSTNAME,
@@ -29,8 +35,8 @@ module.exports = class Email {
     const html = pug.renderFile(`${__dirname}/../views/email/${template}.pug`, {
       firstName: this.firstName,
       url: this.url,
-      subject
-    })
+      subject,
+    });
 
     // 2) prepare options object
     const mailOptions = {
@@ -38,18 +44,20 @@ module.exports = class Email {
       to: this.to,
       subject,
       text: htmlToText.fromString(html),
-      html
+      html,
     };
     // 3) prepare and send transport
-    await this.newTransport().sendMail(mailOptions)
+    await this.newTransport().sendMail(mailOptions);
   }
 
   async sendWelcome() {
-    await this.send('welcome', 'Welcome to IssueTracker!')
+    await this.send('welcome', 'Welcome to IssueTracker!');
   }
 
   async sendPasswordReset() {
-    await this.send('passwordReset', 'Your password reset token for IssueTracker (valid 1h)')
+    await this.send(
+      'passwordReset',
+      'Your password reset token for IssueTracker (valid 1h)'
+    );
   }
 };
-
