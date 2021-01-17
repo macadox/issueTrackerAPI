@@ -1,7 +1,7 @@
 # Issue Tracker
 
 IssueTracker makes it simple for software teams to plan day-to-day tasks while keeping the larger team goals in view.
-It provides functionalities to track and approve project completion by releasing smaller milestones (user stories) and meeting acceptance criteria.
+It provides functionalities to track and approve project completion by releasing smaller milestones (user stories) and meeting acceptance criteria. Team members are assigned and made responsible for delivery of each of those milestones.
 
 ## Demo
 Demo accessible at: https://issue-tracker-mokninski.herokuapp.com/home
