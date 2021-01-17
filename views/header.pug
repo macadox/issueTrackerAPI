@@ -13,7 +13,7 @@ header
         ul.menu(role="menu", )
             +menuItem('home.svg', 'Home', '/home')
             if user
-                +menuItem('dashboard.svg', 'Dashboard', '/dashboard')
+                //- +menuItem('dashboard.svg', 'Dashboard', '/dashboard')
                 +menuItem('briefing.svg', 'Projects', '/projects')
                 if (user.roles.includes('admin'))
                     +menuItem('settings.svg', 'Admin', '/admin')

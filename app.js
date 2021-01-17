@@ -45,16 +45,10 @@ app.use('/api', limiter);
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 app.use(mongoSanitize());
 app.use(xss());
-
-app.use((req, res, next) => {
-  console.log('Hello from the middleware in express app');
-  console.log(req.cookies);
-  next();
-});
 
 // Helpers
 app.use((req, res, next) => {

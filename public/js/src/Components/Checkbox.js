@@ -27,7 +27,6 @@ export class Checkbox {
     switch (e.keyCode) {
       case 32: {
         e.preventDefault();
-        console.log(this.checked);
         this.checked = !this.checked;
         break;
       }
@@ -45,7 +44,6 @@ export class Checkbox {
     
     if (this.input) {
       this.input.value = val;
-      console.log(this.input.value)
     }
 
     if (this._checked) {

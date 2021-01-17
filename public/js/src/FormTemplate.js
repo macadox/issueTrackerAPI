@@ -21,10 +21,8 @@ export class FormTemplate {
     this.resource = this.form.dataset.resource;
     this.documentId = this.form.dataset.id;
     const deleteBtn = document.querySelector('#deleteFormBtn');
-    // console.log(this.form);
 
     if (/(\/update|\/create)$/.test(window.location.pathname)) {
-      console.log('added before unload');
       window.addEventListener('beforeunload', unload);
     }
     if (deleteBtn) {
@@ -44,7 +42,7 @@ export class FormTemplate {
 
   async saveForm(e) {
     e.preventDefault();
-    console.log('should prompt save');
+
     const bodyObj = {};
     const formData = new FormData(this.form);
     // Build body object

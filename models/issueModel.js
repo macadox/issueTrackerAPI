@@ -160,7 +160,6 @@ async function assignIssueId(next) {
   );
   // Save incrementation of the sequence
   project.prefixSequence = project.prefixSequence + 1;
-  console.log(project)
   await project.save({ validateBeforeSave: false });
   next();
 }

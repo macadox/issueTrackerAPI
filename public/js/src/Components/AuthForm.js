@@ -65,7 +65,6 @@ export class AuthForm extends HTMLFormElement {
       });
 
       const resData = await res.json();
-      console.log(resData);
       if (!res.ok) {
         return new Alert('error', resData.message).showMessage();
       }
@@ -76,7 +75,6 @@ export class AuthForm extends HTMLFormElement {
         callbackFunc();
       }
     } catch (err) {
-      console.log(err);
       new Alert('error', err).showMessage();
     }
   }
