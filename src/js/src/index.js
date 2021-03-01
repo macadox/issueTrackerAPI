@@ -1,6 +1,6 @@
 import '@babel/polyfill';
 import { FormTemplate } from './FormTemplate';
-import { AuthForm } from './Components/AuthForm';
+import { Form } from './Components/Form';
 import { MultiselectFactory } from './Components/Multiselect';
 import { NestedTableFactory } from './Components/NestedTable';
 import { Checkbox } from './Components/Checkbox';
@@ -164,4 +164,4 @@ if (logoutBtn) {
   logoutBtn.addEventListener('click', logout);
 }
 
-customElements.define('auth-form', AuthForm, { extends: 'form' });
+customElements.define('auth-form', Form, { extends: 'form' });

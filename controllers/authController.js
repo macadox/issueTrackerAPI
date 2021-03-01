@@ -12,9 +12,11 @@ const sendToken = (user, statusCode, res) => {
   const token = JWT.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
+
   const cookieOptions = {
     exipres: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 3600 * 1000
+      // Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 3600 * 1000
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 1000
     ),
     httpOnly: true,
   };
@@ -47,9 +49,10 @@ exports.signup = catchAsync(async (req, res, next) => {
   const token = newUser.generateUserConfirmationToken();
   // save token in the user obj
   await newUser.save({ validateBeforeSave: false });
-  const url = `${req.protocol}://${req.get(
-    'host'
-  )}/api/v1/users/signup/${token}`;
+
+  const url = `${req.protocol}://${req
+    .get('host')
+    .replace(/\d+$/, process.env.FRONT_PORT)}/signup/${token}`;
 
   await new Email(newUser, url).sendWelcome();
 
@@ -113,7 +116,9 @@ exports.protect = catchAsync(async (req, res, next) => {
     token = req.cookies.jwt;
   }
   if (!token) {
-    return next(new AppError('Authentication failed. Please log in again!', 401));
+    return next(
+      new AppError('Authentication failed. Please log in again!', 401)
+    );
   }
 
   // 2. Verify the token

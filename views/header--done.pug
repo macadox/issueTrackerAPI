@@ -10,7 +10,7 @@ header
         if user
             p.logo__logged-in-as= `Logged in as: ${user.name}`
     nav
-        ul.menu(role="menu", )
+        ul.menu(role="menu" )
             +menuItem('home.svg', 'Home', '/home')
             if user
                 //- +menuItem('dashboard.svg', 'Dashboard', '/dashboard')
@@ -19,7 +19,7 @@ header
                     +menuItem('settings.svg', 'Admin', '/admin')
                 +menuItem('user.svg', 'User', '/me')
                 li.menu__item: button.btn.menu__link.menu__link--logout
-                    img.menu__icon(src=`/img/ui/logout.svg`, alt=`logout icon`, class=`menu__icon--logout}`, role="menuitem")
+                    img.menu__icon(src=`/img/ui/logout.svg`, alt=`logout icon`, class=`menu__icon--logout`, role="menuitem")
                     span.menu__text Logout
             else
                 +menuItem('login.svg', 'Login', '/login')

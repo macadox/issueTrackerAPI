@@ -29,17 +29,17 @@ const handleJWTExpiredError = () =>
 const sendErrorProd = (err, req, res) => {
   if (req.originalUrl.startsWith('/api')) {
     if (err.isOperational) {
-      res.status(err.statusCode).json({
+      return res.status(err.statusCode).json({
         status: err.status,
         message: err.message,
       });
     }
-    res.status(500).json({
+    return res.status(500).json({
       status: 'error',
       message: 'Something went wrong',
     });
   }
-  res.status(err.statusCode).render('404', {
+  return res.status(err.statusCode).render('404', {
     title: 'Something went wrong',
     err: 'Please, try again later',
   });
@@ -47,14 +47,14 @@ const sendErrorProd = (err, req, res) => {
 
 const sendErrorDev = (err, req, res) => {
   if (req.originalUrl.startsWith('/api')) {
-    res.status(err.statusCode).json({
+    return res.status(err.statusCode).json({
       status: err.status,
       error: err,
       message: err.message,
       stack: err.stack,
     });
   } else {
-    res.status(err.statusCode).render('404', {
+    return res.status(err.statusCode).render('404', {
       title: 'Something went wrong',
       err: err.message,
     });

@@ -1,0 +1,245 @@
+.form-template--grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 2em;
+  row-gap: 2em;
+  background-color: #fff;
+  padding: 3em 3em 6em;
+  border-radius: 6px;
+  margin-top: 3em;
+  margin-bottom: 6em;
+}
+
+.form-template__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-template__input,
+.form-template__select {
+  border: 1px solid #d9d2d2;
+  background: transparent;
+  border-radius: 6px;
+  height: 30px;
+  text-indent: 0.75em;
+  color: inherit;
+  box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.07);
+}
+
+/* Chrome, Safari, Edge, Opera */
+.form-template__input::-webkit-outer-spin-button,
+.form-template__input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.form-template__input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.form-template__input--checkbox {
+  display: none;
+}
+
+.form-template__label {
+  font-size: 1.4rem;
+  color: inherit;
+  margin-bottom: 0.25em;
+  font-weight: 500;
+}
+
+.form-template__textarea {
+  width: 100%;
+  height: 150px;
+  border: 1px solid #d9d2d2;
+  background: transparent;
+  border-radius: 6px;
+  color: inherit;
+  padding: 0.75em;
+  box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.07);
+  resize: none;
+}
+
+.form-template__input:disabled,
+.form-template__textarea:disabled {
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  text-indent: 0;
+  height: auto;
+  min-height: 30px;
+}
+
+.form-template__input:disabled::placeholder {
+    opacity: 0;
+}
+
+.chosen-container {
+  position: relative;
+  outline: none;
+}
+
+.chosen {
+  list-style: none;
+}
+
+.chosen--edit {
+  border: 1px solid #d9d2d2;
+  background: transparent;
+  border-radius: 6px;
+  min-height: 30px;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+  color: inherit;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0.75em;
+  cursor: text;
+  box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.07);
+}
+
+.chosen__choice {
+  color: inherit;
+  font-size: 1.3rem;
+}
+
+.chosen__choice--read {
+  margin-top: 0.5em;
+}
+
+.input-hidden {
+  display: none;
+}
+
+.chosen__choice--edit {
+  display: flex;
+  background-color: #f2f2f2;
+  padding: 0.2em 0.6em;
+  margin-right: 0.6em;
+  margin-bottom: 0.3em;
+  align-items: center;
+  border-radius: 4px;
+  cursor: default;
+  box-shadow: inset 0 0 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.chosen--edit:empty::after {
+  content: "Select options from list";
+  color: inherit;
+  font-size: 1.3rem;
+  opacity: 0.78;
+}
+
+.chosen__button {
+  border: none;
+  width: 10px;
+  height: 10px;
+  color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.4em;
+  cursor: pointer;
+  opacity: 0.75;
+  transition: 0.2s ease-in-out;
+}
+
+.chosen__button--hidden {
+  display: none;
+}
+
+.chosen__button:hover,
+.chosen__button:focus {
+  opacity: 1;
+}
+
+/* .chosen__search {
+  padding: 0.2em 0.6em;
+  margin-right: 0.6em;
+  margin-bottom: 0.3em;
+} */
+
+/* .chosen__search-input {
+  border: none;
+  height: 100%;
+  outline: none;
+  outline: none;
+  color: inherit;
+  font-size: 1.3rem;
+} */
+
+/* .chosen__choice + .chosen__search .chosen__search-input::placeholder {
+    opacity: 0;
+} */
+
+.dropdown {
+  width: 100%;
+  padding: 0.5em 0;
+  font-size: 1.3rem;
+  border: 1px solid #d9d2d2;
+  border-top: none;
+  background: #fff;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 100;
+  display: none;
+  list-style: none;
+}
+
+.chosen-container:focus-within .dropdown {
+    display: block;
+}
+
+.dropdown__option {
+  padding: 0.2em 0.75em;
+  cursor: pointer;
+  outline: none;
+}
+
+.dropdown__option:hover,
+.dropdown__option.dropdown__option--focused {
+  background-color: #f2f2f2;
+}
+
+.dropdown__option--hidden {
+  display: none;
+}
+
+.new-line {
+  grid-column-start: 1;
+  grid-column-end: span 1;
+}
+
+.colspan2 {
+  grid-column-end: span 2;
+}
+
+.colspan3 {
+  grid-column-end: span 3;
+}
+
+.colspan4 {
+  grid-column-end: span 4;
+}
+
+
+/* Table data for forms */
+
+.list__row--form {
+  vertical-align: top;
+  opacity: 1;
+}
+
+.list__data--form {
+  padding-right: 1em;
+  font-size: 1.4rem;
+}
+
+.list--ac .list__heading:first-of-type,
+.list--ac .list__data--form:first-of-type {
+  display: none;
+}
+

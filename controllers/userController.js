@@ -19,7 +19,7 @@ const filterObj = (obj, ...allowedFields) => {
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, 'public/img/users');
+    callback(null, 'public/assets/img/users');
   },
   filename: (req, file, callback) => {
     const ext = file.mimetype.split('/')[1];

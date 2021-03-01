@@ -20,7 +20,7 @@ mongoose
     )
   );
 
-const port = process.env.PORT || 8080;
+const port = process.env.API_PORT || 8080;
 app.listen(port, () => {
-  console.log(`App is running on port ${process.env.PORT || 8080}`);
+  console.log(`App is running on port ${process.env.API_PORT || 8080}`);
 });
