@@ -8,6 +8,7 @@ export const authenticationService = {
   login,
   logout,
   signup,
+  confirmSignup,
   resetPassword,
   sendPasswordReset,
   user: userSubject.asObservable(),
@@ -57,6 +58,15 @@ async function signup(body) {
     .catch((err) => console.error(err));
 }
 
+async function confirmSignup(token) {
+  return fetch(
+    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/signup/${token}`,
+    {
+      method: 'GET',
+    }
+  ).catch((err) => console.error(err));
+}
+
 async function sendPasswordReset(body) {
   return fetch(
     `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/forgotPassword`,
@@ -74,32 +84,41 @@ async function sendPasswordReset(body) {
     .catch((err) => console.error(err));
 }
 
-async function resetPassword(body) {
-  // return fetch(
-  //   `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/login`,
-  //   {
-  //     method: 'POST',
-  //     credentials: 'include',
-  //     body,
-  //   }
-  // )
-  //   .then((res) => {
-  //     if (!res.ok) {
-  //       console.log('error', res.message);
-  //     }
-  //     return res.json();
-  //   })
-  //   .then((data) => {
-  //     const user = data.data.user;
-  //     localStorage.setItem('user', JSON.stringify(user));
-  //     userSubject.next(user);
-  //     return user;
-  //   })
-  //   .catch((err) => console.error(err));
+async function resetPassword(body, token) {
+  return fetch(
+    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/resetPassword/${token}`,
+    {
+      method: 'PATCH',
+      credentials: 'include',
+      body,
+    }
+  )
+    .then((res) => {
+      if (!res.ok) {
+        console.log('error', res.message);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      const user = data.data.user;
+      localStorage.setItem('user', JSON.stringify(user));
+      userSubject.next(user);
+      return user;
+    })
+    .catch((err) => console.error(err));
 }
 
-function logout() {
-  // remove user from local storage to log user out
-  localStorage.removeItem('user');
-  userSubject.next(null);
+async function logout() {
+  return fetch(
+    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/logout`,
+    {
+      method: 'GET',
+    }
+  )
+    .then(() => {
+      // remove user from local storage to log user out
+      localStorage.removeItem('user');
+      userSubject.next(null);
+    })
+    .catch((err) => console.error(err));
 }

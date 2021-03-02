@@ -42176,6 +42176,7 @@ var authenticationService = {
   login: login,
   logout: logout,
   signup: signup,
+  confirmSignup: confirmSignup,
   resetPassword: resetPassword,
   sendPasswordReset: sendPasswordReset,
   user: userSubject.asObservable(),
@@ -42259,17 +42260,43 @@ function _signup() {
   return _signup.apply(this, arguments);
 }
 
-function sendPasswordReset(_x3) {
-  return _sendPasswordReset.apply(this, arguments);
+function confirmSignup(_x3) {
+  return _confirmSignup.apply(this, arguments);
 }
 
-function _sendPasswordReset() {
-  _sendPasswordReset = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3(body) {
+function _confirmSignup() {
+  _confirmSignup = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3(token) {
     return _regenerator.default.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/forgotPassword"), {
+            return _context3.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/signup/").concat(token), {
+              method: 'GET'
+            }).catch(function (err) {
+              return console.error(err);
+            }));
+
+          case 1:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+  return _confirmSignup.apply(this, arguments);
+}
+
+function sendPasswordReset(_x4) {
+  return _sendPasswordReset.apply(this, arguments);
+}
+
+function _sendPasswordReset() {
+  _sendPasswordReset = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4(body) {
+    return _regenerator.default.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            return _context4.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/forgotPassword"), {
               method: 'POST',
               body: body
             }).then(function (res) {
@@ -42284,37 +42311,81 @@ function _sendPasswordReset() {
 
           case 1:
           case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-  return _sendPasswordReset.apply(this, arguments);
-}
-
-function resetPassword(_x4) {
-  return _resetPassword.apply(this, arguments);
-}
-
-function _resetPassword() {
-  _resetPassword = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4(body) {
-    return _regenerator.default.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
-          case "end":
             return _context4.stop();
         }
       }
     }, _callee4);
   }));
+  return _sendPasswordReset.apply(this, arguments);
+}
+
+function resetPassword(_x5, _x6) {
+  return _resetPassword.apply(this, arguments);
+}
+
+function _resetPassword() {
+  _resetPassword = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5(body, token) {
+    return _regenerator.default.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            return _context5.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/resetPassword/").concat(token), {
+              method: 'PATCH',
+              credentials: 'include',
+              body: body
+            }).then(function (res) {
+              if (!res.ok) {
+                console.log('error', res.message);
+              }
+
+              return res.json();
+            }).then(function (data) {
+              var user = data.data.user;
+              localStorage.setItem('user', JSON.stringify(user));
+              userSubject.next(user);
+              return user;
+            }).catch(function (err) {
+              return console.error(err);
+            }));
+
+          case 1:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
   return _resetPassword.apply(this, arguments);
 }
 
 function logout() {
-  // remove user from local storage to log user out
-  localStorage.removeItem('user');
-  userSubject.next(null);
+  return _logout.apply(this, arguments);
+}
+
+function _logout() {
+  _logout = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6() {
+    return _regenerator.default.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            return _context6.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/logout"), {
+              method: 'GET'
+            }).then(function () {
+              // remove user from local storage to log user out
+              localStorage.removeItem('user');
+              userSubject.next(null);
+            }).catch(function (err) {
+              return console.error(err);
+            }));
+
+          case 1:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+  return _logout.apply(this, arguments);
 }
 },{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","rxjs":"../node_modules/rxjs/_esm5/index.js"}],"../node_modules/react-idle-timer/dist/index.es.js":[function(require,module,exports) {
 "use strict";
@@ -42842,7 +42913,734 @@ var _history = require("history");
 var _default = (0, _history.createBrowserHistory)({});
 
 exports.default = _default;
-},{"history":"../node_modules/history/esm/history.js"}],"context.js":[function(require,module,exports) {
+},{"history":"../node_modules/history/esm/history.js"}],"../node_modules/rxjs/internal/util/isFunction.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function isFunction(x) {
+    return typeof x === 'function';
+}
+exports.isFunction = isFunction;
+
+},{}],"../node_modules/rxjs/internal/config.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var _enable_super_gross_mode_that_will_cause_bad_things = false;
+exports.config = {
+    Promise: undefined,
+    set useDeprecatedSynchronousErrorHandling(value) {
+        if (value) {
+            var error = new Error();
+            console.warn('DEPRECATED! RxJS was set to use deprecated synchronous error handling behavior by code at: \n' + error.stack);
+        }
+        else if (_enable_super_gross_mode_that_will_cause_bad_things) {
+            console.log('RxJS: Back to a better error behavior. Thank you. <3');
+        }
+        _enable_super_gross_mode_that_will_cause_bad_things = value;
+    },
+    get useDeprecatedSynchronousErrorHandling() {
+        return _enable_super_gross_mode_that_will_cause_bad_things;
+    },
+};
+
+},{}],"../node_modules/rxjs/internal/util/hostReportError.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function hostReportError(err) {
+    setTimeout(function () { throw err; }, 0);
+}
+exports.hostReportError = hostReportError;
+
+},{}],"../node_modules/rxjs/internal/Observer.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var config_1 = require("./config");
+var hostReportError_1 = require("./util/hostReportError");
+exports.empty = {
+    closed: true,
+    next: function (value) { },
+    error: function (err) {
+        if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+            throw err;
+        }
+        else {
+            hostReportError_1.hostReportError(err);
+        }
+    },
+    complete: function () { }
+};
+
+},{"./config":"../node_modules/rxjs/internal/config.js","./util/hostReportError":"../node_modules/rxjs/internal/util/hostReportError.js"}],"../node_modules/rxjs/internal/util/isArray.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isArray = (function () { return Array.isArray || (function (x) { return x && typeof x.length === 'number'; }); })();
+
+},{}],"../node_modules/rxjs/internal/util/isObject.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function isObject(x) {
+    return x !== null && typeof x === 'object';
+}
+exports.isObject = isObject;
+
+},{}],"../node_modules/rxjs/internal/util/UnsubscriptionError.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var UnsubscriptionErrorImpl = (function () {
+    function UnsubscriptionErrorImpl(errors) {
+        Error.call(this);
+        this.message = errors ?
+            errors.length + " errors occurred during unsubscription:\n" + errors.map(function (err, i) { return i + 1 + ") " + err.toString(); }).join('\n  ') : '';
+        this.name = 'UnsubscriptionError';
+        this.errors = errors;
+        return this;
+    }
+    UnsubscriptionErrorImpl.prototype = Object.create(Error.prototype);
+    return UnsubscriptionErrorImpl;
+})();
+exports.UnsubscriptionError = UnsubscriptionErrorImpl;
+
+},{}],"../node_modules/rxjs/internal/Subscription.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var isArray_1 = require("./util/isArray");
+var isObject_1 = require("./util/isObject");
+var isFunction_1 = require("./util/isFunction");
+var UnsubscriptionError_1 = require("./util/UnsubscriptionError");
+var Subscription = (function () {
+    function Subscription(unsubscribe) {
+        this.closed = false;
+        this._parentOrParents = null;
+        this._subscriptions = null;
+        if (unsubscribe) {
+            this._ctorUnsubscribe = true;
+            this._unsubscribe = unsubscribe;
+        }
+    }
+    Subscription.prototype.unsubscribe = function () {
+        var errors;
+        if (this.closed) {
+            return;
+        }
+        var _a = this, _parentOrParents = _a._parentOrParents, _ctorUnsubscribe = _a._ctorUnsubscribe, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
+        this.closed = true;
+        this._parentOrParents = null;
+        this._subscriptions = null;
+        if (_parentOrParents instanceof Subscription) {
+            _parentOrParents.remove(this);
+        }
+        else if (_parentOrParents !== null) {
+            for (var index = 0; index < _parentOrParents.length; ++index) {
+                var parent_1 = _parentOrParents[index];
+                parent_1.remove(this);
+            }
+        }
+        if (isFunction_1.isFunction(_unsubscribe)) {
+            if (_ctorUnsubscribe) {
+                this._unsubscribe = undefined;
+            }
+            try {
+                _unsubscribe.call(this);
+            }
+            catch (e) {
+                errors = e instanceof UnsubscriptionError_1.UnsubscriptionError ? flattenUnsubscriptionErrors(e.errors) : [e];
+            }
+        }
+        if (isArray_1.isArray(_subscriptions)) {
+            var index = -1;
+            var len = _subscriptions.length;
+            while (++index < len) {
+                var sub = _subscriptions[index];
+                if (isObject_1.isObject(sub)) {
+                    try {
+                        sub.unsubscribe();
+                    }
+                    catch (e) {
+                        errors = errors || [];
+                        if (e instanceof UnsubscriptionError_1.UnsubscriptionError) {
+                            errors = errors.concat(flattenUnsubscriptionErrors(e.errors));
+                        }
+                        else {
+                            errors.push(e);
+                        }
+                    }
+                }
+            }
+        }
+        if (errors) {
+            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
+        }
+    };
+    Subscription.prototype.add = function (teardown) {
+        var subscription = teardown;
+        if (!teardown) {
+            return Subscription.EMPTY;
+        }
+        switch (typeof teardown) {
+            case 'function':
+                subscription = new Subscription(teardown);
+            case 'object':
+                if (subscription === this || subscription.closed || typeof subscription.unsubscribe !== 'function') {
+                    return subscription;
+                }
+                else if (this.closed) {
+                    subscription.unsubscribe();
+                    return subscription;
+                }
+                else if (!(subscription instanceof Subscription)) {
+                    var tmp = subscription;
+                    subscription = new Subscription();
+                    subscription._subscriptions = [tmp];
+                }
+                break;
+            default: {
+                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
+            }
+        }
+        var _parentOrParents = subscription._parentOrParents;
+        if (_parentOrParents === null) {
+            subscription._parentOrParents = this;
+        }
+        else if (_parentOrParents instanceof Subscription) {
+            if (_parentOrParents === this) {
+                return subscription;
+            }
+            subscription._parentOrParents = [_parentOrParents, this];
+        }
+        else if (_parentOrParents.indexOf(this) === -1) {
+            _parentOrParents.push(this);
+        }
+        else {
+            return subscription;
+        }
+        var subscriptions = this._subscriptions;
+        if (subscriptions === null) {
+            this._subscriptions = [subscription];
+        }
+        else {
+            subscriptions.push(subscription);
+        }
+        return subscription;
+    };
+    Subscription.prototype.remove = function (subscription) {
+        var subscriptions = this._subscriptions;
+        if (subscriptions) {
+            var subscriptionIndex = subscriptions.indexOf(subscription);
+            if (subscriptionIndex !== -1) {
+                subscriptions.splice(subscriptionIndex, 1);
+            }
+        }
+    };
+    Subscription.EMPTY = (function (empty) {
+        empty.closed = true;
+        return empty;
+    }(new Subscription()));
+    return Subscription;
+}());
+exports.Subscription = Subscription;
+function flattenUnsubscriptionErrors(errors) {
+    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
+}
+
+},{"./util/isArray":"../node_modules/rxjs/internal/util/isArray.js","./util/isObject":"../node_modules/rxjs/internal/util/isObject.js","./util/isFunction":"../node_modules/rxjs/internal/util/isFunction.js","./util/UnsubscriptionError":"../node_modules/rxjs/internal/util/UnsubscriptionError.js"}],"../node_modules/rxjs/internal/symbol/rxSubscriber.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.rxSubscriber = (function () {
+    return typeof Symbol === 'function'
+        ? Symbol('rxSubscriber')
+        : '@@rxSubscriber_' + Math.random();
+})();
+exports.$$rxSubscriber = exports.rxSubscriber;
+
+},{}],"../node_modules/rxjs/internal/Subscriber.js":[function(require,module,exports) {
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var isFunction_1 = require("./util/isFunction");
+var Observer_1 = require("./Observer");
+var Subscription_1 = require("./Subscription");
+var rxSubscriber_1 = require("../internal/symbol/rxSubscriber");
+var config_1 = require("./config");
+var hostReportError_1 = require("./util/hostReportError");
+var Subscriber = (function (_super) {
+    __extends(Subscriber, _super);
+    function Subscriber(destinationOrNext, error, complete) {
+        var _this = _super.call(this) || this;
+        _this.syncErrorValue = null;
+        _this.syncErrorThrown = false;
+        _this.syncErrorThrowable = false;
+        _this.isStopped = false;
+        switch (arguments.length) {
+            case 0:
+                _this.destination = Observer_1.empty;
+                break;
+            case 1:
+                if (!destinationOrNext) {
+                    _this.destination = Observer_1.empty;
+                    break;
+                }
+                if (typeof destinationOrNext === 'object') {
+                    if (destinationOrNext instanceof Subscriber) {
+                        _this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
+                        _this.destination = destinationOrNext;
+                        destinationOrNext.add(_this);
+                    }
+                    else {
+                        _this.syncErrorThrowable = true;
+                        _this.destination = new SafeSubscriber(_this, destinationOrNext);
+                    }
+                    break;
+                }
+            default:
+                _this.syncErrorThrowable = true;
+                _this.destination = new SafeSubscriber(_this, destinationOrNext, error, complete);
+                break;
+        }
+        return _this;
+    }
+    Subscriber.prototype[rxSubscriber_1.rxSubscriber] = function () { return this; };
+    Subscriber.create = function (next, error, complete) {
+        var subscriber = new Subscriber(next, error, complete);
+        subscriber.syncErrorThrowable = false;
+        return subscriber;
+    };
+    Subscriber.prototype.next = function (value) {
+        if (!this.isStopped) {
+            this._next(value);
+        }
+    };
+    Subscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            this.isStopped = true;
+            this._error(err);
+        }
+    };
+    Subscriber.prototype.complete = function () {
+        if (!this.isStopped) {
+            this.isStopped = true;
+            this._complete();
+        }
+    };
+    Subscriber.prototype.unsubscribe = function () {
+        if (this.closed) {
+            return;
+        }
+        this.isStopped = true;
+        _super.prototype.unsubscribe.call(this);
+    };
+    Subscriber.prototype._next = function (value) {
+        this.destination.next(value);
+    };
+    Subscriber.prototype._error = function (err) {
+        this.destination.error(err);
+        this.unsubscribe();
+    };
+    Subscriber.prototype._complete = function () {
+        this.destination.complete();
+        this.unsubscribe();
+    };
+    Subscriber.prototype._unsubscribeAndRecycle = function () {
+        var _parentOrParents = this._parentOrParents;
+        this._parentOrParents = null;
+        this.unsubscribe();
+        this.closed = false;
+        this.isStopped = false;
+        this._parentOrParents = _parentOrParents;
+        return this;
+    };
+    return Subscriber;
+}(Subscription_1.Subscription));
+exports.Subscriber = Subscriber;
+var SafeSubscriber = (function (_super) {
+    __extends(SafeSubscriber, _super);
+    function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
+        var _this = _super.call(this) || this;
+        _this._parentSubscriber = _parentSubscriber;
+        var next;
+        var context = _this;
+        if (isFunction_1.isFunction(observerOrNext)) {
+            next = observerOrNext;
+        }
+        else if (observerOrNext) {
+            next = observerOrNext.next;
+            error = observerOrNext.error;
+            complete = observerOrNext.complete;
+            if (observerOrNext !== Observer_1.empty) {
+                context = Object.create(observerOrNext);
+                if (isFunction_1.isFunction(context.unsubscribe)) {
+                    _this.add(context.unsubscribe.bind(context));
+                }
+                context.unsubscribe = _this.unsubscribe.bind(_this);
+            }
+        }
+        _this._context = context;
+        _this._next = next;
+        _this._error = error;
+        _this._complete = complete;
+        return _this;
+    }
+    SafeSubscriber.prototype.next = function (value) {
+        if (!this.isStopped && this._next) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (!config_1.config.useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+                this.__tryOrUnsub(this._next, value);
+            }
+            else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.error = function (err) {
+        if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            var useDeprecatedSynchronousErrorHandling = config_1.config.useDeprecatedSynchronousErrorHandling;
+            if (this._error) {
+                if (!useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+                    this.__tryOrUnsub(this._error, err);
+                    this.unsubscribe();
+                }
+                else {
+                    this.__tryOrSetError(_parentSubscriber, this._error, err);
+                    this.unsubscribe();
+                }
+            }
+            else if (!_parentSubscriber.syncErrorThrowable) {
+                this.unsubscribe();
+                if (useDeprecatedSynchronousErrorHandling) {
+                    throw err;
+                }
+                hostReportError_1.hostReportError(err);
+            }
+            else {
+                if (useDeprecatedSynchronousErrorHandling) {
+                    _parentSubscriber.syncErrorValue = err;
+                    _parentSubscriber.syncErrorThrown = true;
+                }
+                else {
+                    hostReportError_1.hostReportError(err);
+                }
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.complete = function () {
+        var _this = this;
+        if (!this.isStopped) {
+            var _parentSubscriber = this._parentSubscriber;
+            if (this._complete) {
+                var wrappedComplete = function () { return _this._complete.call(_this._context); };
+                if (!config_1.config.useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
+                    this.__tryOrUnsub(wrappedComplete);
+                    this.unsubscribe();
+                }
+                else {
+                    this.__tryOrSetError(_parentSubscriber, wrappedComplete);
+                    this.unsubscribe();
+                }
+            }
+            else {
+                this.unsubscribe();
+            }
+        }
+    };
+    SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
+        try {
+            fn.call(this._context, value);
+        }
+        catch (err) {
+            this.unsubscribe();
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+                throw err;
+            }
+            else {
+                hostReportError_1.hostReportError(err);
+            }
+        }
+    };
+    SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
+        if (!config_1.config.useDeprecatedSynchronousErrorHandling) {
+            throw new Error('bad call');
+        }
+        try {
+            fn.call(this._context, value);
+        }
+        catch (err) {
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+                parent.syncErrorValue = err;
+                parent.syncErrorThrown = true;
+                return true;
+            }
+            else {
+                hostReportError_1.hostReportError(err);
+                return true;
+            }
+        }
+        return false;
+    };
+    SafeSubscriber.prototype._unsubscribe = function () {
+        var _parentSubscriber = this._parentSubscriber;
+        this._context = null;
+        this._parentSubscriber = null;
+        _parentSubscriber.unsubscribe();
+    };
+    return SafeSubscriber;
+}(Subscriber));
+exports.SafeSubscriber = SafeSubscriber;
+
+},{"./util/isFunction":"../node_modules/rxjs/internal/util/isFunction.js","./Observer":"../node_modules/rxjs/internal/Observer.js","./Subscription":"../node_modules/rxjs/internal/Subscription.js","../internal/symbol/rxSubscriber":"../node_modules/rxjs/internal/symbol/rxSubscriber.js","./config":"../node_modules/rxjs/internal/config.js","./util/hostReportError":"../node_modules/rxjs/internal/util/hostReportError.js"}],"../node_modules/rxjs/internal/util/canReportError.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Subscriber_1 = require("../Subscriber");
+function canReportError(observer) {
+    while (observer) {
+        var _a = observer, closed_1 = _a.closed, destination = _a.destination, isStopped = _a.isStopped;
+        if (closed_1 || isStopped) {
+            return false;
+        }
+        else if (destination && destination instanceof Subscriber_1.Subscriber) {
+            observer = destination;
+        }
+        else {
+            observer = null;
+        }
+    }
+    return true;
+}
+exports.canReportError = canReportError;
+
+},{"../Subscriber":"../node_modules/rxjs/internal/Subscriber.js"}],"../node_modules/rxjs/internal/util/toSubscriber.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Subscriber_1 = require("../Subscriber");
+var rxSubscriber_1 = require("../symbol/rxSubscriber");
+var Observer_1 = require("../Observer");
+function toSubscriber(nextOrObserver, error, complete) {
+    if (nextOrObserver) {
+        if (nextOrObserver instanceof Subscriber_1.Subscriber) {
+            return nextOrObserver;
+        }
+        if (nextOrObserver[rxSubscriber_1.rxSubscriber]) {
+            return nextOrObserver[rxSubscriber_1.rxSubscriber]();
+        }
+    }
+    if (!nextOrObserver && !error && !complete) {
+        return new Subscriber_1.Subscriber(Observer_1.empty);
+    }
+    return new Subscriber_1.Subscriber(nextOrObserver, error, complete);
+}
+exports.toSubscriber = toSubscriber;
+
+},{"../Subscriber":"../node_modules/rxjs/internal/Subscriber.js","../symbol/rxSubscriber":"../node_modules/rxjs/internal/symbol/rxSubscriber.js","../Observer":"../node_modules/rxjs/internal/Observer.js"}],"../node_modules/rxjs/internal/symbol/observable.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.observable = (function () { return typeof Symbol === 'function' && Symbol.observable || '@@observable'; })();
+
+},{}],"../node_modules/rxjs/internal/util/identity.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+function identity(x) {
+    return x;
+}
+exports.identity = identity;
+
+},{}],"../node_modules/rxjs/internal/util/pipe.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var identity_1 = require("./identity");
+function pipe() {
+    var fns = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        fns[_i] = arguments[_i];
+    }
+    return pipeFromArray(fns);
+}
+exports.pipe = pipe;
+function pipeFromArray(fns) {
+    if (fns.length === 0) {
+        return identity_1.identity;
+    }
+    if (fns.length === 1) {
+        return fns[0];
+    }
+    return function piped(input) {
+        return fns.reduce(function (prev, fn) { return fn(prev); }, input);
+    };
+}
+exports.pipeFromArray = pipeFromArray;
+
+},{"./identity":"../node_modules/rxjs/internal/util/identity.js"}],"../node_modules/rxjs/internal/Observable.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var canReportError_1 = require("./util/canReportError");
+var toSubscriber_1 = require("./util/toSubscriber");
+var observable_1 = require("./symbol/observable");
+var pipe_1 = require("./util/pipe");
+var config_1 = require("./config");
+var Observable = (function () {
+    function Observable(subscribe) {
+        this._isScalar = false;
+        if (subscribe) {
+            this._subscribe = subscribe;
+        }
+    }
+    Observable.prototype.lift = function (operator) {
+        var observable = new Observable();
+        observable.source = this;
+        observable.operator = operator;
+        return observable;
+    };
+    Observable.prototype.subscribe = function (observerOrNext, error, complete) {
+        var operator = this.operator;
+        var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
+        if (operator) {
+            sink.add(operator.call(sink, this.source));
+        }
+        else {
+            sink.add(this.source || (config_1.config.useDeprecatedSynchronousErrorHandling && !sink.syncErrorThrowable) ?
+                this._subscribe(sink) :
+                this._trySubscribe(sink));
+        }
+        if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+            if (sink.syncErrorThrowable) {
+                sink.syncErrorThrowable = false;
+                if (sink.syncErrorThrown) {
+                    throw sink.syncErrorValue;
+                }
+            }
+        }
+        return sink;
+    };
+    Observable.prototype._trySubscribe = function (sink) {
+        try {
+            return this._subscribe(sink);
+        }
+        catch (err) {
+            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
+                sink.syncErrorThrown = true;
+                sink.syncErrorValue = err;
+            }
+            if (canReportError_1.canReportError(sink)) {
+                sink.error(err);
+            }
+            else {
+                console.warn(err);
+            }
+        }
+    };
+    Observable.prototype.forEach = function (next, promiseCtor) {
+        var _this = this;
+        promiseCtor = getPromiseCtor(promiseCtor);
+        return new promiseCtor(function (resolve, reject) {
+            var subscription;
+            subscription = _this.subscribe(function (value) {
+                try {
+                    next(value);
+                }
+                catch (err) {
+                    reject(err);
+                    if (subscription) {
+                        subscription.unsubscribe();
+                    }
+                }
+            }, reject, resolve);
+        });
+    };
+    Observable.prototype._subscribe = function (subscriber) {
+        var source = this.source;
+        return source && source.subscribe(subscriber);
+    };
+    Observable.prototype[observable_1.observable] = function () {
+        return this;
+    };
+    Observable.prototype.pipe = function () {
+        var operations = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            operations[_i] = arguments[_i];
+        }
+        if (operations.length === 0) {
+            return this;
+        }
+        return pipe_1.pipeFromArray(operations)(this);
+    };
+    Observable.prototype.toPromise = function (promiseCtor) {
+        var _this = this;
+        promiseCtor = getPromiseCtor(promiseCtor);
+        return new promiseCtor(function (resolve, reject) {
+            var value;
+            _this.subscribe(function (x) { return value = x; }, function (err) { return reject(err); }, function () { return resolve(value); });
+        });
+    };
+    Observable.create = function (subscribe) {
+        return new Observable(subscribe);
+    };
+    return Observable;
+}());
+exports.Observable = Observable;
+function getPromiseCtor(promiseCtor) {
+    if (!promiseCtor) {
+        promiseCtor = config_1.config.Promise || Promise;
+    }
+    if (!promiseCtor) {
+        throw new Error('no Promise impl found');
+    }
+    return promiseCtor;
+}
+
+},{"./util/canReportError":"../node_modules/rxjs/internal/util/canReportError.js","./util/toSubscriber":"../node_modules/rxjs/internal/util/toSubscriber.js","./symbol/observable":"../node_modules/rxjs/internal/symbol/observable.js","./util/pipe":"../node_modules/rxjs/internal/util/pipe.js","./config":"../node_modules/rxjs/internal/config.js"}],"../node_modules/rxjs/internal/observable/pairs.js":[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var Observable_1 = require("../Observable");
+var Subscription_1 = require("../Subscription");
+function pairs(obj, scheduler) {
+    if (!scheduler) {
+        return new Observable_1.Observable(function (subscriber) {
+            var keys = Object.keys(obj);
+            for (var i = 0; i < keys.length && !subscriber.closed; i++) {
+                var key = keys[i];
+                if (obj.hasOwnProperty(key)) {
+                    subscriber.next([key, obj[key]]);
+                }
+            }
+            subscriber.complete();
+        });
+    }
+    else {
+        return new Observable_1.Observable(function (subscriber) {
+            var keys = Object.keys(obj);
+            var subscription = new Subscription_1.Subscription();
+            subscription.add(scheduler.schedule(dispatch, 0, { keys: keys, index: 0, subscriber: subscriber, subscription: subscription, obj: obj }));
+            return subscription;
+        });
+    }
+}
+exports.pairs = pairs;
+function dispatch(state) {
+    var keys = state.keys, index = state.index, subscriber = state.subscriber, subscription = state.subscription, obj = state.obj;
+    if (!subscriber.closed) {
+        if (index < keys.length) {
+            var key = keys[index];
+            subscriber.next([key, obj[key]]);
+            subscription.add(this.schedule({ keys: keys, index: index + 1, subscriber: subscriber, subscription: subscription, obj: obj }));
+        }
+        else {
+            subscriber.complete();
+        }
+    }
+}
+exports.dispatch = dispatch;
+
+},{"../Observable":"../node_modules/rxjs/internal/Observable.js","../Subscription":"../node_modules/rxjs/internal/Subscription.js"}],"context.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42861,6 +43659,8 @@ var _authenticationService = require("./services/authenticationService");
 var _reactIdleTimer = require("react-idle-timer");
 
 var _history = _interopRequireDefault(require("./services/history"));
+
+var _pairs = require("rxjs/internal/observable/pairs");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -42883,25 +43683,26 @@ var reducer = function reducer(state, action) {
         });
       }
 
-    case 'LOGOUT':
+    case 'SHOW_ALERT':
       {
-        _authenticationService.authenticationService.logout();
-
-        return state;
+        var _action$payload = action.payload,
+            type = _action$payload.type,
+            message = _action$payload.message;
+        return _objectSpread(_objectSpread({}, state), {}, {
+          alert: {
+            type: type,
+            message: message
+          },
+          showAlert: true
+        });
       }
 
-    case 'SIGN_UP':
+    case 'HIDE_ALERT':
       {
-        _authenticationService.authenticationService.signup(action.payload);
-
-        return state;
-      }
-
-    case 'SEND_PASSWORD_RESET':
-      {
-        _authenticationService.authenticationService.sendPasswordReset(action.payload);
-
-        return state;
+        return _objectSpread(_objectSpread({}, state), {}, {
+          alert: null,
+          showAlert: false
+        });
       }
 
     default:
@@ -42912,7 +43713,9 @@ var reducer = function reducer(state, action) {
 };
 
 var defaultState = {
-  user: null
+  user: null,
+  alert: null,
+  showAlert: false
 };
 
 var AppProvider = function AppProvider(_ref) {
@@ -42924,11 +43727,13 @@ var AppProvider = function AppProvider(_ref) {
       dispatch = _useReducer2[1];
 
   var handleOnIdle = function handleOnIdle(e) {
-    dispatch({
-      type: 'LOGOUT'
-    });
+    _authenticationService.authenticationService.logout().then(function () {
+      console.log('show postiive message');
 
-    _history.default.push('/login');
+      _history.default.push('/login');
+    }).catch(function (err) {
+      return console.log('sth went wrong');
+    });
   };
 
   var handleOnActive = function handleOnActive(e) {};
@@ -42951,6 +43756,18 @@ var AppProvider = function AppProvider(_ref) {
         type: 'LOGIN',
         payload: d
       });
+      dispatch({
+        type: 'SHOW_ALERT',
+        payload: {
+          type: 'success',
+          message: 'User logged in.'
+        }
+      });
+      setTimeout(function () {
+        dispatch({
+          type: 'HIDE_ALERT'
+        });
+      }, 3000);
     }).catch(function (err) {
       return console.error(err);
     });
@@ -42959,29 +43776,44 @@ var AppProvider = function AppProvider(_ref) {
   };
 
   var logout = function logout() {
-    dispatch({
-      type: 'LOGOUT'
-    });
+    _authenticationService.authenticationService.logout().then(function () {
+      console.log('show postiive message');
 
-    _history.default.push('/');
+      _history.default.push('/login');
+    }).catch(function (err) {
+      return console.log('sth went wrong');
+    });
   };
 
   var signup = function signup(body) {
-    dispatch({
-      type: 'SIGN_UP',
-      payload: body
-    });
+    _authenticationService.authenticationService.signup(body).then(function (t) {
+      return console.log('then show positive message');
+    }).catch(function (err) {
+      return console.log('show negative message, sth went wrong?');
+    }); // dispatch({ type: 'SIGN_UP', payload: body });
+
+  };
+
+  var confirmSignup = function confirmSignup(token) {
+    _authenticationService.authenticationService.confirmSignup(token).then(function (t) {
+      return console.log('then show positive message');
+    }).catch(function (err) {
+      return console.log('show negative message, sth went wrong?');
+    }); // dispatch({ type: 'CONFIRM_SIGN_UP', payload: token });
+
   };
 
   var sendPasswordReset = function sendPasswordReset(body) {
-    dispatch({
-      type: 'SEND_PASSWORD_RESET',
-      payload: body
-    });
+    _authenticationService.authenticationService.sendPasswordReset(body).then(function (t) {
+      return console.log('then show positive message');
+    }).catch(function (err) {
+      return console.log('show negative message, sth went wrong?');
+    }); // dispatch({ type: 'SEND_PASSWORD_RESET', payload: body });
+
   };
 
-  var resetPassword = function resetPassword(body) {
-    _authenticationService.authenticationService.resetPassword(body).then(function (d) {
+  var resetPassword = function resetPassword(body, token) {
+    _authenticationService.authenticationService.resetPassword(body, token).then(function (d) {
       dispatch({
         type: 'LOGIN',
         payload: d
@@ -43004,9 +43836,12 @@ var AppProvider = function AppProvider(_ref) {
   return /*#__PURE__*/_react.default.createElement(AppContext.Provider, {
     value: {
       user: state.user,
+      alert: state.alert,
+      showAlert: state.showAlert,
       login: login,
       logout: logout,
       signup: signup,
+      confirmSignup: confirmSignup,
       sendPasswordReset: sendPasswordReset,
       resetPassword: resetPassword
     }
@@ -43020,7 +43855,7 @@ var useGlobalContext = function useGlobalContext() {
 };
 
 exports.useGlobalContext = useGlobalContext;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","./services/authenticationService":"services/authenticationService.js","react-idle-timer":"../node_modules/react-idle-timer/dist/index.es.js","./services/history":"services/history.js"}],"components/Header/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","./services/authenticationService":"services/authenticationService.js","react-idle-timer":"../node_modules/react-idle-timer/dist/index.es.js","./services/history":"services/history.js","rxjs/internal/observable/pairs":"../node_modules/rxjs/internal/observable/pairs.js"}],"components/Header/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43134,7 +43969,49 @@ var Footer = function Footer() {
 
 var _default = Footer;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"assets/img/ui/illustration-intro.png":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"assets/img/ui/tick.svg":[function(require,module,exports) {
+module.exports = "/tick.7c6ead30.svg";
+},{}],"assets/img/ui/close.svg":[function(require,module,exports) {
+module.exports = "/close.edc1009a.svg";
+},{}],"components/Alert.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _tick = _interopRequireDefault(require("../assets/img/ui/tick.svg"));
+
+var _close = _interopRequireDefault(require("../assets/img/ui/close.svg"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Alert = function Alert(_ref) {
+  var type = _ref.type,
+      message = _ref.message;
+  console.log(type, message);
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "alert alert--".concat(type),
+    role: "alertdialog"
+  }, type === 'error' ? /*#__PURE__*/_react.default.createElement("img", {
+    src: _close.default,
+    alt: "error",
+    className: "alert__icon--error alert__icon"
+  }) : /*#__PURE__*/_react.default.createElement("img", {
+    src: _tick.default,
+    alt: "success",
+    className: "alert__icon"
+  }), /*#__PURE__*/_react.default.createElement("p", {
+    className: "alert__message"
+  }, message));
+};
+
+var _default = Alert;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../assets/img/ui/tick.svg":"assets/img/ui/tick.svg","../assets/img/ui/close.svg":"assets/img/ui/close.svg"}],"assets/img/ui/illustration-intro.png":[function(require,module,exports) {
 module.exports = "/illustration-intro.36674012.png";
 },{}],"pages/HomePage.js":[function(require,module,exports) {
 "use strict";
@@ -43222,24 +44099,7 @@ var AuthForm = function AuthForm(_ref) {
   var className = _ref.className,
       callback = _ref.callback,
       children = _ref.children;
-  var formRef = (0, _react.useRef)(null); // const sendData = async () => {
-  //   try {
-  //     const formData = new FormData(formRef.current);
-  //     const res = await fetch(endpoint, {
-  //       method: method,
-  //       credentials: 'include',
-  //       body: formData,
-  //     });
-  //     const resData = await res.json();
-  //     if (!res.ok) {
-  //       // TODO: Alert
-  //       console.log('error: ', resData.message);
-  //     }
-  //     console.log(resData);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+  var formRef = (0, _react.useRef)(null);
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
@@ -43498,7 +44358,44 @@ var SignupPage = function SignupPage() {
 
 var _default = SignupPage;
 exports.default = _default;
-},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../components/AuthForm":"components/AuthForm.js","../components/FormInput":"components/FormInput.js","../context":"context.js"}],"pages/ForgotPasswordPage.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../components/AuthForm":"components/AuthForm.js","../components/FormInput":"components/FormInput.js","../context":"context.js"}],"pages/ConfirmSignupPage.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _context = require("../context");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var ConfirmSignupPage = function ConfirmSignupPage(props) {
+  var _useGlobalContext = (0, _context.useGlobalContext)(),
+      confirmSignup = _useGlobalContext.confirmSignup;
+
+  var _useParams = (0, _reactRouterDom.useParams)(),
+      token = _useParams.token;
+
+  (0, _react.useEffect)(function () {
+    if (token) {
+      confirmSignup(token);
+    }
+  }, []);
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, {
+    to: "/"
+  });
+};
+
+var _default = ConfirmSignupPage;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../context":"context.js"}],"pages/ForgotPasswordPage.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43565,6 +44462,8 @@ var _FormInput = _interopRequireDefault(require("../components/FormInput"));
 
 var _context = require("../context");
 
+var _reactRouterDom = require("react-router-dom");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ResetPasswordPage = function ResetPasswordPage() {
@@ -43572,6 +44471,13 @@ var ResetPasswordPage = function ResetPasswordPage() {
 
   var _useGlobalContext = (0, _context.useGlobalContext)(),
       resetPassword = _useGlobalContext.resetPassword;
+
+  var _useParams = (0, _reactRouterDom.useParams)(),
+      token = _useParams.token;
+
+  var submitResetPassword = function submitResetPassword(body) {
+    resetPassword(body, token);
+  };
 
   return /*#__PURE__*/_react.default.createElement("main", {
     className: "main main--form"
@@ -43584,7 +44490,7 @@ var ResetPasswordPage = function ResetPasswordPage() {
   }, "Type your new password below to reset."), /*#__PURE__*/_react.default.createElement("p", {
     className: "form__description"
   }, "For security reasons, we do NOT store your password. So rest assured that we will never send your password via email."), /*#__PURE__*/_react.default.createElement(_AuthForm.default, {
-    callback: resetPassword,
+    callback: submitResetPassword,
     className: "form__body--reset-password"
   }, /*#__PURE__*/_react.default.createElement(_FormInput.default, {
     id: "password",
@@ -43606,7 +44512,7 @@ var ResetPasswordPage = function ResetPasswordPage() {
 
 var _default = ResetPasswordPage;
 exports.default = _default;
-},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","../components/AuthForm":"components/AuthForm.js","../components/FormInput":"components/FormInput.js","../context":"context.js"}],"App.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","../components/AuthForm":"components/AuthForm.js","../components/FormInput":"components/FormInput.js","../context":"context.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43624,11 +44530,15 @@ var _index = _interopRequireDefault(require("./components/Header/index"));
 
 var _Footer = _interopRequireDefault(require("./components/Footer"));
 
+var _Alert = _interopRequireDefault(require("./components/Alert"));
+
 var _HomePage = _interopRequireDefault(require("./pages/HomePage"));
 
 var _LoginPage = _interopRequireDefault(require("./pages/LoginPage"));
 
 var _SignupPage = _interopRequireDefault(require("./pages/SignupPage"));
+
+var _ConfirmSignupPage = _interopRequireDefault(require("./pages/ConfirmSignupPage"));
 
 var _ForgotPasswordPage = _interopRequireDefault(require("./pages/ForgotPasswordPage"));
 
@@ -43636,11 +44546,17 @@ var _ResetPasswordPage = _interopRequireDefault(require("./pages/ResetPasswordPa
 
 var _history = _interopRequireDefault(require("./services/history"));
 
+var _context = require("./context");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Components
 // Pages
 var App = function App() {
+  var _useGlobalContext = (0, _context.useGlobalContext)(),
+      showAlert = _useGlobalContext.showAlert,
+      alert = _useGlobalContext.alert;
+
   return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Router, {
     history: _history.default
   }, /*#__PURE__*/_react.default.createElement(_index.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
@@ -43649,17 +44565,26 @@ var App = function App() {
   }, /*#__PURE__*/_react.default.createElement(_HomePage.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/login"
   }, /*#__PURE__*/_react.default.createElement(_LoginPage.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    exact: true,
+    path: "/signup/:token",
+    children: /*#__PURE__*/_react.default.createElement(_ConfirmSignupPage.default, null)
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    exact: true,
     path: "/signup"
   }, /*#__PURE__*/_react.default.createElement(_SignupPage.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/forgotPassword"
   }, /*#__PURE__*/_react.default.createElement(_ForgotPasswordPage.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-    path: "/resetPassword"
-  }, /*#__PURE__*/_react.default.createElement(_ResetPasswordPage.default, null))), /*#__PURE__*/_react.default.createElement(_Footer.default, null));
+    path: "/resetPassword/:token",
+    children: /*#__PURE__*/_react.default.createElement(_ResetPasswordPage.default, null)
+  })), /*#__PURE__*/_react.default.createElement(_Footer.default, null), showAlert && /*#__PURE__*/_react.default.createElement(_Alert.default, {
+    type: alert.type,
+    message: alert.message
+  }));
 };
 
 var _default = App;
 exports.default = _default;
-},{"./App.css":"App.css","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components/Header/index":"components/Header/index.js","./components/Footer":"components/Footer.js","./pages/HomePage":"pages/HomePage.js","./pages/LoginPage":"pages/LoginPage.js","./pages/SignupPage":"pages/SignupPage.js","./pages/ForgotPasswordPage":"pages/ForgotPasswordPage.js","./pages/ResetPasswordPage":"pages/ResetPasswordPage.js","./services/history":"services/history.js"}],"index.js":[function(require,module,exports) {
+},{"./App.css":"App.css","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components/Header/index":"components/Header/index.js","./components/Footer":"components/Footer.js","./components/Alert":"components/Alert.js","./pages/HomePage":"pages/HomePage.js","./pages/LoginPage":"pages/LoginPage.js","./pages/SignupPage":"pages/SignupPage.js","./pages/ConfirmSignupPage":"pages/ConfirmSignupPage.js","./pages/ForgotPasswordPage":"pages/ForgotPasswordPage.js","./pages/ResetPasswordPage":"pages/ResetPasswordPage.js","./services/history":"services/history.js","./context":"context.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -43701,7 +44626,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62569" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57785" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

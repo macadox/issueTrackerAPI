@@ -2,9 +2,15 @@ import React from 'react';
 import AuthForm from '../components/AuthForm';
 import FormInput from '../components/FormInput';
 import { useGlobalContext } from '../context';
+import { useParams } from 'react-router-dom';
 
 const ResetPasswordPage = () => {
   const { resetPassword } = useGlobalContext();
+  const { token } = useParams();
+
+  const submitResetPassword = (body) => {
+    resetPassword(body, token);
+  };
 
   return (
     <main className="main main--form">
@@ -17,7 +23,10 @@ const ResetPasswordPage = () => {
           For security reasons, we do NOT store your password. So rest assured
           that we will never send your password via email.
         </p>
-        <AuthForm callback={resetPassword} className="form__body--reset-password">
+        <AuthForm
+          callback={submitResetPassword}
+          className="form__body--reset-password"
+        >
           <FormInput
             id="password"
             labelText="Password"

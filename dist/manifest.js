@@ -119,14 +119,14 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   return newRequire;
 })({"manifest.json":[function(require,module,exports) {
 module.exports = {
-  "short_name": "Dota 2 Heroes",
-  "name": "Dota 2 - Hero Stats",
+  "short_name": "Issue Tracker",
+  "name": "Issue Tracker",
   "icons": [{
     "src": "favicon.ico",
     "sizes": "64x64 32x32 24x24 16x16",
     "type": "image/x-icon"
   }],
-  "start_url": ".",
+  "start_url": "./",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
@@ -159,7 +159,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62569" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57785" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

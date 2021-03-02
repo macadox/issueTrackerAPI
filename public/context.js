@@ -2,6 +2,7 @@ import React, { useReducer, useEffect, useContext } from 'react';
 import { authenticationService } from './services/authenticationService';
 import { useIdleTimer } from 'react-idle-timer';
 import history from './services/history';
+import { dispatch } from 'rxjs/internal/observable/pairs';
 
 const AppContext = React.createContext();
 
@@ -11,19 +12,20 @@ const reducer = (state, action) => {
       return { ...state, user: action.payload };
     }
 
-    case 'LOGOUT': {
-      authenticationService.logout();
-      return state;
+    case 'SHOW_ALERT': {
+      const { type, message } = action.payload;
+      return {
+        ...state,
+        alert: {
+          type,
+          message,
+        },
+        showAlert: true,
+      };
     }
 
-    case 'SIGN_UP': {
-      authenticationService.signup(action.payload);
-      return state;
-    }
-
-    case 'SEND_PASSWORD_RESET': {
-      authenticationService.sendPasswordReset(action.payload);
-      return state;
+    case 'HIDE_ALERT': {
+      return { ...state, alert: null, showAlert: false };
     }
 
     default: {
@@ -34,14 +36,21 @@ const reducer = (state, action) => {
 
 const defaultState = {
   user: null,
+  alert: null,
+  showAlert: false,
 };
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
 
   const handleOnIdle = (e) => {
-    dispatch({ type: 'LOGOUT' });
-    history.push('/login');
+    authenticationService
+      .logout()
+      .then(() => {
+        console.log('show postiive message');
+        history.push('/login');
+      })
+      .catch((err) => console.log('sth went wrong'));
   };
 
   const handleOnActive = (e) => {};
@@ -61,27 +70,57 @@ export const AppProvider = ({ children }) => {
       .login(body)
       .then((d) => {
         dispatch({ type: 'LOGIN', payload: d });
+        dispatch({
+          type: 'SHOW_ALERT',
+          payload: { type: 'success', message: 'User logged in.' },
+        });
+        setTimeout(() => {
+          dispatch({ type: 'HIDE_ALERT' });
+        }, 3000);
       })
       .catch((err) => console.error(err));
     history.push('/');
   };
 
   const logout = () => {
-    dispatch({ type: 'LOGOUT' });
-    history.push('/');
+    authenticationService
+      .logout()
+      .then(() => {
+        console.log('show postiive message');
+        history.push('/login');
+      })
+      .catch((err) => console.log('sth went wrong'));
   };
 
   const signup = (body) => {
-    dispatch({ type: 'SIGN_UP', payload: body });
+    authenticationService
+      .signup(body)
+      .then((t) => console.log('then show positive message'))
+      .catch((err) => console.log('show negative message, sth went wrong?'));
+
+    // dispatch({ type: 'SIGN_UP', payload: body });
+  };
+
+  const confirmSignup = (token) => {
+    authenticationService
+      .confirmSignup(token)
+      .then((t) => console.log('then show positive message'))
+      .catch((err) => console.log('show negative message, sth went wrong?'));
+
+    // dispatch({ type: 'CONFIRM_SIGN_UP', payload: token });
   };
 
   const sendPasswordReset = (body) => {
-    dispatch({ type: 'SEND_PASSWORD_RESET', payload: body });
+    authenticationService
+      .sendPasswordReset(body)
+      .then((t) => console.log('then show positive message'))
+      .catch((err) => console.log('show negative message, sth went wrong?'));
+    // dispatch({ type: 'SEND_PASSWORD_RESET', payload: body });
   };
 
-  const resetPassword = (body) => {
+  const resetPassword = (body, token) => {
     authenticationService
-      .resetPassword(body)
+      .resetPassword(body, token)
       .then((d) => {
         dispatch({ type: 'LOGIN', payload: d });
       })
@@ -99,9 +138,12 @@ export const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         user: state.user,
+        alert: state.alert,
+        showAlert: state.showAlert,
         login,
         logout,
         signup,
+        confirmSignup,
         sendPasswordReset,
         resetPassword,
       }}
