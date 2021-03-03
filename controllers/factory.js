@@ -9,6 +9,7 @@ exports.deleteOne = (Model) =>
     if (!doc) return next(new AppError('No doc found with that id!', 404));
     res.status(204).json({
       status: 'success',
+      message: 'Document deleted',
       data: null,
     });
   });
@@ -26,6 +27,7 @@ exports.updateOne = (Model) =>
 
     res.status(200).json({
       status: 'success',
+      message: 'Document updated',
       data: {
         data: doc,
       },
@@ -38,6 +40,7 @@ exports.createOne = (Model) =>
 
     res.status(201).json({
       status: 'success',
+      message: 'Document created',
       data: {
         data: newDoc,
       },

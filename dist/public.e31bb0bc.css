@@ -408,6 +408,11 @@ footer {
   box-shadow: inset -1px 1px 1px #87eaa8;
 }
 
+.form__input:disabled {
+  cursor: not-allowed;
+  background-color: #dfdfdf;
+}
+
 .form__label {
   position: absolute;
   bottom: 0;
@@ -421,6 +426,7 @@ footer {
   display: inline-block;
   line-height: 36px;
   padding-left: 10px;
+  padding-top: 2px;
   color: #4f5b77;
   font-size: 1.3rem;
   transition: 0.2s ease-in-out;
@@ -440,6 +446,14 @@ footer {
   padding-top: 0.6em;
   padding-bottom: 0.6em;
   height: 40px;
+}
+
+.form__button:disabled {
+  cursor: not-allowed;
+}
+
+.form__button:disabled:hover {
+  background-color: #374056;
 }
 
 .form__footer {

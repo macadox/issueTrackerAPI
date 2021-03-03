@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
 import FormInput from '../components/FormInput';
+import FormSubmit from '../components/FormSubmit';
 import { useGlobalContext } from '../context';
 
 const SignupPage = () => {
@@ -34,11 +35,10 @@ const SignupPage = () => {
             minLength="8"
             required
           />
-          <div className="form__group">
-            <button className="btn btn--big btn--dark form__button form__button--send">
-              Sign up
-            </button>
-          </div>
+          <FormSubmit
+            successValue="Sign up email sent"
+            defaultValue="Sign up"
+          />
         </AuthForm>
         <div className="form__footer">
           <Link to="/login" className="form__link">

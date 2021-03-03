@@ -8,7 +8,7 @@ const catchAsync = require('./../utils/catchAsync');
 const Email = require('../utils/Email');
 const { hash } = require('bcryptjs');
 
-const sendToken = (user, statusCode, res) => {
+const sendToken = (user, statusCode, res, message) => {
   const token = JWT.sign({ id: user._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
@@ -35,6 +35,7 @@ const sendToken = (user, statusCode, res) => {
     data: {
       user: user,
     },
+    message,
   });
 };
 
@@ -92,16 +93,17 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Please provide email and password', 400));
   }
   const user = await User.findOne({ email }).select('+password +active');
-
-  if (!user.active) {
-    return next(new AppError('User not active, please confirm the email.'));
-  }
   // 2) Check if user exists && password is correct
   if (!user || !(await user.checkPassword(password, user.password))) {
     return next(new AppError('Incorrect email or password!', 401));
   }
+
+  if (!user.active) {
+    return next(new AppError('User not active, please confirm the email.'));
+  }
+
   // 3) IF everything is ok, send token to client
-  sendToken(user, 200, res);
+  sendToken(user, 200, res, 'Logged in successfully');
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -251,7 +253,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   // 3) Upadte changedPasswordAt property of the user
   await user.save();
   // 4) Log the user in, send JWT
-  sendToken(user, 200, res);
+  sendToken(user, 200, res, 'Password reset successfully');
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
@@ -268,5 +270,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   user.confirmPassword = req.body.confirmPassword;
   await user.save();
 
-  sendToken(user, 200, res);
+  sendToken(user, 200, res, 'Password changed successfully');
 });

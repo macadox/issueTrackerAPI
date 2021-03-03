@@ -34,6 +34,7 @@ exports.createIssue = catchAsync(async (req, res, next) => {
 
   res.status(201).json({
     status: 'success',
+    message: 'Document updated',
     data: {
       data: newDoc,
     },

@@ -1,6 +1,7 @@
 import React from 'react';
 import AuthForm from '../components/AuthForm';
 import FormInput from '../components/FormInput';
+import FormSubmit from '../components/FormSubmit';
 import { useGlobalContext } from '../context';
 
 const ForgotPasswordPage = () => {
@@ -28,11 +29,7 @@ const ForgotPasswordPage = () => {
             type="email"
             required
           />
-          <div className="form__group">
-            <button className="btn btn--big btn--dark form__button form__button--send">
-              Send reset instructions
-            </button>
-          </div>
+          <FormSubmit successValue="Instructions sent" defaultValue="Send reset instructions" />
         </AuthForm>
       </div>
     </main>

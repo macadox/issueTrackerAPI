@@ -26,17 +26,14 @@ async function login(body) {
       body,
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        console.log('error', res.message);
-      }
-      return res.json();
-    })
+    .then((res) => res.json())
     .then((data) => {
-      const user = data.data.user;
-      localStorage.setItem('user', JSON.stringify(user));
-      userSubject.next(user);
-      return user;
+      if (!data.error) {
+        const user = data.data.user;
+        localStorage.setItem('user', JSON.stringify(user));
+        userSubject.next(user);
+      }
+      return data;
     })
     .catch((err) => console.error(err));
 }
@@ -49,12 +46,7 @@ async function signup(body) {
       body,
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        console.log('error', res.message);
-      }
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch((err) => console.error(err));
 }
 
@@ -75,12 +67,7 @@ async function sendPasswordReset(body) {
       body,
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        console.log('error', res.message);
-      }
-      return res.json();
-    })
+    .then((res) => res.json())
     .catch((err) => console.error(err));
 }
 
@@ -93,17 +80,12 @@ async function resetPassword(body, token) {
       body,
     }
   )
-    .then((res) => {
-      if (!res.ok) {
-        console.log('error', res.message);
-      }
-      return res.json();
-    })
+    .then((res) => res.json())
     .then((data) => {
       const user = data.data.user;
       localStorage.setItem('user', JSON.stringify(user));
       userSubject.next(user);
-      return user;
+      return data;
     })
     .catch((err) => console.error(err));
 }
@@ -115,10 +97,11 @@ async function logout() {
       method: 'GET',
     }
   )
-    .then(() => {
+    .then((res) => {
       // remove user from local storage to log user out
       localStorage.removeItem('user');
       userSubject.next(null);
+      return res.json();
     })
     .catch((err) => console.error(err));
 }

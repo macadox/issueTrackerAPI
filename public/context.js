@@ -47,10 +47,16 @@ export const AppProvider = ({ children }) => {
     authenticationService
       .logout()
       .then(() => {
-        console.log('show postiive message');
+        dispatch({
+          type: 'SHOW_ALERT',
+          payload: {
+            type: 'success',
+            message: 'Logged out because of inactivity',
+          },
+        });
         history.push('/login');
       })
-      .catch((err) => console.log('sth went wrong'));
+      .catch((err) => dispatchErrorAlert(err));
   };
 
   const handleOnActive = (e) => {};
@@ -65,67 +71,99 @@ export const AppProvider = ({ children }) => {
     debounce: 500,
   });
 
+  const dispatchAlertAndRedirectTo = (data, to) => {
+    dispatch({
+      type: 'SHOW_ALERT',
+      payload: {
+        type: data.status === 'success' ? 'success' : 'error',
+        message: data.message,
+      },
+    });
+    if (data.status === 'success') {
+      history.push(to);
+    }
+    return data.status;
+  };
+
+  const dispatchErrorAlert = (err) => {
+    console.error(err);
+    dispatch({
+      type: 'SHOW_ALERT',
+      payload: {
+        type: 'error',
+        message: err,
+      },
+    });
+  };
+
   const login = (body) => {
-    authenticationService
+    return authenticationService
       .login(body)
       .then((d) => {
-        dispatch({ type: 'LOGIN', payload: d });
         dispatch({
           type: 'SHOW_ALERT',
-          payload: { type: 'success', message: 'User logged in.' },
+          payload: {
+            type: d.status === 'success' ? 'success' : 'error',
+            message: d.message,
+          },
         });
-        setTimeout(() => {
-          dispatch({ type: 'HIDE_ALERT' });
-        }, 3000);
+        if (d.status === 'success') {
+          const user = d.data.user;
+          dispatch({ type: 'LOGIN', payload: user });
+          history.push('/');
+        }
+        return d.status;
       })
-      .catch((err) => console.error(err));
-    history.push('/');
+      .catch((err) => dispatchErrorAlert(err));
   };
 
   const logout = () => {
-    authenticationService
+    return authenticationService
       .logout()
-      .then(() => {
-        console.log('show postiive message');
-        history.push('/login');
-      })
-      .catch((err) => console.log('sth went wrong'));
+      .then((d) => dispatchAlertAndRedirectTo(d, '/login'))
+      .catch((err) => dispatchErrorAlert(err));
   };
 
   const signup = (body) => {
-    authenticationService
+    return authenticationService
       .signup(body)
-      .then((t) => console.log('then show positive message'))
-      .catch((err) => console.log('show negative message, sth went wrong?'));
-
-    // dispatch({ type: 'SIGN_UP', payload: body });
+      .then((d) => dispatchAlertAndRedirectTo(d, '/login'))
+      .catch((err) => dispatchErrorAlert(err));
   };
 
   const confirmSignup = (token) => {
-    authenticationService
+    return authenticationService
       .confirmSignup(token)
-      .then((t) => console.log('then show positive message'))
-      .catch((err) => console.log('show negative message, sth went wrong?'));
-
-    // dispatch({ type: 'CONFIRM_SIGN_UP', payload: token });
+      .then((d) => dispatchAlertAndRedirectTo(d, '/login'))
+      .catch((err) => dispatchErrorAlert(err));
   };
 
   const sendPasswordReset = (body) => {
-    authenticationService
+    return authenticationService
       .sendPasswordReset(body)
-      .then((t) => console.log('then show positive message'))
-      .catch((err) => console.log('show negative message, sth went wrong?'));
-    // dispatch({ type: 'SEND_PASSWORD_RESET', payload: body });
+      .then((d) => {
+        dispatch({
+          type: 'SHOW_ALERT',
+          payload: {
+            type: d.status === 'success' ? 'success' : 'error',
+            message: d.message,
+          },
+        });
+
+        return d.status;
+      })
+      .catch((err) => dispatchErrorAlert(err));
   };
 
   const resetPassword = (body, token) => {
-    authenticationService
+    return authenticationService
       .resetPassword(body, token)
-      .then((d) => {
-        dispatch({ type: 'LOGIN', payload: d });
-      })
-      .catch((err) => console.error(err));
-    history.push('/');
+      .then((d) => dispatchAlertAndRedirectTo(d, '/'))
+      .catch((err) => dispatchErrorAlert(err));
+  };
+
+  const hideAlert = () => {
+    dispatch({ type: 'HIDE_ALERT' });
   };
 
   useEffect(() => {
@@ -146,6 +184,7 @@ export const AppProvider = ({ children }) => {
         confirmSignup,
         sendPasswordReset,
         resetPassword,
+        hideAlert,
       }}
     >
       {children}

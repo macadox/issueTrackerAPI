@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const FormInput = ({ id, labelText, ...props }) => {
+const FormInput = ({
+  id,
+  labelText,
+  isSubmitSuccess,
+  isSubmitting,
+  ...props
+}) => {
   const [term, setTerm] = useState('');
+
+  useEffect(() => {
+    if (isSubmitSuccess) {
+      setTerm('');
+    }
+  }, [isSubmitSuccess]);
 
   return (
     <div className="form__group">
@@ -12,6 +24,7 @@ const FormInput = ({ id, labelText, ...props }) => {
         value={term}
         className="form__input"
         {...props}
+        disabled={isSubmitSuccess}
       />
       <label
         htmlFor={id}

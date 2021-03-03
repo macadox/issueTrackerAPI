@@ -1,6 +1,7 @@
 import React from 'react';
 import AuthForm from '../components/AuthForm';
 import FormInput from '../components/FormInput';
+import FormSubmit from '../components/FormSubmit';
 import { useGlobalContext } from '../context';
 import { useParams } from 'react-router-dom';
 
@@ -42,11 +43,7 @@ const ResetPasswordPage = () => {
             type="password"
             required
           />
-          <div className="form__group">
-            <button className="btn btn--big btn--dark form__button form__button--send">
-              Reset password
-            </button>
-          </div>
+          <FormSubmit successValue="Password reset" defaultValue="Reset password" />
         </AuthForm>
       </div>
     </main>
