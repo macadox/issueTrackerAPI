@@ -54,7 +54,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 
   const url = `${req.protocol}://${req.get(
     'host'
-  )}/api/v1/users/signup/${token}`;
+  )}/#/api/v1/users/signup/${token}`;
 
   await new Email(newUser, url).sendWelcome();
 
@@ -108,6 +108,7 @@ exports.updateDetails = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
+    message: 'details have been updated',
     data: {
       data: updatedUser,
     },

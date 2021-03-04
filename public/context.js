@@ -166,6 +166,26 @@ export const AppProvider = ({ children }) => {
     dispatch({ type: 'HIDE_ALERT' });
   };
 
+  const updateDetails = (body) => {
+    return fetch(`${window.location.origin}/api/v1/users/updateDetails`, {
+      method: 'PATCH',
+      credentials: 'include',
+      body,
+    })
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  };
+
+  const updatePassword = (body) => {
+    return fetch(`${window.location.origin}/api/v1/users/updatePassword`, {
+      method: 'PATCH',
+      credentials: 'include',
+      body,
+    })
+      .then((res) => res.json())
+      .catch((err) => console.error(err));
+  };
+
   useEffect(() => {
     authenticationService.user.subscribe((x) =>
       dispatch({ type: 'LOGIN', payload: x })
@@ -185,6 +205,9 @@ export const AppProvider = ({ children }) => {
         sendPasswordReset,
         resetPassword,
         hideAlert,
+        dispatchErrorAlert,
+        updateDetails,
+        updatePassword,
       }}
     >
       {children}

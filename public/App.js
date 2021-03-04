@@ -1,11 +1,12 @@
 import './App.css';
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Switch, HashRouter } from 'react-router-dom';
 
 // Components
 import Header from './components/Header/index';
 import Footer from './components/Footer';
 import Alert from './components/Alert';
+import AuthRoute from './components/AuthRoute';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -15,40 +16,45 @@ import ConfirmSignupPage from './pages/ConfirmSignupPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 
+import AccountPage from './pages/AccountPage';
+
 import history from './services/history';
 import { useGlobalContext } from './context';
 
 const App = () => {
   const { showAlert, alert } = useGlobalContext();
   return (
-    <Router history={history}>
+    <HashRouter history={history}>
       <Header />
       <Switch>
-        <Route exact path="/">
+        <AuthRoute exact path="/">
           <HomePage />
-        </Route>
-        <Route path="/login">
+        </AuthRoute>
+        <AuthRoute path="/login">
           <LoginPage />
-        </Route>
-        <Route
+        </AuthRoute>
+        <AuthRoute
           exact
           path="/signup/:token"
           children={<ConfirmSignupPage />}
-        ></Route>
-        <Route exact path="/signup">
+        ></AuthRoute>
+        <AuthRoute exact path="/signup">
           <SignupPage />
-        </Route>
-        <Route path="/forgotPassword">
+        </AuthRoute>
+        <AuthRoute path="/forgotPassword">
           <ForgotPasswordPage />
-        </Route>
-        <Route
+        </AuthRoute>
+        <AuthRoute
           path="/resetPassword/:token"
           children={<ResetPasswordPage />}
-        ></Route>
+        ></AuthRoute>
+        <AuthRoute type="private" path="/me">
+          <AccountPage />
+        </AuthRoute>
       </Switch>
       <Footer />
       {showAlert && <Alert type={alert.type} message={alert.message} />}
-    </Router>
+    </HashRouter>
   );
 };
 

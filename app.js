@@ -12,7 +12,7 @@ const authController = require('./controllers/authController');
 const globalErrorHandler = require('./controllers/errorHandler');
 const AppError = require('./utils/appError');
 
-// const issueRouter = require('./routes/issueRoutes');
+const issueRouter = require('./routes/issueRoutes');
 const userRouter = require('./routes/userRoutes');
 const projectRouter = require('./routes/projectRoutes');
 // const viewsRouter = require('./routes/viewsRoutes');
@@ -24,7 +24,8 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: ['http://localhost:9000', 'http://localhost:1234'],
+    origin: ['http://localhost:8081'],
+    // , 'http://localhost:1234'
     credentials: true,
   })
 );
@@ -37,6 +38,7 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
+app.use(express.static(__dirname + '/dist'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
@@ -50,10 +52,12 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use('/api/v1/issues', issueRouter);
+app.use('/api/v1/issues', issueRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/projects', projectRouter);
-// app.use('/', viewsRouter);
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + 'index.html');
+});
 
 app.use(globalErrorHandler);
 

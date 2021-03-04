@@ -15,8 +15,8 @@ const sendToken = (user, statusCode, res, message) => {
 
   const cookieOptions = {
     exipres: new Date(
-      // Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 3600 * 1000
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 1000
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 3600 * 1000
+      // Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 1000
     ),
     httpOnly: true,
   };
@@ -51,9 +51,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   // save token in the user obj
   await newUser.save({ validateBeforeSave: false });
 
-  const url = `${req.protocol}://${req
-    .get('host')
-    .replace(/\d+$/, process.env.FRONT_PORT)}/signup/${token}`;
+  const url = `${req.protocol}://${req.get('host')}/#/signup/${token}`;
 
   await new Email(newUser, url).sendWelcome();
 
@@ -83,7 +81,10 @@ exports.confirmSignup = catchAsync(async (req, res, next) => {
   user.userConfirmationToken = undefined;
 
   await user.save({ validateBeforeSave: false });
-  res.redirect(308, '/');
+  res.status(308).json({
+    status: 'success',
+    message: 'Email confirmed successfully',
+  });
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -206,13 +207,9 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   // Send message with resetURL to user by email...
-  const url = `${req.protocol}://${req
-    .get('host')
-    .replace(
-      /\d+$/,
-      process.env.FRONT_PORT
-    )}/api/v1/users/resetPassword/${resetToken}`;
-
+  const url = `${req.protocol}://${req.get(
+    'host'
+  )}/#/api/v1/users/resetPassword/${resetToken}`;
   try {
     await new Email(user, url).sendPasswordReset();
     res.status(200).json({

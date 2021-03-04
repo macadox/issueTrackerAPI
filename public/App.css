@@ -334,7 +334,7 @@ footer {
   background-color: #ffffff;
   border-radius: 4px;
   position: relative;
-  box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.025);
+  /* box-shadow: 0 0 12px 4px rgba(0, 0, 0, 0.025); */
 }
 
 .form--user {

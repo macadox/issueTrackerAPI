@@ -6,6 +6,7 @@ const FormSubmit = ({
   isSubmitSuccess,
   successValue,
   isSubmitting,
+  className,
   ...props
 }) => {
   return (
@@ -15,7 +16,13 @@ const FormSubmit = ({
         disabled={isSubmitSuccess || isSubmitting}
       >
         {isSubmitting ? (
-          <ScaleLoader height={18} width={2} radius={1} margin={2} color="#f2f2f2" />
+          <ScaleLoader
+            height={18}
+            width={2}
+            radius={1}
+            margin={2}
+            color="#f2f2f2"
+          />
         ) : !isSubmitSuccess ? (
           defaultValue
         ) : (

@@ -5,9 +5,11 @@ const FormInput = ({
   labelText,
   isSubmitSuccess,
   isSubmitting,
+  className,
+  value,
   ...props
 }) => {
-  const [term, setTerm] = useState('');
+  const [term, setTerm] = useState(value || '');
 
   useEffect(() => {
     if (isSubmitSuccess) {
@@ -22,7 +24,7 @@ const FormInput = ({
         onChange={(e) => setTerm(e.target.value)}
         id={id}
         value={term}
-        className="form__input"
+        className={`form__input ${className}`}
         {...props}
         disabled={isSubmitSuccess}
       />

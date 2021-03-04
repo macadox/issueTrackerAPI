@@ -42198,7 +42198,7 @@ function _login() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            return _context.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/login"), {
+            return _context.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/login"), {
               method: 'POST',
               credentials: 'include',
               body: body
@@ -42236,7 +42236,7 @@ function _signup() {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            return _context2.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/signup"), {
+            return _context2.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/signup"), {
               method: 'POST',
               body: body
             }).then(function (res) {
@@ -42265,8 +42265,10 @@ function _confirmSignup() {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            return _context3.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/signup/").concat(token), {
+            return _context3.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/signup/").concat(token), {
               method: 'GET'
+            }).then(function (res) {
+              return res.json();
             }).catch(function (err) {
               return console.error(err);
             }));
@@ -42291,7 +42293,7 @@ function _sendPasswordReset() {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            return _context4.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/forgotPassword"), {
+            return _context4.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/forgotPassword"), {
               method: 'POST',
               body: body
             }).then(function (res) {
@@ -42320,7 +42322,7 @@ function _resetPassword() {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            return _context5.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/resetPassword/").concat(token), {
+            return _context5.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/resetPassword/").concat(token), {
               method: 'PATCH',
               credentials: 'include',
               body: body
@@ -42355,7 +42357,7 @@ function _logout() {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            return _context6.abrupt("return", fetch("".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/api/v1/users/logout"), {
+            return _context6.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/logout"), {
               method: 'GET'
             }).then(function (res) {
               // remove user from local storage to log user out
@@ -42898,7 +42900,7 @@ exports.default = void 0;
 
 var _history = require("history");
 
-var _default = (0, _history.createBrowserHistory)({});
+var _default = (0, _history.createHashHistory)({});
 
 exports.default = _default;
 },{"history":"../node_modules/history/esm/history.js"}],"../node_modules/rxjs/internal/util/isFunction.js":[function(require,module,exports) {
@@ -43850,6 +43852,30 @@ var AppProvider = function AppProvider(_ref) {
     });
   };
 
+  var updateDetails = function updateDetails(body) {
+    return fetch("".concat(window.location.origin, "/api/v1/users/updateDetails"), {
+      method: 'PATCH',
+      credentials: 'include',
+      body: body
+    }).then(function (res) {
+      return res.json();
+    }).catch(function (err) {
+      return console.error(err);
+    });
+  };
+
+  var updatePassword = function updatePassword(body) {
+    return fetch("".concat(window.location.origin, "/api/v1/users/updatePassword"), {
+      method: 'PATCH',
+      credentials: 'include',
+      body: body
+    }).then(function (res) {
+      return res.json();
+    }).catch(function (err) {
+      return console.error(err);
+    });
+  };
+
   (0, _react.useEffect)(function () {
     _authenticationService.authenticationService.user.subscribe(function (x) {
       return dispatch({
@@ -43869,7 +43895,10 @@ var AppProvider = function AppProvider(_ref) {
       confirmSignup: confirmSignup,
       sendPasswordReset: sendPasswordReset,
       resetPassword: resetPassword,
-      hideAlert: hideAlert
+      hideAlert: hideAlert,
+      dispatchErrorAlert: dispatchErrorAlert,
+      updateDetails: updateDetails,
+      updatePassword: updatePassword
     }
   }, children);
 };
@@ -44053,7 +44082,124 @@ var Alert = function Alert(_ref) {
 
 var _default = Alert;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../assets/img/ui/tick.svg":"assets/img/ui/tick.svg","../assets/img/ui/close.svg":"assets/img/ui/close.svg","../context":"context.js"}],"assets/img/ui/illustration-intro.png":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../assets/img/ui/tick.svg":"assets/img/ui/tick.svg","../assets/img/ui/close.svg":"assets/img/ui/close.svg","../context":"context.js"}],"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutPropertiesLoose;
+},{}],"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js":[function(require,module,exports) {
+var objectWithoutPropertiesLoose = require("./objectWithoutPropertiesLoose");
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+  var target = objectWithoutPropertiesLoose(source, excluded);
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutProperties;
+},{"./objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"}],"components/AuthRedirect.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _context = require("../context");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AuthRedirect = function AuthRedirect(_ref) {
+  var message = _ref.message,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["message"]);
+
+  var _useGlobalContext = (0, _context.useGlobalContext)(),
+      dispatchErrorAlert = _useGlobalContext.dispatchErrorAlert;
+
+  (0, _react.useEffect)(function () {
+    dispatchErrorAlert(message);
+  }, []);
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Redirect, props);
+};
+
+var _default = AuthRedirect;
+exports.default = _default;
+},{"@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../context":"context.js"}],"components/AuthRoute.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _AuthRedirect = _interopRequireDefault(require("./AuthRedirect"));
+
+var _context = require("../context");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AuthRoute = function AuthRoute(_ref) {
+  var type = _ref.type,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["type"]);
+
+  var _useGlobalContext = (0, _context.useGlobalContext)(),
+      user = _useGlobalContext.user; // if (type === 'guest' && !user) return <Redirect to="/" />;
+
+
+  if (type === 'private' && !user) {
+    return /*#__PURE__*/_react.default.createElement(_AuthRedirect.default, {
+      to: "/login",
+      message: 'You need to authenticate to proceed'
+    });
+  }
+
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, props);
+};
+
+var _default = AuthRoute;
+exports.default = _default;
+},{"@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./AuthRedirect":"components/AuthRedirect.js","../context":"context.js"}],"assets/img/ui/illustration-intro.png":[function(require,module,exports) {
 module.exports = "/illustration-intro.36674012.png";
 },{}],"pages/HomePage.js":[function(require,module,exports) {
 "use strict";
@@ -44233,47 +44379,7 @@ function _extends() {
 }
 
 module.exports = _extends;
-},{}],"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js":[function(require,module,exports) {
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-module.exports = _objectWithoutPropertiesLoose;
-},{}],"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js":[function(require,module,exports) {
-var objectWithoutPropertiesLoose = require("./objectWithoutPropertiesLoose");
-
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-  var target = objectWithoutPropertiesLoose(source, excluded);
-  var key, i;
-
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-
-  return target;
-}
-
-module.exports = _objectWithoutProperties;
-},{"./objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"}],"components/FormInput.js":[function(require,module,exports) {
+},{}],"components/FormInput.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44300,9 +44406,11 @@ var FormInput = function FormInput(_ref) {
       labelText = _ref.labelText,
       isSubmitSuccess = _ref.isSubmitSuccess,
       isSubmitting = _ref.isSubmitting,
-      props = (0, _objectWithoutProperties2.default)(_ref, ["id", "labelText", "isSubmitSuccess", "isSubmitting"]);
+      className = _ref.className,
+      value = _ref.value,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["id", "labelText", "isSubmitSuccess", "isSubmitting", "className", "value"]);
 
-  var _useState = (0, _react.useState)(''),
+  var _useState = (0, _react.useState)(value || ''),
       _useState2 = (0, _slicedToArray2.default)(_useState, 2),
       term = _useState2[0],
       setTerm = _useState2[1];
@@ -44321,7 +44429,7 @@ var FormInput = function FormInput(_ref) {
     },
     id: id,
     value: term,
-    className: "form__input"
+    className: "form__input ".concat(className)
   }, props, {
     disabled: isSubmitSuccess
   })), /*#__PURE__*/_react.default.createElement("label", {
@@ -46607,7 +46715,8 @@ var FormSubmit = function FormSubmit(_ref) {
       isSubmitSuccess = _ref.isSubmitSuccess,
       successValue = _ref.successValue,
       isSubmitting = _ref.isSubmitting,
-      props = (0, _objectWithoutProperties2.default)(_ref, ["defaultValue", "isSubmitSuccess", "successValue", "isSubmitting"]);
+      className = _ref.className,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["defaultValue", "isSubmitSuccess", "successValue", "isSubmitting", "className"]);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "form__group"
   }, /*#__PURE__*/_react.default.createElement("button", {
@@ -46914,7 +47023,408 @@ var ResetPasswordPage = function ResetPasswordPage() {
 
 var _default = ResetPasswordPage;
 exports.default = _default;
-},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","../components/AuthForm":"components/AuthForm.js","../components/FormInput":"components/FormInput.js","../components/FormSubmit":"components/FormSubmit.js","../context":"context.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"App.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","../components/AuthForm":"components/AuthForm.js","../components/FormInput":"components/FormInput.js","../components/FormSubmit":"components/FormSubmit.js","../context":"context.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js"}],"components/TabPanel.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TabPanel = function TabPanel(_ref) {
+  var active = _ref.active,
+      children = _ref.children,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["active", "children"]);
+  return /*#__PURE__*/_react.default.createElement("div", (0, _extends2.default)({
+    className: "tabs__tabpanel ".concat(active ? 'tabs__tabpanel--active' : '')
+  }, props), children);
+};
+
+var _default = TabPanel;
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js"}],"components/TabList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Tablist = function Tablist(_ref) {
+  var labelledBy = _ref.labelledBy,
+      children = _ref.children,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["labelledBy", "children"]);
+  return /*#__PURE__*/_react.default.createElement("div", (0, _extends2.default)({
+    className: "tabs__tablist-container"
+  }, props), /*#__PURE__*/_react.default.createElement("div", {
+    className: "tabs__tablist",
+    "aria-labelledby": labelledBy
+  }, children));
+};
+
+var _default = Tablist;
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js"}],"components/TabButton.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TabButton = function TabButton(_ref) {
+  var active = _ref.active,
+      label = _ref.label,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["active", "label"]);
+  return /*#__PURE__*/_react.default.createElement("button", (0, _extends2.default)({
+    className: "tabs__tab ".concat(active ? 'tabs__tab--active' : '')
+  }, props), label);
+};
+
+var _default = TabButton;
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js"}],"components/Tabs.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _TabPanel = _interopRequireDefault(require("../components/TabPanel.js"));
+
+var _TabList = _interopRequireDefault(require("../components/TabList.js"));
+
+var _TabButton = _interopRequireDefault(require("../components/TabButton.js"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Tabs = function Tabs(_ref) {
+  var id = _ref.id,
+      tabs = _ref.tabs,
+      children = _ref.children,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["id", "tabs", "children"]);
+
+  var _useState = (0, _react.useState)(0),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      activeIndex = _useState2[0],
+      setActiveIndex = _useState2[1];
+
+  return /*#__PURE__*/_react.default.createElement("div", (0, _extends2.default)({
+    id: id,
+    className: "tabs tabs--me"
+  }, props), /*#__PURE__*/_react.default.createElement(_TabList.default, {
+    "aria-orientation": "vertical",
+    role: "tablist",
+    labelledBy: id
+  }, tabs.map(function (t, i) {
+    var id = t.id,
+        label = t.label;
+    return /*#__PURE__*/_react.default.createElement(_TabButton.default, {
+      id: "tab_".concat(i),
+      role: "tab",
+      "aria-controls": "panel_".concat(i),
+      key: id,
+      label: label,
+      onClick: function onClick() {
+        return setActiveIndex(i);
+      },
+      active: i === activeIndex
+    });
+  })), tabs.map(function (t, i) {
+    if (i !== activeIndex) return undefined;
+    var id = t.id,
+        component = t.component;
+    return /*#__PURE__*/_react.default.createElement(_TabPanel.default, {
+      role: "tabpanel",
+      id: "panel_".concat(i),
+      "aria-labelledby": "tab_".concat(i),
+      key: id,
+      active: i === activeIndex,
+      "aria-selected": i === activeIndex
+    }, component);
+  }));
+};
+
+var _default = Tabs;
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js","../components/TabPanel.js":"components/TabPanel.js","../components/TabList.js":"components/TabList.js","../components/TabButton.js":"components/TabButton.js"}],"components/FormPhotoUpload.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FormPhotoUpload = function FormPhotoUpload(_ref) {
+  var user = _ref.user;
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "form__group form__photo-upload"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: "".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/assets/img/users/").concat(user.photo),
+    alt: user.name,
+    className: "form__user-photo"
+  }), /*#__PURE__*/_react.default.createElement("input", {
+    type: "file",
+    accept: "image/*",
+    id: "photo",
+    className: "form__upload"
+  }), /*#__PURE__*/_react.default.createElement("label", {
+    htmlFor: "photo",
+    className: "btn btn--small btn--dark"
+  }, "Choose a new photo"));
+};
+
+var _default = FormPhotoUpload;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/Account/UserProfile.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _AuthForm = _interopRequireDefault(require("../AuthForm"));
+
+var _FormInput = _interopRequireDefault(require("../FormInput"));
+
+var _FormSubmit = _interopRequireDefault(require("../FormSubmit"));
+
+var _FormPhotoUpload = _interopRequireDefault(require("../FormPhotoUpload"));
+
+var _context = require("../../context");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UserProfile = function UserProfile() {
+  var _useGlobalContext = (0, _context.useGlobalContext)(),
+      user = _useGlobalContext.user;
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "form form--user"
+  }, /*#__PURE__*/_react.default.createElement("h2", {
+    className: "form__heading form__heading--bigger"
+  }, "Your account settings"), /*#__PURE__*/_react.default.createElement(_AuthForm.default, {
+    className: "form__body form__body--update-me"
+  }, /*#__PURE__*/_react.default.createElement(_FormPhotoUpload.default, {
+    user: user
+  }), /*#__PURE__*/_react.default.createElement(_FormInput.default, {
+    className: "form__input--bigger",
+    id: "name",
+    name: "name",
+    labelText: "Full name",
+    type: "text",
+    value: user.name
+  }), /*#__PURE__*/_react.default.createElement(_FormInput.default, {
+    id: "email",
+    name: "email",
+    labelText: "Email address",
+    type: "email",
+    className: "form__input--bigger",
+    value: user.email
+  }), /*#__PURE__*/_react.default.createElement(_FormInput.default, {
+    id: "organization",
+    name: "organization",
+    labelText: "Organization",
+    type: "text",
+    className: "form__input--bigger",
+    value: user.organization
+  }), /*#__PURE__*/_react.default.createElement(_FormSubmit.default, {
+    successValue: "Data saved",
+    defaultValue: "Save"
+  })));
+};
+
+var _default = UserProfile;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../AuthForm":"components/AuthForm.js","../FormInput":"components/FormInput.js","../FormSubmit":"components/FormSubmit.js","../FormPhotoUpload":"components/FormPhotoUpload.js","../../context":"context.js"}],"components/Account/Security.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _AuthForm = _interopRequireDefault(require("../AuthForm"));
+
+var _FormInput = _interopRequireDefault(require("../FormInput"));
+
+var _FormSubmit = _interopRequireDefault(require("../FormSubmit"));
+
+var _context = require("../../context");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Security = function Security() {
+  var _useGlobalContext = (0, _context.useGlobalContext)(),
+      updatePassword = _useGlobalContext.updatePassword;
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "form form--user"
+  }, /*#__PURE__*/_react.default.createElement("h2", {
+    className: "form__heading form__heading--bigger"
+  }, "Manage your password"), /*#__PURE__*/_react.default.createElement(_AuthForm.default, {
+    callback: updatePassword,
+    className: "form__body form__body--update-me"
+  }, /*#__PURE__*/_react.default.createElement(_FormInput.default, {
+    className: "form__input--bigger",
+    id: "currentPassword",
+    name: "currentPassword",
+    labelText: "Current password",
+    type: "password",
+    required: true
+  }), /*#__PURE__*/_react.default.createElement(_FormInput.default, {
+    id: "password",
+    name: "password",
+    labelText: "New password",
+    type: "password",
+    className: "form__input--bigger",
+    required: true
+  }), /*#__PURE__*/_react.default.createElement(_FormInput.default, {
+    id: "confirmPassword",
+    name: "confirmPassword",
+    labelText: "Confirm password",
+    type: "password",
+    className: "form__input--bigger",
+    required: true
+  }), /*#__PURE__*/_react.default.createElement(_FormSubmit.default, {
+    successValue: "Data saved",
+    defaultValue: "Save"
+  })));
+};
+
+var _default = Security;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../AuthForm":"components/AuthForm.js","../FormInput":"components/FormInput.js","../FormSubmit":"components/FormSubmit.js","../../context":"context.js"}],"components/Account/Placeholder.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Placeholder = function Placeholder() {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "form form--user"
+  }, /*#__PURE__*/_react.default.createElement("h2", {
+    className: "form__heading form__heading--bigger"
+  }, "Coming soon"));
+};
+
+var _default = Placeholder;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"pages/AccountPage.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _Tabs = _interopRequireDefault(require("../components/Tabs.js"));
+
+var _UserProfile = _interopRequireDefault(require("../components/Account/UserProfile"));
+
+var _Security = _interopRequireDefault(require("../components/Account/Security"));
+
+var _Placeholder = _interopRequireDefault(require("../components/Account/Placeholder"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var tabs = [{
+  label: 'User profile',
+  component: /*#__PURE__*/_react.default.createElement(_UserProfile.default, null),
+  id: 1
+}, {
+  label: 'Security & Passwords',
+  component: /*#__PURE__*/_react.default.createElement(_Security.default, null),
+  id: 2
+}, {
+  label: 'Account preferences',
+  component: /*#__PURE__*/_react.default.createElement(_Placeholder.default, null),
+  id: 3
+}, {
+  label: 'Connected Apps',
+  component: /*#__PURE__*/_react.default.createElement(_Placeholder.default, null),
+  id: 4
+}, {
+  label: 'Blacklist',
+  component: /*#__PURE__*/_react.default.createElement(_Placeholder.default, null),
+  id: 5
+}];
+
+var AccountPage = function AccountPage() {
+  return /*#__PURE__*/_react.default.createElement("main", {
+    className: "main"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "wrapper--app"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "app__header"
+  }, /*#__PURE__*/_react.default.createElement("h1", {
+    id: "userAccount",
+    className: "heading-title"
+  }, "Account")), /*#__PURE__*/_react.default.createElement("div", {
+    className: "app__content"
+  }, /*#__PURE__*/_react.default.createElement(_Tabs.default, {
+    id: "userAccount",
+    tabs: tabs
+  }))));
+};
+
+var _default = AccountPage;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","../components/Tabs.js":"components/Tabs.js","../components/Account/UserProfile":"components/Account/UserProfile.js","../components/Account/Security":"components/Account/Security.js","../components/Account/Placeholder":"components/Account/Placeholder.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -46934,6 +47444,8 @@ var _Footer = _interopRequireDefault(require("./components/Footer"));
 
 var _Alert = _interopRequireDefault(require("./components/Alert"));
 
+var _AuthRoute = _interopRequireDefault(require("./components/AuthRoute"));
+
 var _HomePage = _interopRequireDefault(require("./pages/HomePage"));
 
 var _LoginPage = _interopRequireDefault(require("./pages/LoginPage"));
@@ -46945,6 +47457,8 @@ var _ConfirmSignupPage = _interopRequireDefault(require("./pages/ConfirmSignupPa
 var _ForgotPasswordPage = _interopRequireDefault(require("./pages/ForgotPasswordPage"));
 
 var _ResetPasswordPage = _interopRequireDefault(require("./pages/ResetPasswordPage"));
+
+var _AccountPage = _interopRequireDefault(require("./pages/AccountPage"));
 
 var _history = _interopRequireDefault(require("./services/history"));
 
@@ -46959,26 +47473,29 @@ var App = function App() {
       showAlert = _useGlobalContext.showAlert,
       alert = _useGlobalContext.alert;
 
-  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Router, {
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.HashRouter, {
     history: _history.default
-  }, /*#__PURE__*/_react.default.createElement(_index.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_index.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
     exact: true,
     path: "/"
-  }, /*#__PURE__*/_react.default.createElement(_HomePage.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_HomePage.default, null)), /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
     path: "/login"
-  }, /*#__PURE__*/_react.default.createElement(_LoginPage.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_LoginPage.default, null)), /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
     exact: true,
     path: "/signup/:token",
     children: /*#__PURE__*/_react.default.createElement(_ConfirmSignupPage.default, null)
-  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }), /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
     exact: true,
     path: "/signup"
-  }, /*#__PURE__*/_react.default.createElement(_SignupPage.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_SignupPage.default, null)), /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
     path: "/forgotPassword"
-  }, /*#__PURE__*/_react.default.createElement(_ForgotPasswordPage.default, null)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+  }, /*#__PURE__*/_react.default.createElement(_ForgotPasswordPage.default, null)), /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
     path: "/resetPassword/:token",
     children: /*#__PURE__*/_react.default.createElement(_ResetPasswordPage.default, null)
-  })), /*#__PURE__*/_react.default.createElement(_Footer.default, null), showAlert && /*#__PURE__*/_react.default.createElement(_Alert.default, {
+  }), /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
+    type: "private",
+    path: "/me"
+  }, /*#__PURE__*/_react.default.createElement(_AccountPage.default, null))), /*#__PURE__*/_react.default.createElement(_Footer.default, null), showAlert && /*#__PURE__*/_react.default.createElement(_Alert.default, {
     type: alert.type,
     message: alert.message
   }));
@@ -46986,7 +47503,7 @@ var App = function App() {
 
 var _default = App;
 exports.default = _default;
-},{"./App.css":"App.css","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components/Header/index":"components/Header/index.js","./components/Footer":"components/Footer.js","./components/Alert":"components/Alert.js","./pages/HomePage":"pages/HomePage.js","./pages/LoginPage":"pages/LoginPage.js","./pages/SignupPage":"pages/SignupPage.js","./pages/ConfirmSignupPage":"pages/ConfirmSignupPage.js","./pages/ForgotPasswordPage":"pages/ForgotPasswordPage.js","./pages/ResetPasswordPage":"pages/ResetPasswordPage.js","./services/history":"services/history.js","./context":"context.js"}],"index.js":[function(require,module,exports) {
+},{"./App.css":"App.css","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components/Header/index":"components/Header/index.js","./components/Footer":"components/Footer.js","./components/Alert":"components/Alert.js","./components/AuthRoute":"components/AuthRoute.js","./pages/HomePage":"pages/HomePage.js","./pages/LoginPage":"pages/LoginPage.js","./pages/SignupPage":"pages/SignupPage.js","./pages/ConfirmSignupPage":"pages/ConfirmSignupPage.js","./pages/ForgotPasswordPage":"pages/ForgotPasswordPage.js","./pages/ResetPasswordPage":"pages/ResetPasswordPage.js","./pages/AccountPage":"pages/AccountPage.js","./services/history":"services/history.js","./context":"context.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -47028,7 +47545,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57911" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55933" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -18,14 +18,11 @@ export const authenticationService = {
 };
 
 async function login(body) {
-  return fetch(
-    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/login`,
-    {
-      method: 'POST',
-      credentials: 'include',
-      body,
-    }
-  )
+  return fetch(`${window.location.origin}/api/v1/users/login`, {
+    method: 'POST',
+    credentials: 'include',
+    body,
+  })
     .then((res) => res.json())
     .then((data) => {
       if (!data.error) {
@@ -39,41 +36,34 @@ async function login(body) {
 }
 
 async function signup(body) {
-  return fetch(
-    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/signup`,
-    {
-      method: 'POST',
-      body,
-    }
-  )
+  return fetch(`${window.location.origin}/api/v1/users/signup`, {
+    method: 'POST',
+    body,
+  })
     .then((res) => res.json())
     .catch((err) => console.error(err));
 }
 
 async function confirmSignup(token) {
-  return fetch(
-    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/signup/${token}`,
-    {
-      method: 'GET',
-    }
-  ).catch((err) => console.error(err));
+  return fetch(`${window.location.origin}/api/v1/users/signup/${token}`, {
+    method: 'GET',
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
 }
 
 async function sendPasswordReset(body) {
-  return fetch(
-    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/forgotPassword`,
-    {
-      method: 'POST',
-      body,
-    }
-  )
+  return fetch(`${window.location.origin}/api/v1/users/forgotPassword`, {
+    method: 'POST',
+    body,
+  })
     .then((res) => res.json())
     .catch((err) => console.error(err));
 }
 
 async function resetPassword(body, token) {
   return fetch(
-    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/resetPassword/${token}`,
+    `${window.location.origin}/api/v1/users/resetPassword/${token}`,
     {
       method: 'PATCH',
       credentials: 'include',
@@ -91,12 +81,9 @@ async function resetPassword(body, token) {
 }
 
 async function logout() {
-  return fetch(
-    `${window.location.protocol}//${window.location.hostname}:9000/api/v1/users/logout`,
-    {
-      method: 'GET',
-    }
-  )
+  return fetch(`${window.location.origin}/api/v1/users/logout`, {
+    method: 'GET',
+  })
     .then((res) => {
       // remove user from local storage to log user out
       localStorage.removeItem('user');
