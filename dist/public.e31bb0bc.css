@@ -704,6 +704,7 @@ footer {
 
 .list__heading {
   text-align: left;
+  text-transform: capitalize;
   color: #6e778d;
   font-size: 1.3rem;
   font-weight: 400;

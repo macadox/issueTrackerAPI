@@ -18,13 +18,15 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 
 import AccountPage from './pages/AccountPage';
 
+import ProjectsOverview from './pages/ProjectsOverview';
+
 import history from './services/history';
 import { useGlobalContext } from './context';
 
 const App = () => {
   const { showAlert, alert } = useGlobalContext();
   return (
-    <HashRouter history={history}>
+    <Router history={history}>
       <Header />
       <Switch>
         <AuthRoute exact path="/">
@@ -51,10 +53,13 @@ const App = () => {
         <AuthRoute type="private" path="/me">
           <AccountPage />
         </AuthRoute>
+        <AuthRoute type="private">
+          <ProjectsOverview />
+        </AuthRoute>
       </Switch>
       <Footer />
       {showAlert && <Alert type={alert.type} message={alert.message} />}
-    </HashRouter>
+    </Router>
   );
 };
 

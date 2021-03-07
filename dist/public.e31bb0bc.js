@@ -42179,6 +42179,8 @@ var authenticationService = {
   confirmSignup: confirmSignup,
   resetPassword: resetPassword,
   sendPasswordReset: sendPasswordReset,
+  updateDetails: updateDetails,
+  updatePassword: updatePassword,
   user: userSubject.asObservable(),
 
   get userValue() {
@@ -42267,8 +42269,6 @@ function _confirmSignup() {
           case 0:
             return _context3.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/signup/").concat(token), {
               method: 'GET'
-            }).then(function (res) {
-              return res.json();
             }).catch(function (err) {
               return console.error(err);
             }));
@@ -42376,6 +42376,71 @@ function _logout() {
     }, _callee6);
   }));
   return _logout.apply(this, arguments);
+}
+
+function updateDetails(_x7) {
+  return _updateDetails.apply(this, arguments);
+}
+
+function _updateDetails() {
+  _updateDetails = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee7(body) {
+    return _regenerator.default.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            return _context7.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/updateDetails"), {
+              method: 'PATCH',
+              credentials: 'include',
+              body: body
+            }).then(function (res) {
+              return res.json();
+            }).then(function (data) {
+              var user = data.data.user;
+              localStorage.setItem('user', JSON.stringify(user));
+              userSubject.next(user);
+              return data;
+            }).catch(function (err) {
+              return console.error(err);
+            }));
+
+          case 1:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+  return _updateDetails.apply(this, arguments);
+}
+
+function updatePassword(_x8) {
+  return _updatePassword.apply(this, arguments);
+}
+
+function _updatePassword() {
+  _updatePassword = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee8(body) {
+    return _regenerator.default.wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            return _context8.abrupt("return", fetch("".concat(window.location.origin, "/api/v1/users/updatePassword"), {
+              method: 'PATCH',
+              credentials: 'include',
+              body: body
+            }).then(function (res) {
+              return res.json();
+            }).catch(function (err) {
+              return console.error(err);
+            }));
+
+          case 1:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  }));
+  return _updatePassword.apply(this, arguments);
 }
 },{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","rxjs":"../node_modules/rxjs/_esm5/index.js"}],"../node_modules/react-idle-timer/dist/index.es.js":[function(require,module,exports) {
 "use strict";
@@ -42900,737 +42965,12 @@ exports.default = void 0;
 
 var _history = require("history");
 
-var _default = (0, _history.createHashHistory)({});
+var _default = (0, _history.createHashHistory)({
+  queryKey: false
+});
 
 exports.default = _default;
-},{"history":"../node_modules/history/esm/history.js"}],"../node_modules/rxjs/internal/util/isFunction.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function isFunction(x) {
-    return typeof x === 'function';
-}
-exports.isFunction = isFunction;
-
-},{}],"../node_modules/rxjs/internal/config.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var _enable_super_gross_mode_that_will_cause_bad_things = false;
-exports.config = {
-    Promise: undefined,
-    set useDeprecatedSynchronousErrorHandling(value) {
-        if (value) {
-            var error = new Error();
-            console.warn('DEPRECATED! RxJS was set to use deprecated synchronous error handling behavior by code at: \n' + error.stack);
-        }
-        else if (_enable_super_gross_mode_that_will_cause_bad_things) {
-            console.log('RxJS: Back to a better error behavior. Thank you. <3');
-        }
-        _enable_super_gross_mode_that_will_cause_bad_things = value;
-    },
-    get useDeprecatedSynchronousErrorHandling() {
-        return _enable_super_gross_mode_that_will_cause_bad_things;
-    },
-};
-
-},{}],"../node_modules/rxjs/internal/util/hostReportError.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function hostReportError(err) {
-    setTimeout(function () { throw err; }, 0);
-}
-exports.hostReportError = hostReportError;
-
-},{}],"../node_modules/rxjs/internal/Observer.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var config_1 = require("./config");
-var hostReportError_1 = require("./util/hostReportError");
-exports.empty = {
-    closed: true,
-    next: function (value) { },
-    error: function (err) {
-        if (config_1.config.useDeprecatedSynchronousErrorHandling) {
-            throw err;
-        }
-        else {
-            hostReportError_1.hostReportError(err);
-        }
-    },
-    complete: function () { }
-};
-
-},{"./config":"../node_modules/rxjs/internal/config.js","./util/hostReportError":"../node_modules/rxjs/internal/util/hostReportError.js"}],"../node_modules/rxjs/internal/util/isArray.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.isArray = (function () { return Array.isArray || (function (x) { return x && typeof x.length === 'number'; }); })();
-
-},{}],"../node_modules/rxjs/internal/util/isObject.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function isObject(x) {
-    return x !== null && typeof x === 'object';
-}
-exports.isObject = isObject;
-
-},{}],"../node_modules/rxjs/internal/util/UnsubscriptionError.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var UnsubscriptionErrorImpl = (function () {
-    function UnsubscriptionErrorImpl(errors) {
-        Error.call(this);
-        this.message = errors ?
-            errors.length + " errors occurred during unsubscription:\n" + errors.map(function (err, i) { return i + 1 + ") " + err.toString(); }).join('\n  ') : '';
-        this.name = 'UnsubscriptionError';
-        this.errors = errors;
-        return this;
-    }
-    UnsubscriptionErrorImpl.prototype = Object.create(Error.prototype);
-    return UnsubscriptionErrorImpl;
-})();
-exports.UnsubscriptionError = UnsubscriptionErrorImpl;
-
-},{}],"../node_modules/rxjs/internal/Subscription.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var isArray_1 = require("./util/isArray");
-var isObject_1 = require("./util/isObject");
-var isFunction_1 = require("./util/isFunction");
-var UnsubscriptionError_1 = require("./util/UnsubscriptionError");
-var Subscription = (function () {
-    function Subscription(unsubscribe) {
-        this.closed = false;
-        this._parentOrParents = null;
-        this._subscriptions = null;
-        if (unsubscribe) {
-            this._ctorUnsubscribe = true;
-            this._unsubscribe = unsubscribe;
-        }
-    }
-    Subscription.prototype.unsubscribe = function () {
-        var errors;
-        if (this.closed) {
-            return;
-        }
-        var _a = this, _parentOrParents = _a._parentOrParents, _ctorUnsubscribe = _a._ctorUnsubscribe, _unsubscribe = _a._unsubscribe, _subscriptions = _a._subscriptions;
-        this.closed = true;
-        this._parentOrParents = null;
-        this._subscriptions = null;
-        if (_parentOrParents instanceof Subscription) {
-            _parentOrParents.remove(this);
-        }
-        else if (_parentOrParents !== null) {
-            for (var index = 0; index < _parentOrParents.length; ++index) {
-                var parent_1 = _parentOrParents[index];
-                parent_1.remove(this);
-            }
-        }
-        if (isFunction_1.isFunction(_unsubscribe)) {
-            if (_ctorUnsubscribe) {
-                this._unsubscribe = undefined;
-            }
-            try {
-                _unsubscribe.call(this);
-            }
-            catch (e) {
-                errors = e instanceof UnsubscriptionError_1.UnsubscriptionError ? flattenUnsubscriptionErrors(e.errors) : [e];
-            }
-        }
-        if (isArray_1.isArray(_subscriptions)) {
-            var index = -1;
-            var len = _subscriptions.length;
-            while (++index < len) {
-                var sub = _subscriptions[index];
-                if (isObject_1.isObject(sub)) {
-                    try {
-                        sub.unsubscribe();
-                    }
-                    catch (e) {
-                        errors = errors || [];
-                        if (e instanceof UnsubscriptionError_1.UnsubscriptionError) {
-                            errors = errors.concat(flattenUnsubscriptionErrors(e.errors));
-                        }
-                        else {
-                            errors.push(e);
-                        }
-                    }
-                }
-            }
-        }
-        if (errors) {
-            throw new UnsubscriptionError_1.UnsubscriptionError(errors);
-        }
-    };
-    Subscription.prototype.add = function (teardown) {
-        var subscription = teardown;
-        if (!teardown) {
-            return Subscription.EMPTY;
-        }
-        switch (typeof teardown) {
-            case 'function':
-                subscription = new Subscription(teardown);
-            case 'object':
-                if (subscription === this || subscription.closed || typeof subscription.unsubscribe !== 'function') {
-                    return subscription;
-                }
-                else if (this.closed) {
-                    subscription.unsubscribe();
-                    return subscription;
-                }
-                else if (!(subscription instanceof Subscription)) {
-                    var tmp = subscription;
-                    subscription = new Subscription();
-                    subscription._subscriptions = [tmp];
-                }
-                break;
-            default: {
-                throw new Error('unrecognized teardown ' + teardown + ' added to Subscription.');
-            }
-        }
-        var _parentOrParents = subscription._parentOrParents;
-        if (_parentOrParents === null) {
-            subscription._parentOrParents = this;
-        }
-        else if (_parentOrParents instanceof Subscription) {
-            if (_parentOrParents === this) {
-                return subscription;
-            }
-            subscription._parentOrParents = [_parentOrParents, this];
-        }
-        else if (_parentOrParents.indexOf(this) === -1) {
-            _parentOrParents.push(this);
-        }
-        else {
-            return subscription;
-        }
-        var subscriptions = this._subscriptions;
-        if (subscriptions === null) {
-            this._subscriptions = [subscription];
-        }
-        else {
-            subscriptions.push(subscription);
-        }
-        return subscription;
-    };
-    Subscription.prototype.remove = function (subscription) {
-        var subscriptions = this._subscriptions;
-        if (subscriptions) {
-            var subscriptionIndex = subscriptions.indexOf(subscription);
-            if (subscriptionIndex !== -1) {
-                subscriptions.splice(subscriptionIndex, 1);
-            }
-        }
-    };
-    Subscription.EMPTY = (function (empty) {
-        empty.closed = true;
-        return empty;
-    }(new Subscription()));
-    return Subscription;
-}());
-exports.Subscription = Subscription;
-function flattenUnsubscriptionErrors(errors) {
-    return errors.reduce(function (errs, err) { return errs.concat((err instanceof UnsubscriptionError_1.UnsubscriptionError) ? err.errors : err); }, []);
-}
-
-},{"./util/isArray":"../node_modules/rxjs/internal/util/isArray.js","./util/isObject":"../node_modules/rxjs/internal/util/isObject.js","./util/isFunction":"../node_modules/rxjs/internal/util/isFunction.js","./util/UnsubscriptionError":"../node_modules/rxjs/internal/util/UnsubscriptionError.js"}],"../node_modules/rxjs/internal/symbol/rxSubscriber.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.rxSubscriber = (function () {
-    return typeof Symbol === 'function'
-        ? Symbol('rxSubscriber')
-        : '@@rxSubscriber_' + Math.random();
-})();
-exports.$$rxSubscriber = exports.rxSubscriber;
-
-},{}],"../node_modules/rxjs/internal/Subscriber.js":[function(require,module,exports) {
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    }
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var isFunction_1 = require("./util/isFunction");
-var Observer_1 = require("./Observer");
-var Subscription_1 = require("./Subscription");
-var rxSubscriber_1 = require("../internal/symbol/rxSubscriber");
-var config_1 = require("./config");
-var hostReportError_1 = require("./util/hostReportError");
-var Subscriber = (function (_super) {
-    __extends(Subscriber, _super);
-    function Subscriber(destinationOrNext, error, complete) {
-        var _this = _super.call(this) || this;
-        _this.syncErrorValue = null;
-        _this.syncErrorThrown = false;
-        _this.syncErrorThrowable = false;
-        _this.isStopped = false;
-        switch (arguments.length) {
-            case 0:
-                _this.destination = Observer_1.empty;
-                break;
-            case 1:
-                if (!destinationOrNext) {
-                    _this.destination = Observer_1.empty;
-                    break;
-                }
-                if (typeof destinationOrNext === 'object') {
-                    if (destinationOrNext instanceof Subscriber) {
-                        _this.syncErrorThrowable = destinationOrNext.syncErrorThrowable;
-                        _this.destination = destinationOrNext;
-                        destinationOrNext.add(_this);
-                    }
-                    else {
-                        _this.syncErrorThrowable = true;
-                        _this.destination = new SafeSubscriber(_this, destinationOrNext);
-                    }
-                    break;
-                }
-            default:
-                _this.syncErrorThrowable = true;
-                _this.destination = new SafeSubscriber(_this, destinationOrNext, error, complete);
-                break;
-        }
-        return _this;
-    }
-    Subscriber.prototype[rxSubscriber_1.rxSubscriber] = function () { return this; };
-    Subscriber.create = function (next, error, complete) {
-        var subscriber = new Subscriber(next, error, complete);
-        subscriber.syncErrorThrowable = false;
-        return subscriber;
-    };
-    Subscriber.prototype.next = function (value) {
-        if (!this.isStopped) {
-            this._next(value);
-        }
-    };
-    Subscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            this.isStopped = true;
-            this._error(err);
-        }
-    };
-    Subscriber.prototype.complete = function () {
-        if (!this.isStopped) {
-            this.isStopped = true;
-            this._complete();
-        }
-    };
-    Subscriber.prototype.unsubscribe = function () {
-        if (this.closed) {
-            return;
-        }
-        this.isStopped = true;
-        _super.prototype.unsubscribe.call(this);
-    };
-    Subscriber.prototype._next = function (value) {
-        this.destination.next(value);
-    };
-    Subscriber.prototype._error = function (err) {
-        this.destination.error(err);
-        this.unsubscribe();
-    };
-    Subscriber.prototype._complete = function () {
-        this.destination.complete();
-        this.unsubscribe();
-    };
-    Subscriber.prototype._unsubscribeAndRecycle = function () {
-        var _parentOrParents = this._parentOrParents;
-        this._parentOrParents = null;
-        this.unsubscribe();
-        this.closed = false;
-        this.isStopped = false;
-        this._parentOrParents = _parentOrParents;
-        return this;
-    };
-    return Subscriber;
-}(Subscription_1.Subscription));
-exports.Subscriber = Subscriber;
-var SafeSubscriber = (function (_super) {
-    __extends(SafeSubscriber, _super);
-    function SafeSubscriber(_parentSubscriber, observerOrNext, error, complete) {
-        var _this = _super.call(this) || this;
-        _this._parentSubscriber = _parentSubscriber;
-        var next;
-        var context = _this;
-        if (isFunction_1.isFunction(observerOrNext)) {
-            next = observerOrNext;
-        }
-        else if (observerOrNext) {
-            next = observerOrNext.next;
-            error = observerOrNext.error;
-            complete = observerOrNext.complete;
-            if (observerOrNext !== Observer_1.empty) {
-                context = Object.create(observerOrNext);
-                if (isFunction_1.isFunction(context.unsubscribe)) {
-                    _this.add(context.unsubscribe.bind(context));
-                }
-                context.unsubscribe = _this.unsubscribe.bind(_this);
-            }
-        }
-        _this._context = context;
-        _this._next = next;
-        _this._error = error;
-        _this._complete = complete;
-        return _this;
-    }
-    SafeSubscriber.prototype.next = function (value) {
-        if (!this.isStopped && this._next) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (!config_1.config.useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
-                this.__tryOrUnsub(this._next, value);
-            }
-            else if (this.__tryOrSetError(_parentSubscriber, this._next, value)) {
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.error = function (err) {
-        if (!this.isStopped) {
-            var _parentSubscriber = this._parentSubscriber;
-            var useDeprecatedSynchronousErrorHandling = config_1.config.useDeprecatedSynchronousErrorHandling;
-            if (this._error) {
-                if (!useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
-                    this.__tryOrUnsub(this._error, err);
-                    this.unsubscribe();
-                }
-                else {
-                    this.__tryOrSetError(_parentSubscriber, this._error, err);
-                    this.unsubscribe();
-                }
-            }
-            else if (!_parentSubscriber.syncErrorThrowable) {
-                this.unsubscribe();
-                if (useDeprecatedSynchronousErrorHandling) {
-                    throw err;
-                }
-                hostReportError_1.hostReportError(err);
-            }
-            else {
-                if (useDeprecatedSynchronousErrorHandling) {
-                    _parentSubscriber.syncErrorValue = err;
-                    _parentSubscriber.syncErrorThrown = true;
-                }
-                else {
-                    hostReportError_1.hostReportError(err);
-                }
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.complete = function () {
-        var _this = this;
-        if (!this.isStopped) {
-            var _parentSubscriber = this._parentSubscriber;
-            if (this._complete) {
-                var wrappedComplete = function () { return _this._complete.call(_this._context); };
-                if (!config_1.config.useDeprecatedSynchronousErrorHandling || !_parentSubscriber.syncErrorThrowable) {
-                    this.__tryOrUnsub(wrappedComplete);
-                    this.unsubscribe();
-                }
-                else {
-                    this.__tryOrSetError(_parentSubscriber, wrappedComplete);
-                    this.unsubscribe();
-                }
-            }
-            else {
-                this.unsubscribe();
-            }
-        }
-    };
-    SafeSubscriber.prototype.__tryOrUnsub = function (fn, value) {
-        try {
-            fn.call(this._context, value);
-        }
-        catch (err) {
-            this.unsubscribe();
-            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
-                throw err;
-            }
-            else {
-                hostReportError_1.hostReportError(err);
-            }
-        }
-    };
-    SafeSubscriber.prototype.__tryOrSetError = function (parent, fn, value) {
-        if (!config_1.config.useDeprecatedSynchronousErrorHandling) {
-            throw new Error('bad call');
-        }
-        try {
-            fn.call(this._context, value);
-        }
-        catch (err) {
-            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
-                parent.syncErrorValue = err;
-                parent.syncErrorThrown = true;
-                return true;
-            }
-            else {
-                hostReportError_1.hostReportError(err);
-                return true;
-            }
-        }
-        return false;
-    };
-    SafeSubscriber.prototype._unsubscribe = function () {
-        var _parentSubscriber = this._parentSubscriber;
-        this._context = null;
-        this._parentSubscriber = null;
-        _parentSubscriber.unsubscribe();
-    };
-    return SafeSubscriber;
-}(Subscriber));
-exports.SafeSubscriber = SafeSubscriber;
-
-},{"./util/isFunction":"../node_modules/rxjs/internal/util/isFunction.js","./Observer":"../node_modules/rxjs/internal/Observer.js","./Subscription":"../node_modules/rxjs/internal/Subscription.js","../internal/symbol/rxSubscriber":"../node_modules/rxjs/internal/symbol/rxSubscriber.js","./config":"../node_modules/rxjs/internal/config.js","./util/hostReportError":"../node_modules/rxjs/internal/util/hostReportError.js"}],"../node_modules/rxjs/internal/util/canReportError.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var Subscriber_1 = require("../Subscriber");
-function canReportError(observer) {
-    while (observer) {
-        var _a = observer, closed_1 = _a.closed, destination = _a.destination, isStopped = _a.isStopped;
-        if (closed_1 || isStopped) {
-            return false;
-        }
-        else if (destination && destination instanceof Subscriber_1.Subscriber) {
-            observer = destination;
-        }
-        else {
-            observer = null;
-        }
-    }
-    return true;
-}
-exports.canReportError = canReportError;
-
-},{"../Subscriber":"../node_modules/rxjs/internal/Subscriber.js"}],"../node_modules/rxjs/internal/util/toSubscriber.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var Subscriber_1 = require("../Subscriber");
-var rxSubscriber_1 = require("../symbol/rxSubscriber");
-var Observer_1 = require("../Observer");
-function toSubscriber(nextOrObserver, error, complete) {
-    if (nextOrObserver) {
-        if (nextOrObserver instanceof Subscriber_1.Subscriber) {
-            return nextOrObserver;
-        }
-        if (nextOrObserver[rxSubscriber_1.rxSubscriber]) {
-            return nextOrObserver[rxSubscriber_1.rxSubscriber]();
-        }
-    }
-    if (!nextOrObserver && !error && !complete) {
-        return new Subscriber_1.Subscriber(Observer_1.empty);
-    }
-    return new Subscriber_1.Subscriber(nextOrObserver, error, complete);
-}
-exports.toSubscriber = toSubscriber;
-
-},{"../Subscriber":"../node_modules/rxjs/internal/Subscriber.js","../symbol/rxSubscriber":"../node_modules/rxjs/internal/symbol/rxSubscriber.js","../Observer":"../node_modules/rxjs/internal/Observer.js"}],"../node_modules/rxjs/internal/symbol/observable.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.observable = (function () { return typeof Symbol === 'function' && Symbol.observable || '@@observable'; })();
-
-},{}],"../node_modules/rxjs/internal/util/identity.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function identity(x) {
-    return x;
-}
-exports.identity = identity;
-
-},{}],"../node_modules/rxjs/internal/util/pipe.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var identity_1 = require("./identity");
-function pipe() {
-    var fns = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        fns[_i] = arguments[_i];
-    }
-    return pipeFromArray(fns);
-}
-exports.pipe = pipe;
-function pipeFromArray(fns) {
-    if (fns.length === 0) {
-        return identity_1.identity;
-    }
-    if (fns.length === 1) {
-        return fns[0];
-    }
-    return function piped(input) {
-        return fns.reduce(function (prev, fn) { return fn(prev); }, input);
-    };
-}
-exports.pipeFromArray = pipeFromArray;
-
-},{"./identity":"../node_modules/rxjs/internal/util/identity.js"}],"../node_modules/rxjs/internal/Observable.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var canReportError_1 = require("./util/canReportError");
-var toSubscriber_1 = require("./util/toSubscriber");
-var observable_1 = require("./symbol/observable");
-var pipe_1 = require("./util/pipe");
-var config_1 = require("./config");
-var Observable = (function () {
-    function Observable(subscribe) {
-        this._isScalar = false;
-        if (subscribe) {
-            this._subscribe = subscribe;
-        }
-    }
-    Observable.prototype.lift = function (operator) {
-        var observable = new Observable();
-        observable.source = this;
-        observable.operator = operator;
-        return observable;
-    };
-    Observable.prototype.subscribe = function (observerOrNext, error, complete) {
-        var operator = this.operator;
-        var sink = toSubscriber_1.toSubscriber(observerOrNext, error, complete);
-        if (operator) {
-            sink.add(operator.call(sink, this.source));
-        }
-        else {
-            sink.add(this.source || (config_1.config.useDeprecatedSynchronousErrorHandling && !sink.syncErrorThrowable) ?
-                this._subscribe(sink) :
-                this._trySubscribe(sink));
-        }
-        if (config_1.config.useDeprecatedSynchronousErrorHandling) {
-            if (sink.syncErrorThrowable) {
-                sink.syncErrorThrowable = false;
-                if (sink.syncErrorThrown) {
-                    throw sink.syncErrorValue;
-                }
-            }
-        }
-        return sink;
-    };
-    Observable.prototype._trySubscribe = function (sink) {
-        try {
-            return this._subscribe(sink);
-        }
-        catch (err) {
-            if (config_1.config.useDeprecatedSynchronousErrorHandling) {
-                sink.syncErrorThrown = true;
-                sink.syncErrorValue = err;
-            }
-            if (canReportError_1.canReportError(sink)) {
-                sink.error(err);
-            }
-            else {
-                console.warn(err);
-            }
-        }
-    };
-    Observable.prototype.forEach = function (next, promiseCtor) {
-        var _this = this;
-        promiseCtor = getPromiseCtor(promiseCtor);
-        return new promiseCtor(function (resolve, reject) {
-            var subscription;
-            subscription = _this.subscribe(function (value) {
-                try {
-                    next(value);
-                }
-                catch (err) {
-                    reject(err);
-                    if (subscription) {
-                        subscription.unsubscribe();
-                    }
-                }
-            }, reject, resolve);
-        });
-    };
-    Observable.prototype._subscribe = function (subscriber) {
-        var source = this.source;
-        return source && source.subscribe(subscriber);
-    };
-    Observable.prototype[observable_1.observable] = function () {
-        return this;
-    };
-    Observable.prototype.pipe = function () {
-        var operations = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            operations[_i] = arguments[_i];
-        }
-        if (operations.length === 0) {
-            return this;
-        }
-        return pipe_1.pipeFromArray(operations)(this);
-    };
-    Observable.prototype.toPromise = function (promiseCtor) {
-        var _this = this;
-        promiseCtor = getPromiseCtor(promiseCtor);
-        return new promiseCtor(function (resolve, reject) {
-            var value;
-            _this.subscribe(function (x) { return value = x; }, function (err) { return reject(err); }, function () { return resolve(value); });
-        });
-    };
-    Observable.create = function (subscribe) {
-        return new Observable(subscribe);
-    };
-    return Observable;
-}());
-exports.Observable = Observable;
-function getPromiseCtor(promiseCtor) {
-    if (!promiseCtor) {
-        promiseCtor = config_1.config.Promise || Promise;
-    }
-    if (!promiseCtor) {
-        throw new Error('no Promise impl found');
-    }
-    return promiseCtor;
-}
-
-},{"./util/canReportError":"../node_modules/rxjs/internal/util/canReportError.js","./util/toSubscriber":"../node_modules/rxjs/internal/util/toSubscriber.js","./symbol/observable":"../node_modules/rxjs/internal/symbol/observable.js","./util/pipe":"../node_modules/rxjs/internal/util/pipe.js","./config":"../node_modules/rxjs/internal/config.js"}],"../node_modules/rxjs/internal/observable/pairs.js":[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var Observable_1 = require("../Observable");
-var Subscription_1 = require("../Subscription");
-function pairs(obj, scheduler) {
-    if (!scheduler) {
-        return new Observable_1.Observable(function (subscriber) {
-            var keys = Object.keys(obj);
-            for (var i = 0; i < keys.length && !subscriber.closed; i++) {
-                var key = keys[i];
-                if (obj.hasOwnProperty(key)) {
-                    subscriber.next([key, obj[key]]);
-                }
-            }
-            subscriber.complete();
-        });
-    }
-    else {
-        return new Observable_1.Observable(function (subscriber) {
-            var keys = Object.keys(obj);
-            var subscription = new Subscription_1.Subscription();
-            subscription.add(scheduler.schedule(dispatch, 0, { keys: keys, index: 0, subscriber: subscriber, subscription: subscription, obj: obj }));
-            return subscription;
-        });
-    }
-}
-exports.pairs = pairs;
-function dispatch(state) {
-    var keys = state.keys, index = state.index, subscriber = state.subscriber, subscription = state.subscription, obj = state.obj;
-    if (!subscriber.closed) {
-        if (index < keys.length) {
-            var key = keys[index];
-            subscriber.next([key, obj[key]]);
-            subscription.add(this.schedule({ keys: keys, index: index + 1, subscriber: subscriber, subscription: subscription, obj: obj }));
-        }
-        else {
-            subscriber.complete();
-        }
-    }
-}
-exports.dispatch = dispatch;
-
-},{"../Observable":"../node_modules/rxjs/internal/Observable.js","../Subscription":"../node_modules/rxjs/internal/Subscription.js"}],"context.js":[function(require,module,exports) {
+},{"history":"../node_modules/history/esm/history.js"}],"context.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43649,8 +42989,6 @@ var _authenticationService = require("./services/authenticationService");
 var _reactIdleTimer = require("react-idle-timer");
 
 var _history = _interopRequireDefault(require("./services/history"));
-
-var _pairs = require("rxjs/internal/observable/pairs");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -43695,6 +43033,13 @@ var reducer = function reducer(state, action) {
         });
       }
 
+    case 'FINISH_AUTH':
+      {
+        return _objectSpread(_objectSpread({}, state), {}, {
+          authenticationComplete: !!state.user
+        });
+      }
+
     default:
       {
         return state;
@@ -43705,7 +43050,8 @@ var reducer = function reducer(state, action) {
 var defaultState = {
   user: null,
   alert: null,
-  showAlert: false
+  showAlert: false,
+  authenticationComplete: false
 };
 
 var AppProvider = function AppProvider(_ref) {
@@ -43746,6 +43092,17 @@ var AppProvider = function AppProvider(_ref) {
       getRemainingTime = _useIdleTimer.getRemainingTime,
       getLastActiveTime = _useIdleTimer.getLastActiveTime;
 
+  var dispatchAlert = function dispatchAlert(data) {
+    dispatch({
+      type: 'SHOW_ALERT',
+      payload: {
+        type: data.status === 'success' ? 'success' : 'error',
+        message: data.message
+      }
+    });
+    return data.status;
+  };
+
   var dispatchAlertAndRedirectTo = function dispatchAlertAndRedirectTo(data, to) {
     dispatch({
       type: 'SHOW_ALERT',
@@ -43775,13 +43132,7 @@ var AppProvider = function AppProvider(_ref) {
 
   var login = function login(body) {
     return _authenticationService.authenticationService.login(body).then(function (d) {
-      dispatch({
-        type: 'SHOW_ALERT',
-        payload: {
-          type: d.status === 'success' ? 'success' : 'error',
-          message: d.message
-        }
-      });
+      dispatchAlert(d);
 
       if (d.status === 'success') {
         var user = d.data.user;
@@ -43825,14 +43176,7 @@ var AppProvider = function AppProvider(_ref) {
 
   var sendPasswordReset = function sendPasswordReset(body) {
     return _authenticationService.authenticationService.sendPasswordReset(body).then(function (d) {
-      dispatch({
-        type: 'SHOW_ALERT',
-        payload: {
-          type: d.status === 'success' ? 'success' : 'error',
-          message: d.message
-        }
-      });
-      return d.status;
+      return dispatchAlertAndRedirectTo(d, '/');
     }).catch(function (err) {
       return dispatchErrorAlert(err);
     });
@@ -43853,26 +43197,18 @@ var AppProvider = function AppProvider(_ref) {
   };
 
   var updateDetails = function updateDetails(body) {
-    return fetch("".concat(window.location.origin, "/api/v1/users/updateDetails"), {
-      method: 'PATCH',
-      credentials: 'include',
-      body: body
-    }).then(function (res) {
-      return res.json();
+    return _authenticationService.authenticationService.updateDetails(body).then(function (d) {
+      return dispatchAlert(d);
     }).catch(function (err) {
-      return console.error(err);
+      return dispatchErrorAlert(err);
     });
   };
 
   var updatePassword = function updatePassword(body) {
-    return fetch("".concat(window.location.origin, "/api/v1/users/updatePassword"), {
-      method: 'PATCH',
-      credentials: 'include',
-      body: body
-    }).then(function (res) {
-      return res.json();
+    return _authenticationService.authenticationService.updatePassword(body).then(function (d) {
+      return dispatchAlert(d);
     }).catch(function (err) {
-      return console.error(err);
+      return dispatchErrorAlert(err);
     });
   };
 
@@ -43884,11 +43220,17 @@ var AppProvider = function AppProvider(_ref) {
       });
     });
   }, []);
+  (0, _react.useEffect)(function () {
+    dispatch({
+      type: 'FINISH_AUTH'
+    });
+  }, [state.user]);
   return /*#__PURE__*/_react.default.createElement(AppContext.Provider, {
     value: {
       user: state.user,
       alert: state.alert,
       showAlert: state.showAlert,
+      authenticationComplete: state.authenticationComplete,
       login: login,
       logout: logout,
       signup: signup,
@@ -43910,7 +43252,7 @@ var useGlobalContext = function useGlobalContext() {
 };
 
 exports.useGlobalContext = useGlobalContext;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","./services/authenticationService":"services/authenticationService.js","react-idle-timer":"../node_modules/react-idle-timer/dist/index.es.js","./services/history":"services/history.js","rxjs/internal/observable/pairs":"../node_modules/rxjs/internal/observable/pairs.js"}],"components/Header/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/defineProperty":"../node_modules/@babel/runtime/helpers/defineProperty.js","react":"../node_modules/react/index.js","./services/authenticationService":"services/authenticationService.js","react-idle-timer":"../node_modules/react-idle-timer/dist/index.es.js","./services/history":"services/history.js"}],"components/Header/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44184,10 +43526,11 @@ var AuthRoute = function AuthRoute(_ref) {
       props = (0, _objectWithoutProperties2.default)(_ref, ["type"]);
 
   var _useGlobalContext = (0, _context.useGlobalContext)(),
-      user = _useGlobalContext.user; // if (type === 'guest' && !user) return <Redirect to="/" />;
+      user = _useGlobalContext.user,
+      authenticationComplete = _useGlobalContext.authenticationComplete; // if (type === 'guest' && !user) return <Redirect to="/" />;
 
 
-  if (type === 'private' && !user) {
+  if (type === 'private' && authenticationComplete && !user) {
     return /*#__PURE__*/_react.default.createElement(_AuthRedirect.default, {
       to: "/login",
       message: 'You need to authenticate to proceed'
@@ -44269,97 +43612,7 @@ var HomePage = function HomePage() {
 
 var _default = HomePage;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../assets/img/ui/illustration-intro.png":"assets/img/ui/illustration-intro.png"}],"components/AuthForm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
-var _react = _interopRequireWildcard(require("react"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var AuthForm = function AuthForm(_ref) {
-  var className = _ref.className,
-      callback = _ref.callback,
-      children = _ref.children;
-  var formRef = (0, _react.useRef)(null);
-
-  var _useState = (0, _react.useState)(false),
-      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
-      isSubmitSuccess = _useState2[0],
-      setIsSubmitSuccess = _useState2[1];
-
-  var _useState3 = (0, _react.useState)(false),
-      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
-      isMounted = _useState4[0],
-      setIsMounted = _useState4[1];
-
-  var _useState5 = (0, _react.useState)(false),
-      _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
-      isSubmitting = _useState6[0],
-      setIsSubmitting = _useState6[1];
-
-  var handleSubmit = function handleSubmit(e) {
-    e.preventDefault();
-
-    if (!isSubmitSuccess) {
-      setIsSubmitting(true);
-      var formData = new FormData(formRef.current);
-      callback(formData).then(function (status) {
-        if (isMounted && status === 'success') {
-          setIsSubmitSuccess(true);
-          setIsSubmitting(false);
-        } else {
-          setIsSubmitSuccess(false);
-          setIsSubmitting(false);
-        }
-      }).catch(function (err) {
-        console.error(err);
-        setIsSubmitting(false);
-      });
-    }
-  };
-
-  (0, _react.useEffect)(function () {
-    if (!isMounted) {
-      setIsMounted(true);
-    }
-
-    return function () {
-      setIsMounted(false);
-    };
-  }, []);
-
-  var childrenWithProps = _react.default.Children.map(children, function (child) {
-    if (_react.default.isValidElement(child)) {
-      return _react.default.cloneElement(child, {
-        isSubmitSuccess: isSubmitSuccess,
-        isSubmitting: isSubmitting
-      });
-    }
-
-    return child;
-  });
-
-  return /*#__PURE__*/_react.default.createElement("form", {
-    ref: formRef,
-    className: "form__body ".concat(className),
-    onSubmit: handleSubmit
-  }, childrenWithProps);
-};
-
-var _default = AuthForm;
-exports.default = _default;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"../node_modules/@babel/runtime/helpers/extends.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../assets/img/ui/illustration-intro.png":"assets/img/ui/illustration-intro.png"}],"../node_modules/@babel/runtime/helpers/extends.js":[function(require,module,exports) {
 function _extends() {
   module.exports = _extends = Object.assign || function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -44379,7 +43632,91 @@ function _extends() {
 }
 
 module.exports = _extends;
-},{}],"components/FormInput.js":[function(require,module,exports) {
+},{}],"components/AuthForm.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AuthForm = function AuthForm(_ref) {
+  var className = _ref.className,
+      callback = _ref.callback,
+      children = _ref.children,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["className", "callback", "children"]);
+  var formRef = (0, _react.useRef)(null);
+
+  var _useState = (0, _react.useState)(false),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      isMounted = _useState2[0],
+      setIsMounted = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(false),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
+      isSubmitting = _useState4[0],
+      setIsSubmitting = _useState4[1];
+
+  var handleSubmit = function handleSubmit(e) {
+    e.preventDefault();
+    setIsSubmitting(true);
+    var formData = new FormData(formRef.current);
+    callback(formData).then(function (status) {
+      if (isMounted && status === 'success') {
+        setIsSubmitting(false);
+      } else {
+        setIsSubmitting(false);
+      }
+    }).catch(function (err) {
+      console.error(err);
+      setIsSubmitting(false);
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    if (!isMounted) {
+      setIsMounted(true);
+    }
+
+    return function () {
+      setIsMounted(false);
+    };
+  }, []);
+
+  var childrenWithProps = _react.default.Children.map(children, function (child) {
+    if (_react.default.isValidElement(child)) {
+      return _react.default.cloneElement(child, {
+        isSubmitting: isSubmitting
+      });
+    }
+
+    return child;
+  });
+
+  return /*#__PURE__*/_react.default.createElement("form", (0, _extends2.default)({
+    ref: formRef,
+    className: "form__body ".concat(className),
+    onSubmit: handleSubmit
+  }, props), childrenWithProps);
+};
+
+var _default = AuthForm;
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js"}],"components/FormInput.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -44404,11 +43741,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var FormInput = function FormInput(_ref) {
   var id = _ref.id,
       labelText = _ref.labelText,
-      isSubmitSuccess = _ref.isSubmitSuccess,
       isSubmitting = _ref.isSubmitting,
       className = _ref.className,
       value = _ref.value,
-      props = (0, _objectWithoutProperties2.default)(_ref, ["id", "labelText", "isSubmitSuccess", "isSubmitting", "className", "value"]);
+      props = (0, _objectWithoutProperties2.default)(_ref, ["id", "labelText", "isSubmitting", "className", "value"]);
 
   var _useState = (0, _react.useState)(value || ''),
       _useState2 = (0, _slicedToArray2.default)(_useState, 2),
@@ -44416,10 +43752,10 @@ var FormInput = function FormInput(_ref) {
       setTerm = _useState2[1];
 
   (0, _react.useEffect)(function () {
-    if (isSubmitSuccess) {
-      setTerm('');
+    if (value) {
+      setTerm(value);
     }
-  }, [isSubmitSuccess]);
+  }, [value]);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "form__group"
   }, /*#__PURE__*/_react.default.createElement("input", (0, _extends2.default)({
@@ -44430,9 +43766,7 @@ var FormInput = function FormInput(_ref) {
     id: id,
     value: term,
     className: "form__input ".concat(className)
-  }, props, {
-    disabled: isSubmitSuccess
-  })), /*#__PURE__*/_react.default.createElement("label", {
+  }, props)), /*#__PURE__*/_react.default.createElement("label", {
     htmlFor: id,
     className: "form__label ".concat(term ? 'form__label--float' : '')
   }, /*#__PURE__*/_react.default.createElement("span", null, labelText)));
@@ -46712,23 +46046,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var FormSubmit = function FormSubmit(_ref) {
   var defaultValue = _ref.defaultValue,
-      isSubmitSuccess = _ref.isSubmitSuccess,
-      successValue = _ref.successValue,
       isSubmitting = _ref.isSubmitting,
       className = _ref.className,
-      props = (0, _objectWithoutProperties2.default)(_ref, ["defaultValue", "isSubmitSuccess", "successValue", "isSubmitting", "className"]);
+      props = (0, _objectWithoutProperties2.default)(_ref, ["defaultValue", "isSubmitting", "className"]);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "form__group"
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "btn btn--big btn--dark form__button form__button--send",
-    disabled: isSubmitSuccess || isSubmitting
+    disabled: isSubmitting
   }, isSubmitting ? /*#__PURE__*/_react.default.createElement(_ScaleLoader.default, {
     height: 18,
     width: 2,
     radius: 1,
     margin: 2,
     color: "#f2f2f2"
-  }) : !isSubmitSuccess ? defaultValue : successValue));
+  }) : defaultValue));
 };
 
 var _default = FormSubmit;
@@ -47184,7 +46516,7 @@ var Tabs = function Tabs(_ref) {
 
 var _default = Tabs;
 exports.default = _default;
-},{"@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js","../components/TabPanel.js":"components/TabPanel.js","../components/TabList.js":"components/TabList.js","../components/TabButton.js":"components/TabButton.js"}],"components/FormPhotoUpload.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js","../components/TabPanel.js":"components/TabPanel.js","../components/TabList.js":"components/TabList.js","../components/TabButton.js":"components/TabButton.js"}],"components/UserPhotoUpload.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47192,22 +46524,68 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var FormPhotoUpload = function FormPhotoUpload(_ref) {
+var UserPhotoUpload = function UserPhotoUpload(_ref) {
   var user = _ref.user;
+
+  if (!user) {
+    return null;
+  }
+
+  var _ref2 = user || '',
+      userPhoto = _ref2.userPhoto,
+      userName = _ref2.userName;
+
+  var _useState = (0, _react.useState)(userPhoto),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      photo = _useState2[0],
+      setPhoto = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(userName),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
+      name = _useState4[0],
+      setName = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
+      fileUploaded = _useState6[0],
+      setFileUploaded = _useState6[1];
+
+  var handleChange = function handleChange(files) {
+    setPhoto(URL.createObjectURL(files[0]));
+    setFileUploaded(true);
+  };
+
+  (0, _react.useEffect)(function () {
+    var photo = user.photo,
+        name = user.name;
+    setPhoto(photo);
+    setName(name);
+    setFileUploaded(false);
+  }, [user]);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "form__group form__photo-upload"
-  }, /*#__PURE__*/_react.default.createElement("img", {
-    src: "".concat(window.location.protocol, "//").concat(window.location.hostname, ":9000/assets/img/users/").concat(user.photo),
-    alt: user.name,
+  }, photo && /*#__PURE__*/_react.default.createElement("img", {
+    src: !fileUploaded ? "".concat(window.location.origin, "/assets/img/users/").concat(photo) : photo,
+    alt: name,
     className: "form__user-photo"
   }), /*#__PURE__*/_react.default.createElement("input", {
+    onChange: function onChange(e) {
+      return handleChange(e.target.files);
+    },
     type: "file",
     accept: "image/*",
     id: "photo",
+    name: "photo",
     className: "form__upload"
   }), /*#__PURE__*/_react.default.createElement("label", {
     htmlFor: "photo",
@@ -47215,9 +46593,9 @@ var FormPhotoUpload = function FormPhotoUpload(_ref) {
   }, "Choose a new photo"));
 };
 
-var _default = FormPhotoUpload;
+var _default = UserPhotoUpload;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"components/Account/UserProfile.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Account/UserProfile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47225,7 +46603,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _react = _interopRequireWildcard(require("react"));
 
 var _AuthForm = _interopRequireDefault(require("../AuthForm"));
 
@@ -47233,23 +46613,52 @@ var _FormInput = _interopRequireDefault(require("../FormInput"));
 
 var _FormSubmit = _interopRequireDefault(require("../FormSubmit"));
 
-var _FormPhotoUpload = _interopRequireDefault(require("../FormPhotoUpload"));
+var _UserPhotoUpload = _interopRequireDefault(require("../UserPhotoUpload"));
 
 var _context = require("../../context");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var UserProfile = function UserProfile() {
   var _useGlobalContext = (0, _context.useGlobalContext)(),
-      user = _useGlobalContext.user;
+      user = _useGlobalContext.user,
+      updateDetails = _useGlobalContext.updateDetails;
 
+  var _useState = (0, _react.useState)(''),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      name = _useState2[0],
+      setName = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(''),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
+      email = _useState4[0],
+      setEmail = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(''),
+      _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
+      organization = _useState6[0],
+      setOrganization = _useState6[1];
+
+  (0, _react.useEffect)(function () {
+    if (user) {
+      setName(user.name);
+      setEmail(user.email);
+      setOrganization(user.organization || '');
+    }
+  }, [user]);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "form form--user"
   }, /*#__PURE__*/_react.default.createElement("h2", {
     className: "form__heading form__heading--bigger"
   }, "Your account settings"), /*#__PURE__*/_react.default.createElement(_AuthForm.default, {
-    className: "form__body form__body--update-me"
-  }, /*#__PURE__*/_react.default.createElement(_FormPhotoUpload.default, {
+    encType: "multipart/form-data",
+    className: "form__body form__body--update-me",
+    callback: updateDetails
+  }, /*#__PURE__*/_react.default.createElement(_UserPhotoUpload.default, {
     user: user
   }), /*#__PURE__*/_react.default.createElement(_FormInput.default, {
     className: "form__input--bigger",
@@ -47257,21 +46666,21 @@ var UserProfile = function UserProfile() {
     name: "name",
     labelText: "Full name",
     type: "text",
-    value: user.name
+    value: name
   }), /*#__PURE__*/_react.default.createElement(_FormInput.default, {
     id: "email",
     name: "email",
     labelText: "Email address",
     type: "email",
     className: "form__input--bigger",
-    value: user.email
+    value: email
   }), /*#__PURE__*/_react.default.createElement(_FormInput.default, {
     id: "organization",
     name: "organization",
     labelText: "Organization",
     type: "text",
     className: "form__input--bigger",
-    value: user.organization
+    value: organization
   }), /*#__PURE__*/_react.default.createElement(_FormSubmit.default, {
     successValue: "Data saved",
     defaultValue: "Save"
@@ -47280,7 +46689,7 @@ var UserProfile = function UserProfile() {
 
 var _default = UserProfile;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../AuthForm":"components/AuthForm.js","../FormInput":"components/FormInput.js","../FormSubmit":"components/FormSubmit.js","../FormPhotoUpload":"components/FormPhotoUpload.js","../../context":"context.js"}],"components/Account/Security.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","../AuthForm":"components/AuthForm.js","../FormInput":"components/FormInput.js","../FormSubmit":"components/FormSubmit.js","../UserPhotoUpload":"components/UserPhotoUpload.js","../../context":"context.js"}],"components/Account/Security.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47424,7 +46833,400 @@ var AccountPage = function AccountPage() {
 
 var _default = AccountPage;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","../components/Tabs.js":"components/Tabs.js","../components/Account/UserProfile":"components/Account/UserProfile.js","../components/Account/Security":"components/Account/Security.js","../components/Account/Placeholder":"components/Account/Placeholder.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","../components/Tabs.js":"components/Tabs.js","../components/Account/UserProfile":"components/Account/UserProfile.js","../components/Account/Security":"components/Account/Security.js","../components/Account/Placeholder":"components/Account/Placeholder.js"}],"hooks/useFetch.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.useFetch = void 0;
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _react = require("react");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var useFetch = function useFetch(url) {
+  var _useState = (0, _react.useState)(true),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  var _useState3 = (0, _react.useState)([]),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
+      data = _useState4[0],
+      setData = _useState4[1];
+
+  (0, _react.useEffect)(function () {
+    var getData = /*#__PURE__*/function () {
+      var _ref = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var response, data;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return fetch(url);
+
+              case 2:
+                response = _context.sent;
+                _context.next = 5;
+                return response.json();
+
+              case 5:
+                data = _context.sent;
+                setData(data.data.data);
+                setLoading(false);
+
+              case 8:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function getData() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    getData();
+  }, []);
+  return {
+    data: data,
+    loading: loading
+  };
+};
+
+exports.useFetch = useFetch;
+},{"@babel/runtime/regenerator":"../node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"../node_modules/@babel/runtime/helpers/asyncToGenerator.js","@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Breadcrumb.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Breadcrumb = function Breadcrumb() {
+  return /*#__PURE__*/_react.default.createElement("div", null);
+};
+
+var _default = Breadcrumb;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/SearchBar.js":[function(require,module,exports) {
+
+},{}],"components/List/List.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var List = function List(_ref) {
+  var children = _ref.children,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["children"]);
+  return /*#__PURE__*/_react.default.createElement("table", (0, _extends2.default)({
+    className: "list"
+  }, props), children);
+};
+
+var _default = List;
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js"}],"components/List/ListHead.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListHead = function ListHead(_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/_react.default.createElement("thead", null, /*#__PURE__*/_react.default.createElement("tr", {
+    className: "list__row--heading"
+  }, children));
+};
+
+var _default = ListHead;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/List/ListHeader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListHeader = function ListHeader(_ref) {
+  var title = _ref.title,
+      sortable = _ref.sortable,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["title", "sortable"]);
+  return /*#__PURE__*/_react.default.createElement("th", {
+    className: "list__heading"
+  }, /*#__PURE__*/_react.default.createElement("span", null, title));
+};
+
+var _default = ListHeader;
+exports.default = _default;
+},{"@babel/runtime/helpers/objectWithoutProperties":"../node_modules/@babel/runtime/helpers/objectWithoutProperties.js","react":"../node_modules/react/index.js"}],"components/List/ListContent.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListContent = function ListContent(_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/_react.default.createElement("tbody", null, children);
+};
+
+var _default = ListContent;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/List/ListRow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListRow = function ListRow(_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/_react.default.createElement("tr", {
+    className: "list__row"
+  }, children);
+};
+
+var _default = ListRow;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/List/ListDataElement.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ListDataElement = function ListDataElement(_ref) {
+  var children = _ref.children;
+  return /*#__PURE__*/_react.default.createElement("td", {
+    className: "list__data"
+  }, children);
+};
+
+var _default = ListDataElement;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/AssigneeList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AssigneeList = function AssigneeList(_ref) {
+  var max = _ref.max,
+      users = _ref.users;
+  var shownUsers = users.length > max ? users.slice(0, max) : users;
+  var rest = users.length > max ? users.length - max : null;
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "team-members"
+  }, shownUsers.map(function (user) {
+    var name = user.name,
+        photo = user.photo,
+        id = user.id;
+    return /*#__PURE__*/_react.default.createElement("img", {
+      key: id,
+      src: "".concat(window.location.origin, "/assets/img/users/").concat(photo),
+      alt: name,
+      className: "team-members__user-icon--list"
+    });
+  }), rest && /*#__PURE__*/_react.default.createElement("span", {
+    className: "team-members__rest-text"
+  }, "and ", rest, " others"));
+};
+
+var _default = AssigneeList;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"pages/ProjectsOverview.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _useFetch2 = require("../hooks/useFetch");
+
+var _Breadcrumb = _interopRequireDefault(require("../components/Breadcrumb"));
+
+var _SearchBar = _interopRequireDefault(require("../components/SearchBar"));
+
+var _List = _interopRequireDefault(require("../components/List/List"));
+
+var _ListHead = _interopRequireDefault(require("../components/List/ListHead"));
+
+var _ListHeader = _interopRequireDefault(require("../components/List/ListHeader"));
+
+var _ListContent = _interopRequireDefault(require("../components/List/ListContent"));
+
+var _ListRow = _interopRequireDefault(require("../components/List/ListRow"));
+
+var _ListDataElement = _interopRequireDefault(require("../components/List/ListDataElement"));
+
+var _AssigneeList = _interopRequireDefault(require("../components/AssigneeList"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var url = "".concat(window.location.origin, "/api/v1/projects");
+
+var ProjectsOverview = function ProjectsOverview() {
+  var _useFetch = (0, _useFetch2.useFetch)(url),
+      data = _useFetch.data,
+      loading = _useFetch.loading;
+
+  if (loading) {
+    //   TODO
+    return /*#__PURE__*/_react.default.createElement("div", null, "Loading...");
+  } //   console.log(data);
+
+
+  return /*#__PURE__*/_react.default.createElement("main", {
+    className: "main"
+  }, /*#__PURE__*/_react.default.createElement(_Breadcrumb.default, null), /*#__PURE__*/_react.default.createElement("div", {
+    className: "wrapper--app"
+  }, /*#__PURE__*/_react.default.createElement("h1", {
+    className: "heading-title"
+  }, "My projects"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "app__header"
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    className: "search-input"
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "app__content"
+  }, /*#__PURE__*/_react.default.createElement(_List.default, null, /*#__PURE__*/_react.default.createElement(_ListHead.default, null, /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "prefix"
+  }), /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "project"
+  }), /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "description"
+  }), /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "project lead"
+  }), /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "deadline"
+  }), /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "status"
+  }), /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "progress"
+  }), /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "team members"
+  }), /*#__PURE__*/_react.default.createElement(_ListHeader.default, {
+    title: "action"
+  })), /*#__PURE__*/_react.default.createElement(_ListContent.default, null, data.map(function (project) {
+    var id = project.id,
+        prefix = project.prefix,
+        name = project.name,
+        description = project.description,
+        teamLead = project.teamLead,
+        deadline = project.deadline,
+        status = project.status,
+        progress = project.progress,
+        teamMembers = project.teamMembers;
+    var nameLength = 35;
+    var descriptionLength = 50;
+    return /*#__PURE__*/_react.default.createElement(_ListRow.default, {
+      key: id
+    }, /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    }, prefix)), /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    }, "".concat(name.length > nameLength ? name.slice(0, nameLength) + name.slice(nameLength).split(' ')[0] + '...' : name))), /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    }, "".concat(description.length > descriptionLength ? description.slice(0, descriptionLength) + description.slice(descriptionLength).split(' ')[0] + '...' : description))), /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    }, teamLead.name)), /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    }, deadline)), /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    }, status)), /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    }, progress, "%")), /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    }, /*#__PURE__*/_react.default.createElement(_AssigneeList.default, {
+      max: 3,
+      users: teamMembers
+    }))), /*#__PURE__*/_react.default.createElement(_ListDataElement.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      className: "list__content",
+      to: "/projects/".concat(id, "/issues")
+    })));
+  }))))));
+};
+
+var _default = ProjectsOverview;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","../hooks/useFetch":"hooks/useFetch.js","../components/Breadcrumb":"components/Breadcrumb.js","../components/SearchBar":"components/SearchBar.js","../components/List/List":"components/List/List.js","../components/List/ListHead":"components/List/ListHead.js","../components/List/ListHeader":"components/List/ListHeader.js","../components/List/ListContent":"components/List/ListContent.js","../components/List/ListRow":"components/List/ListRow.js","../components/List/ListDataElement":"components/List/ListDataElement.js","../components/AssigneeList":"components/AssigneeList.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47460,6 +47262,8 @@ var _ResetPasswordPage = _interopRequireDefault(require("./pages/ResetPasswordPa
 
 var _AccountPage = _interopRequireDefault(require("./pages/AccountPage"));
 
+var _ProjectsOverview = _interopRequireDefault(require("./pages/ProjectsOverview"));
+
 var _history = _interopRequireDefault(require("./services/history"));
 
 var _context = require("./context");
@@ -47473,7 +47277,7 @@ var App = function App() {
       showAlert = _useGlobalContext.showAlert,
       alert = _useGlobalContext.alert;
 
-  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.HashRouter, {
+  return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Router, {
     history: _history.default
   }, /*#__PURE__*/_react.default.createElement(_index.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
     exact: true,
@@ -47495,7 +47299,9 @@ var App = function App() {
   }), /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
     type: "private",
     path: "/me"
-  }, /*#__PURE__*/_react.default.createElement(_AccountPage.default, null))), /*#__PURE__*/_react.default.createElement(_Footer.default, null), showAlert && /*#__PURE__*/_react.default.createElement(_Alert.default, {
+  }, /*#__PURE__*/_react.default.createElement(_AccountPage.default, null)), /*#__PURE__*/_react.default.createElement(_AuthRoute.default, {
+    type: "private"
+  }, /*#__PURE__*/_react.default.createElement(_ProjectsOverview.default, null))), /*#__PURE__*/_react.default.createElement(_Footer.default, null), showAlert && /*#__PURE__*/_react.default.createElement(_Alert.default, {
     type: alert.type,
     message: alert.message
   }));
@@ -47503,7 +47309,7 @@ var App = function App() {
 
 var _default = App;
 exports.default = _default;
-},{"./App.css":"App.css","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components/Header/index":"components/Header/index.js","./components/Footer":"components/Footer.js","./components/Alert":"components/Alert.js","./components/AuthRoute":"components/AuthRoute.js","./pages/HomePage":"pages/HomePage.js","./pages/LoginPage":"pages/LoginPage.js","./pages/SignupPage":"pages/SignupPage.js","./pages/ConfirmSignupPage":"pages/ConfirmSignupPage.js","./pages/ForgotPasswordPage":"pages/ForgotPasswordPage.js","./pages/ResetPasswordPage":"pages/ResetPasswordPage.js","./pages/AccountPage":"pages/AccountPage.js","./services/history":"services/history.js","./context":"context.js"}],"index.js":[function(require,module,exports) {
+},{"./App.css":"App.css","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./components/Header/index":"components/Header/index.js","./components/Footer":"components/Footer.js","./components/Alert":"components/Alert.js","./components/AuthRoute":"components/AuthRoute.js","./pages/HomePage":"pages/HomePage.js","./pages/LoginPage":"pages/LoginPage.js","./pages/SignupPage":"pages/SignupPage.js","./pages/ConfirmSignupPage":"pages/ConfirmSignupPage.js","./pages/ForgotPasswordPage":"pages/ForgotPasswordPage.js","./pages/ResetPasswordPage":"pages/ResetPasswordPage.js","./pages/AccountPage":"pages/AccountPage.js","./pages/ProjectsOverview":"pages/ProjectsOverview.js","./services/history":"services/history.js","./context":"context.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -47545,7 +47351,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55933" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52955" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
