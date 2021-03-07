@@ -2,7 +2,6 @@ import React, { useReducer, useEffect, useContext } from 'react';
 import { authenticationService } from './services/authenticationService';
 import { useIdleTimer } from 'react-idle-timer';
 import history from './services/history';
-import { dispatch } from 'rxjs/internal/observable/pairs';
 
 const AppContext = React.createContext();
 
@@ -28,6 +27,10 @@ const reducer = (state, action) => {
       return { ...state, alert: null, showAlert: false };
     }
 
+    case 'FINISH_AUTH': {
+      return { ...state, authenticationComplete: !!state.user };
+    }
+
     default: {
       return state;
     }
@@ -38,6 +41,7 @@ const defaultState = {
   user: null,
   alert: null,
   showAlert: false,
+  authenticationComplete: false,
 };
 
 export const AppProvider = ({ children }) => {
@@ -71,6 +75,17 @@ export const AppProvider = ({ children }) => {
     debounce: 500,
   });
 
+  const dispatchAlert = (data) => {
+    dispatch({
+      type: 'SHOW_ALERT',
+      payload: {
+        type: data.status === 'success' ? 'success' : 'error',
+        message: data.message,
+      },
+    });
+    return data.status;
+  };
+
   const dispatchAlertAndRedirectTo = (data, to) => {
     dispatch({
       type: 'SHOW_ALERT',
@@ -100,13 +115,7 @@ export const AppProvider = ({ children }) => {
     return authenticationService
       .login(body)
       .then((d) => {
-        dispatch({
-          type: 'SHOW_ALERT',
-          payload: {
-            type: d.status === 'success' ? 'success' : 'error',
-            message: d.message,
-          },
-        });
+        dispatchAlert(d);
         if (d.status === 'success') {
           const user = d.data.user;
           dispatch({ type: 'LOGIN', payload: user });
@@ -141,17 +150,7 @@ export const AppProvider = ({ children }) => {
   const sendPasswordReset = (body) => {
     return authenticationService
       .sendPasswordReset(body)
-      .then((d) => {
-        dispatch({
-          type: 'SHOW_ALERT',
-          payload: {
-            type: d.status === 'success' ? 'success' : 'error',
-            message: d.message,
-          },
-        });
-
-        return d.status;
-      })
+      .then((d) => dispatchAlertAndRedirectTo(d, '/'))
       .catch((err) => dispatchErrorAlert(err));
   };
 
@@ -167,23 +166,17 @@ export const AppProvider = ({ children }) => {
   };
 
   const updateDetails = (body) => {
-    return fetch(`${window.location.origin}/api/v1/users/updateDetails`, {
-      method: 'PATCH',
-      credentials: 'include',
-      body,
-    })
-      .then((res) => res.json())
-      .catch((err) => console.error(err));
+    return authenticationService
+      .updateDetails(body)
+      .then((d) => dispatchAlert(d))
+      .catch((err) => dispatchErrorAlert(err));
   };
 
   const updatePassword = (body) => {
-    return fetch(`${window.location.origin}/api/v1/users/updatePassword`, {
-      method: 'PATCH',
-      credentials: 'include',
-      body,
-    })
-      .then((res) => res.json())
-      .catch((err) => console.error(err));
+    return authenticationService
+      .updatePassword(body)
+      .then((d) => dispatchAlert(d))
+      .catch((err) => dispatchErrorAlert(err));
   };
 
   useEffect(() => {
@@ -192,12 +185,17 @@ export const AppProvider = ({ children }) => {
     );
   }, []);
 
+  useEffect(() => {
+    dispatch({ type: 'FINISH_AUTH' });
+  }, [state.user]);
+
   return (
     <AppContext.Provider
       value={{
         user: state.user,
         alert: state.alert,
         showAlert: state.showAlert,
+        authenticationComplete: state.authenticationComplete,
         login,
         logout,
         signup,

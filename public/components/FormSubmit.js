@@ -1,19 +1,12 @@
 import React from 'react';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 
-const FormSubmit = ({
-  defaultValue,
-  isSubmitSuccess,
-  successValue,
-  isSubmitting,
-  className,
-  ...props
-}) => {
+const FormSubmit = ({ defaultValue, isSubmitting, className, ...props }) => {
   return (
     <div className="form__group">
       <button
         className="btn btn--big btn--dark form__button form__button--send"
-        disabled={isSubmitSuccess || isSubmitting}
+        disabled={isSubmitting}
       >
         {isSubmitting ? (
           <ScaleLoader
@@ -23,10 +16,8 @@ const FormSubmit = ({
             margin={2}
             color="#f2f2f2"
           />
-        ) : !isSubmitSuccess ? (
-          defaultValue
         ) : (
-          successValue
+          defaultValue
         )}
       </button>
     </div>

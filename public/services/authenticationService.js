@@ -11,6 +11,8 @@ export const authenticationService = {
   confirmSignup,
   resetPassword,
   sendPasswordReset,
+  updateDetails,
+  updatePassword,
   user: userSubject.asObservable(),
   get userValue() {
     return userSubject.value;
@@ -47,9 +49,7 @@ async function signup(body) {
 async function confirmSignup(token) {
   return fetch(`${window.location.origin}/api/v1/users/signup/${token}`, {
     method: 'GET',
-  })
-    .then((res) => res.json())
-    .catch((err) => console.error(err));
+  }).catch((err) => console.error(err));
 }
 
 async function sendPasswordReset(body) {
@@ -90,5 +90,31 @@ async function logout() {
       userSubject.next(null);
       return res.json();
     })
+    .catch((err) => console.error(err));
+}
+
+async function updateDetails(body) {
+  return fetch(`${window.location.origin}/api/v1/users/updateDetails`, {
+    method: 'PATCH',
+    credentials: 'include',
+    body,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      const user = data.data.user;
+      localStorage.setItem('user', JSON.stringify(user));
+      userSubject.next(user);
+      return data;
+    })
+    .catch((err) => console.error(err));
+}
+
+async function updatePassword(body) {
+  return fetch(`${window.location.origin}/api/v1/users/updatePassword`, {
+    method: 'PATCH',
+    credentials: 'include',
+    body,
+  })
+    .then((res) => res.json())
     .catch((err) => console.error(err));
 }

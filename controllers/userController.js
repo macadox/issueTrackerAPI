@@ -4,18 +4,7 @@ const factory = require('./factory');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('./../utils/appError');
 const Email = require('./../utils/Email');
-
-const filterObj = (obj, ...allowedFields) => {
-  const newObj = {};
-
-  for (let key in obj) {
-    if (allowedFields.includes(key)) {
-      newObj[key] = obj[key];
-    }
-  }
-
-  return newObj;
-};
+const { filterObj } = require('./../utils/utils');
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -108,9 +97,9 @@ exports.updateDetails = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     status: 'success',
-    message: 'details have been updated',
+    message: 'Details have been updated',
     data: {
-      data: updatedUser,
+      user: updatedUser,
     },
   });
 });

@@ -4,10 +4,10 @@ import AuthRedirect from './AuthRedirect';
 import { useGlobalContext } from '../context';
 
 const AuthRoute = ({ type, ...props }) => {
-  const { user } = useGlobalContext();
+  const { user, authenticationComplete } = useGlobalContext();
 
   // if (type === 'guest' && !user) return <Redirect to="/" />;
-  if (type === 'private' && !user) {
+  if (type === 'private' && authenticationComplete && !user) {
     return (
       <AuthRedirect
         to="/login"

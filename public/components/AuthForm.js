@@ -1,31 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const AuthForm = ({ className, callback, children }) => {
+const AuthForm = ({ className, callback, children, ...props }) => {
   const formRef = useRef(null);
-  const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isSubmitSuccess) {
-      setIsSubmitting(true);
-      const formData = new FormData(formRef.current);
-      callback(formData)
-        .then((status) => {
-          if (isMounted && status === 'success') {
-            setIsSubmitSuccess(true);
-            setIsSubmitting(false);
-          } else {
-            setIsSubmitSuccess(false);
-            setIsSubmitting(false);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
+    setIsSubmitting(true);
+    const formData = new FormData(formRef.current);
+    callback(formData)
+      .then((status) => {
+        if (isMounted && status === 'success') {
           setIsSubmitting(false);
-        });
-    }
+        } else {
+          setIsSubmitting(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsSubmitting(false);
+      });
   };
 
   useEffect(() => {
@@ -40,7 +35,7 @@ const AuthForm = ({ className, callback, children }) => {
 
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, { isSubmitSuccess, isSubmitting });
+      return React.cloneElement(child, { isSubmitting });
     }
     return child;
   });
@@ -50,6 +45,7 @@ const AuthForm = ({ className, callback, children }) => {
       ref={formRef}
       className={`form__body ${className}`}
       onSubmit={handleSubmit}
+      {...props}
     >
       {childrenWithProps}
     </form>

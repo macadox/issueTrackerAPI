@@ -4,8 +4,7 @@ const authController = require('./../controllers/authController');
 
 const router = express.Router();
 
-router.post('/signup', userController.textMultipart,
- authController.signup);
+router.post('/signup', userController.textMultipart, authController.signup);
 router.get('/signup/:token', authController.confirmSignup);
 router.post('/login', userController.textMultipart, authController.login);
 router.get('/logout', authController.logout);
@@ -25,7 +24,9 @@ router.use(authController.protect);
 router
   .route('/updateDetails')
   .patch(userController.uploadUserPhoto, userController.updateDetails);
-router.route('/updatePassword').patch(authController.updatePassword);
+router
+  .route('/updatePassword')
+  .patch(userController.textMultipart, authController.updatePassword);
 
 // disabled admin, to be able to fetch data
 router.use(authController.restrict('admin'));

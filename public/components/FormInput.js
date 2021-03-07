@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const FormInput = ({
   id,
   labelText,
-  isSubmitSuccess,
   isSubmitting,
   className,
   value,
@@ -12,10 +11,10 @@ const FormInput = ({
   const [term, setTerm] = useState(value || '');
 
   useEffect(() => {
-    if (isSubmitSuccess) {
-      setTerm('');
+    if (value) {
+      setTerm(value);
     }
-  }, [isSubmitSuccess]);
+  }, [value]);
 
   return (
     <div className="form__group">
@@ -26,7 +25,6 @@ const FormInput = ({
         value={term}
         className={`form__input ${className}`}
         {...props}
-        disabled={isSubmitSuccess}
       />
       <label
         htmlFor={id}

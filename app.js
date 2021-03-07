@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
+const csp = require('express-csp-header');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const rateLimit = require('express-rate-limit');
@@ -21,11 +22,17 @@ console.log(process.env.NODE_ENV);
 
 const app = express();
 
-app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "blob: data:"],
+    },
+  })
+);
 app.use(
   cors({
     origin: ['http://localhost:8081'],
-    // , 'http://localhost:1234'
     credentials: true,
   })
 );
@@ -39,6 +46,7 @@ const limiter = rateLimit({
 app.use('/api', limiter);
 
 app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
