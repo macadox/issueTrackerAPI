@@ -19,6 +19,8 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 import AccountPage from './pages/AccountPage';
 
 import ProjectsOverview from './pages/ProjectsOverview';
+import IssuesOverview from './pages/IssuesOverview';
+import ProjectPage from './pages/ProjectPage';
 
 import history from './services/history';
 import { useGlobalContext } from './context';
@@ -53,9 +55,19 @@ const App = () => {
         <AuthRoute type="private" path="/me">
           <AccountPage />
         </AuthRoute>
-        <AuthRoute type="private">
+        <AuthRoute type="private" path="/projects" exact>
           <ProjectsOverview />
         </AuthRoute>
+        <AuthRoute
+          type="private"
+          path="/projects/:projectId/preview"
+          children={<ProjectPage />}
+        />
+        <AuthRoute
+          type="private"
+          path="/projects/:projectId/issues"
+          children={<IssuesOverview />}
+        />
       </Switch>
       <Footer />
       {showAlert && <Alert type={alert.type} message={alert.message} />}

@@ -713,9 +713,16 @@ footer {
   outline: none;
 }
 
-.list__heading:focus > * {
+.list__heading-icon {
+  color: inherit;
+  transform: translate(2px, 1px);
+}
+
+.list__heading:focus > span,
+.list__heading > span:hover {
   text-decoration: underline;
   color: #111;
+  cursor: pointer;
 }
 
 .list__heading:first-of-type {

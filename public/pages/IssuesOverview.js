@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
 
 import Breadcrumb from '../components/Breadcrumb';
@@ -13,15 +13,16 @@ import ListRow from '../components/List/ListRow';
 import ListDataElement from '../components/List/ListDataElement';
 import AssigneeList from '../components/AssigneeList';
 
-import { FaEdit } from 'react-icons/fa';
+const IssuesOverview = () => {
+  const { projectId } = useParams();
+  const url = `${window.location.origin}/api/v1/projects/${projectId}/issues`;
 
-const url = `${window.location.origin}/api/v1/projects`;
-
-const ProjectsOverview = () => {
   const { data, loading } = useFetch(url);
   const [filteredData, setFilteredData] = useState(data);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState(null);
+
+  console.log(data);
 
   const sortColumn = (sortKey) => {
     if (sort === `+${sortKey}`) {
@@ -37,7 +38,7 @@ const ProjectsOverview = () => {
     const timeoutId = setTimeout(() => {
       const regex = new RegExp(search, 'gi');
       const filteredData = data
-        .filter((project) => regex.test(project.name))
+        .filter((issue) => regex.test(issue.name))
         .sort((a, b) => {
           if (sort) {
             const dir = sort.slice(0, 1);
@@ -67,48 +68,68 @@ const ProjectsOverview = () => {
 
   return (
     <main className="main">
-      <Breadcrumb crumbs={[{ label: 'PROJECTS' }]} />
+      <Breadcrumb
+        crumbs={[{ label: 'PROJECTS', url: '/projects' }, { label: 'ISSUES' }]}
+      />
       <div className="wrapper--app">
-        <h1 className="heading-title">My projects</h1>
+        <h1 className="heading-title">Issue list</h1>
         <div className="app__header">
           <SearchBar
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            label="Type project name to search"
-            controls="projects"
+            label="Type issue name to search"
+            controls="issues"
           />
           <Link
             className="btn btn--small btn--light align--right"
             to="/projects/create"
           >
-            Create a new project
+            Submit a new issue
+          </Link>
+          <Link
+            className="btn btn--small btn--light align--right"
+            to="/projects/create"
+          >
+            Project details
           </Link>
           <button className="btn btn--small btn--light align--right">
             Toggle grid view
           </button>
         </div>
         <div className="app__content">
-          <List id="projects">
+          <List id="issues">
             <ListHead>
               <ListHeader
                 onClick={sortColumn}
-                sortKey="prefix"
-                title="prefix"
+                sortKey="issueId"
+                title="ID"
                 sort={sort}
               />
               <ListHeader
                 onClick={sortColumn}
-                sortKey="project"
-                title="project"
+                sortKey="name"
+                title="Issue"
                 sort={sort}
               />
               <ListHeader
                 onClick={sortColumn}
                 sortKey="description"
-                title="description"
+                title="Description"
                 sort={sort}
               />
-              <ListHeader title="project lead" />
+              <ListHeader
+                onClick={sortColumn}
+                sortKey="priority"
+                title="priority"
+                sort={sort}
+              />
+              <ListHeader title="author" />
+              <ListHeader
+                onClick={sortColumn}
+                sortKey="createdOn"
+                title="created"
+                sort={sort}
+              />
               <ListHeader
                 onClick={sortColumn}
                 sortKey="deadline"
@@ -121,47 +142,42 @@ const ProjectsOverview = () => {
                 title="status"
                 sort={sort}
               />
-              <ListHeader
-                onClick={sortColumn}
-                sortKey="progress"
-                title="progress"
-                sort={sort}
-              />
-              <ListHeader title="team members" />
-              <ListHeader title="action" />
+              <ListHeader title="Assignees" />
             </ListHead>
             <ListContent>
-              {filteredData.map((project) => {
+              {filteredData.map((issue) => {
                 const {
-                  id,
-                  prefix,
+                  issueId,
+                  _id,
                   name,
                   description,
-                  teamLead,
+                  author,
                   deadline,
+                  priority,
                   status,
-                  progress,
-                  teamMembers,
-                } = project;
+                  createdOn,
+                  assignees,
+                } = issue;
 
                 const nameLength = 35;
                 const descriptionLength = 50;
+                const createdDate = new Date(createdOn);
                 const deadlineDate = new Date(deadline);
 
                 return (
-                  <ListRow key={id}>
+                  <ListRow key={_id}>
                     <ListDataElement>
                       <Link
                         className="list__content"
-                        to={`/projects/${id}/issues`}
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
                       >
-                        {prefix}
+                        {issueId}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
                       <Link
                         className="list__content"
-                        to={`/projects/${id}/issues`}
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
                       >
                         {`${
                           name.length > nameLength
@@ -175,7 +191,7 @@ const ProjectsOverview = () => {
                     <ListDataElement>
                       <Link
                         className="list__content"
-                        to={`/projects/${id}/issues`}
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
                       >
                         {`${
                           description.length > descriptionLength
@@ -191,15 +207,31 @@ const ProjectsOverview = () => {
                     <ListDataElement>
                       <Link
                         className="list__content"
-                        to={`/projects/${id}/issues`}
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
                       >
-                        {teamLead.name}
+                        {priority}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
                       <Link
                         className="list__content"
-                        to={`/projects/${id}/issues`}
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
+                      >
+                        {author.name}
+                      </Link>
+                    </ListDataElement>
+                    <ListDataElement>
+                      <Link
+                        className="list__content"
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
+                      >
+                        {new Intl.DateTimeFormat('en-GB').format(createdDate)}
+                      </Link>
+                    </ListDataElement>
+                    <ListDataElement>
+                      <Link
+                        className="list__content"
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
                       >
                         {new Intl.DateTimeFormat('en-GB').format(deadlineDate)}
                       </Link>
@@ -207,7 +239,7 @@ const ProjectsOverview = () => {
                     <ListDataElement>
                       <Link
                         className="list__content"
-                        to={`/projects/${id}/issues`}
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
                       >
                         {status}
                       </Link>
@@ -215,25 +247,9 @@ const ProjectsOverview = () => {
                     <ListDataElement>
                       <Link
                         className="list__content"
-                        to={`/projects/${id}/issues`}
+                        to={`/projects/${projectId}/issues/${_id}/preview`}
                       >
-                        {progress}%
-                      </Link>
-                    </ListDataElement>
-                    <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
-                        <AssigneeList max={3} users={teamMembers} />
-                      </Link>
-                    </ListDataElement>
-                    <ListDataElement>
-                      <Link
-                        className="btn btn--icon btn--transparent"
-                        to={`/projects/${id}/preview`}
-                      >
-                        <FaEdit />
+                        <AssigneeList max={3} users={assignees} />
                       </Link>
                     </ListDataElement>
                   </ListRow>
@@ -247,4 +263,4 @@ const ProjectsOverview = () => {
   );
 };
 
-export default ProjectsOverview;
+export default IssuesOverview;
