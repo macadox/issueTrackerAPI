@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 const TemplateTextarea = ({
   mode,
+  inputValue,
   inputKey,
   labelText,
   update,
-  inputValue,
   className,
   ...props
 }) => {

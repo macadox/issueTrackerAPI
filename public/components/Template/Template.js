@@ -7,12 +7,10 @@ const editableDataReducer = (accum, current) => {
 };
 
 const Template = ({ mode, data, editableFields, children, ...props }) => {
-
   const [editableData, setEditableData] = useState(
     editableFields.reduce(editableDataReducer, {})
   );
-  console.log(editableData);
-
+  console.log('the mode is: ', mode);
   useEffect(() => {
     if (data) {
       const responseData = Object.entries(data).reduce(
@@ -31,10 +29,10 @@ const Template = ({ mode, data, editableFields, children, ...props }) => {
   const update = (key, value) => {
     const newData = { ...editableData };
     newData[key] = value;
-
     setEditableData(newData);
   };
 
+  console.log(editableData);
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, { mode, update });

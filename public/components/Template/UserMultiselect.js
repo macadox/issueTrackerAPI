@@ -1,65 +1,102 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import { FaTimes } from 'react-icons/fa';
 
-const UserMultiselect = ({ inputKey, inputValue, labelText }) => {
+const UserMultiselect = ({
+  inputKey,
+  inputValue,
+  labelText,
+  mode,
+  update,
+  className,
+}) => {
   const [selectedValues, setSelectedValues] = useState(inputValue);
   const { data: resource, loading } = useFetch(
     `${window.location.origin}/api/v1/users?limit=50`
   );
-  const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const multiselectRef = useRef(null);
   console.log(selectedValues);
-  console.log(resource, loading);
 
-  //   useEffect(() => {
-  //     setSelectedValues(inputValue);
-  //   }, [inputValue]);
-
-  const handleClick = () => {};
-
-  const handleKeyDown = (e) => {
-    e.preventDefault();
-
-    // backspace
-    if (e.keyCode == 8) {
-      e.preventDefault();
-      if (this.chosenContainer.children.length == 0) return;
-      this.removeValue(
-        this.chosenContainer.children[this.chosenContainer.children.length - 1]
-      );
-      this.focusFirst();
-    } // arrowup
-    else if (e.keyCode == 38) {
-      e.preventDefault();
-      if (this.dropdown.children.length == 0) return;
-      if (this.active == 0) return;
-      else this.active--;
-    } // arrowdown
-    else if (e.keyCode == 40) {
-      e.preventDefault();
-      if (this.dropdown.children.length == 0) return;
-      if (this.active == this.dropdown.children.length - 1) return;
-      else this.active++;
-    } // space enter
-    else if (e.keyCode == 13 || e.keyCode == 32) {
-      e.preventDefault();
-      if (this.dropdown.children.length == 0) return;
-      this.selectValue(this.dropdown.children[this.active]);
-      this.focusFirst();
-    }
-  };
+  useEffect(() => {
+    update(
+      inputKey,
+      selectedValues.map((u) => u._id)
+    );
+  }, [selectedValues, loading]);
 
   const dropdownValues = resource.filter(
     (v) => !selectedValues.map((s) => s._id).includes(v._id)
   );
 
+  const addValue = (idx) => {
+    const value = dropdownValues[idx];
+    const newSelectedValues = [...selectedValues, value];
+    setSelectedValues(newSelectedValues);
+  };
+
+  const removeValue = (idx) => {
+    const newSelectedValues = [...selectedValues].filter((v, i) => i !== idx);
+    setSelectedValues(newSelectedValues);
+  };
+
+  const handleKeyDown = (e) => {
+    e.preventDefault();
+    // backspace
+    if (e.keyCode === 8) {
+      if (selectedValues.length === 0) return;
+      removeValue(selectedValues.length - 1);
+      setActiveIndex(0);
+    } // arrowup
+    else if (e.keyCode === 38) {
+      if (dropdownValues.length === 0) return;
+      if (activeIndex === 0) return;
+      setActiveIndex(activeIndex - 1);
+    } // arrowdown
+    else if (e.keyCode === 40) {
+      if (dropdownValues.length === 0) return;
+      if (activeIndex === dropdownValues.length - 1) return;
+      else setActiveIndex(activeIndex + 1);
+    } // space enter
+    else if (e.keyCode === 13 || e.keyCode === 32) {
+      if (dropdownValues.length === 0) return;
+      addValue(activeIndex);
+      setActiveIndex(0);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
+  if (mode === 'preview') {
+    return (
+      <div className={`form-template__field ${className}`}>
+        <label htmlFor={inputKey} className="form-template__label">
+          {labelText}
+        </label>
+        <ul className="chosen">
+          {selectedValues.map((v, i) => {
+            const { _id, mainRole, name } = v;
+            const userLabel =
+              name +
+              ` (${mainRole
+                .charAt(0)
+                .toUpperCase()
+                .concat(mainRole.slice(1))})`;
+            return (
+              <li key={_id} className="chosen__choice chosen__choice--read">
+                <span className="chosen__value">{userLabel}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+  }
+
   return (
-    <div className="form-template__field">
+    <div className={`form-template__field ${className}`}>
       <label htmlFor={inputKey} className="form-template__label">
         {labelText}
       </label>
@@ -69,7 +106,11 @@ const UserMultiselect = ({ inputKey, inputValue, labelText }) => {
         aria-multiselectable="true"
         className="chosen-container"
         tabIndex="0"
-        aria-activedescendant={dropdownValues[activeIndex]._id}
+        onKeyDown={handleKeyDown}
+        aria-activedescendant={
+          dropdownValues[activeIndex] && dropdownValues[activeIndex]._id
+        }
+        ref={multiselectRef}
       >
         <ul className="chosen chosen--edit">
           {selectedValues.map((v, i) => {
@@ -88,7 +129,16 @@ const UserMultiselect = ({ inputKey, inputValue, labelText }) => {
                 role="option"
               >
                 <span className="chosen__value">{userLabel}</span>
-                <button className="chosen__button">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    removeValue(i);
+                    setActiveIndex(0);
+                    multiselectRef.current.focus();
+                  }}
+                  tabIndex={-1}
+                  className="chosen__button"
+                >
                   <FaTimes />
                 </button>
               </li>
@@ -112,6 +162,9 @@ const UserMultiselect = ({ inputKey, inputValue, labelText }) => {
                 role="option"
                 key={_id}
                 id={_id}
+                onClick={() => {
+                  addValue(i);
+                }}
               >
                 <span className="dropdown__value">{userLabel}</span>
               </li>

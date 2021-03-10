@@ -60,7 +60,11 @@ const App = () => {
         </AuthRoute>
         <AuthRoute
           type="private"
-          path="/projects/:projectId/preview"
+          path={[
+            '/projects/:projectId/preview',
+            '/projects/:projectId/update',
+            '/projects/create',
+          ]}
           children={<ProjectPage />}
         />
         <AuthRoute

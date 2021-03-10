@@ -36,7 +36,6 @@ const ProjectPage = ({ ...props }) => {
     return parts[parts.length - 1];
   };
   const mode = getMode();
-  console.log(data);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -61,41 +60,41 @@ const ProjectPage = ({ ...props }) => {
               labelText="Project Lead"
             />
             <TemplateSelect
-              inputValue={data['status']}
+              inputValue={data.status}
               inputKey="status"
               type="text"
               labelText="Status"
               options={['Not released', 'In progress', 'Testing', 'Released']}
             />
             <TemplateInput
-              inputValue={data['progress']}
+              inputValue={data.progress}
               inputKey="progress"
               type="number"
               labelText="Progress"
             />
             <TemplateInput
-              inputValue={data['name']}
+              inputValue={data.name}
               inputKey="name"
               type="text"
               labelText="Name"
             />
             <TemplateDateInput
-              inputValue={data['deadline']}
+              inputValue={data.deadline}
               inputKey="deadline"
               labelText="Deadline"
             />
             <TemplateDateInput
-              inputValue={data['startDate']}
+              inputValue={data.startDate}
               inputKey="startDate"
               labelText="Start Date"
             />
             <TemplateDateInput
-              inputValue={data['endDate']}
+              inputValue={data.endDate}
               inputKey="endDate"
               labelText="End Date"
             />
             <TemplateTextarea
-              inputValue={data['description']}
+              inputValue={data.description}
               inputKey="description"
               labelText="Description"
               className="colspan2"
@@ -104,6 +103,7 @@ const ProjectPage = ({ ...props }) => {
               inputValue={data.teamMembers}
               inputKey="teamMembers"
               labelText="Team Members"
+              className="colspan2 newline"
             />
           </Template>
         </div>
