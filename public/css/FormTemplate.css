@@ -21,7 +21,9 @@
   background: transparent;
   border-radius: 6px;
   height: 30px;
+  line-height: 30px;
   text-indent: 0.75em;
+  font-size: 1.3rem;  
   color: inherit;
   box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.07);
 }
@@ -34,7 +36,7 @@
 }
 
 /* Firefox */
-.form-template__input[type=number] {
+.form-template__input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -57,12 +59,13 @@
   border-radius: 6px;
   color: inherit;
   padding: 0.75em;
+  font-size: 1.3rem;
   box-shadow: inset 0 0 6px 0 rgba(0, 0, 0, 0.07);
   resize: none;
 }
 
-.form-template__input:disabled,
-.form-template__textarea:disabled {
+.form-template__input--readonly,
+.form-template__textarea--readonly {
   border: none;
   box-shadow: none;
   padding: 0;
@@ -71,8 +74,8 @@
   min-height: 30px;
 }
 
-.form-template__input:disabled::placeholder {
-    opacity: 0;
+.form-template__input--readonly::placeholder {
+  opacity: 0;
 }
 
 .chosen-container {
@@ -126,7 +129,7 @@
 }
 
 .chosen--edit:empty::after {
-  content: "Select options from list";
+  content: 'Select options from list';
   color: inherit;
   font-size: 1.3rem;
   opacity: 0.78;
@@ -190,7 +193,7 @@
 }
 
 .chosen-container:focus-within .dropdown {
-    display: block;
+  display: block;
 }
 
 .dropdown__option {
@@ -205,6 +208,23 @@
 }
 
 .dropdown__option--hidden {
+  display: none;
+}
+
+/* Table data for forms */
+
+.list__row--form {
+  vertical-align: top;
+  opacity: 1;
+}
+
+.list__data--form {
+  padding-right: 1em;
+  font-size: 1.4rem;
+}
+
+.list--ac .list__heading:first-of-type,
+.list--ac .list__data--form:first-of-type {
   display: none;
 }
 
@@ -224,22 +244,3 @@
 .colspan4 {
   grid-column-end: span 4;
 }
-
-
-/* Table data for forms */
-
-.list__row--form {
-  vertical-align: top;
-  opacity: 1;
-}
-
-.list__data--form {
-  padding-right: 1em;
-  font-size: 1.4rem;
-}
-
-.list--ac .list__heading:first-of-type,
-.list--ac .list__data--form:first-of-type {
-  display: none;
-}
-
