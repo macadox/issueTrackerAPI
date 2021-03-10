@@ -706,7 +706,7 @@ footer {
   text-align: left;
   text-transform: capitalize;
   color: #6e778d;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 400;
   padding-top: 0.4em;
   padding-bottom: 0.4em;
@@ -756,6 +756,7 @@ footer {
   padding-bottom: 8px;
   cursor: default;
   outline: none;
+  text-align: justify;
 }
 
 .list__data:focus > * {
@@ -764,7 +765,7 @@ footer {
 }
 
 .list__content {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 150%;
   cursor: pointer;
   display: inline;

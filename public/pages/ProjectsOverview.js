@@ -11,7 +11,7 @@ import ListHeader from '../components/List/ListHeader';
 import ListContent from '../components/List/ListContent';
 import ListRow from '../components/List/ListRow';
 import ListDataElement from '../components/List/ListDataElement';
-import AssigneeList from '../components/AssigneeList';
+import AssigneeList from '../components/List/AssigneeList';
 
 import { FaEdit } from 'react-icons/fa';
 
@@ -128,6 +128,12 @@ const ProjectsOverview = () => {
                 sort={sort}
               />
               <ListHeader title="team members" />
+              <ListHeader
+                onClick={sortColumn}
+                sortKey="numIssues"
+                title="# Issues"
+                sort={sort}
+              />
               <ListHeader title="action" />
             </ListHead>
             <ListContent>
@@ -142,6 +148,7 @@ const ProjectsOverview = () => {
                   status,
                   progress,
                   teamMembers,
+                  numIssues,
                 } = project;
 
                 const nameLength = 35;
@@ -226,6 +233,14 @@ const ProjectsOverview = () => {
                         to={`/projects/${id}/issues`}
                       >
                         <AssigneeList max={3} users={teamMembers} />
+                      </Link>
+                    </ListDataElement>
+                    <ListDataElement>
+                      <Link
+                        className="list__content"
+                        to={`/projects/${id}/issues`}
+                      >
+                        {numIssues}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>

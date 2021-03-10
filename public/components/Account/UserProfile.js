@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AuthForm from '../AuthForm';
 import FormInput from '../FormInput';
 import FormSubmit from '../FormSubmit';
-import UserPhotoUpload from '../UserPhotoUpload';
+import UserPhotoUpload from './UserPhotoUpload';
 
 import { useGlobalContext } from '../../context';
 

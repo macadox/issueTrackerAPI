@@ -11,7 +11,7 @@ import ListHeader from '../components/List/ListHeader';
 import ListContent from '../components/List/ListContent';
 import ListRow from '../components/List/ListRow';
 import ListDataElement from '../components/List/ListDataElement';
-import AssigneeList from '../components/AssigneeList';
+import AssigneeList from '../components/List/AssigneeList';
 
 const IssuesOverview = () => {
   const { projectId } = useParams();
@@ -21,8 +21,6 @@ const IssuesOverview = () => {
   const [filteredData, setFilteredData] = useState(data);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState(null);
-
-  console.log(data);
 
   const sortColumn = (sortKey) => {
     if (sort === `+${sortKey}`) {

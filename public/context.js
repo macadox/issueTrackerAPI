@@ -68,7 +68,7 @@ export const AppProvider = ({ children }) => {
   const handleOnAction = (e) => {};
 
   const { getRemainingTime, getLastActiveTime } = useIdleTimer({
-    timeout: 1000 * 60 * 10,
+    timeout: 1000 * 60 * 60,
     onIdle: handleOnIdle,
     onActive: handleOnActive,
     onAction: handleOnAction,
