@@ -80,13 +80,13 @@ const IssuesOverview = () => {
           />
           <Link
             className="btn btn--small btn--light align--right"
-            to="/projects/create"
+            to={`/projects/${projectId}/issues/create`}
           >
             Submit a new issue
           </Link>
           <Link
             className="btn btn--small btn--light align--right"
-            to="/projects/create"
+            to={`/projects/${projectId}/preview`}
           >
             Project details
           </Link>

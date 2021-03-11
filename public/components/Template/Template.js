@@ -1,21 +1,32 @@
 import '../../css/FormTemplate.css';
 import React, { useState, useEffect } from 'react';
+import { useGlobalContext } from '../../context';
 
 const editableDataReducer = (accum, current) => {
-  accum[current] = null;
+  const { key, defaultVal } = current;
+  accum[key] = defaultVal;
   return accum;
 };
 
-const Template = ({ mode, data, editableFields, children, ...props }) => {
+const Template = ({
+  mode,
+  data,
+  editableFields,
+  children,
+  submitURL,
+  ...props
+}) => {
   const [editableData, setEditableData] = useState(
     editableFields.reduce(editableDataReducer, {})
   );
-  console.log('the mode is: ', mode);
+  const { dispatchErrorAlert, dispatchAlertAndRedirectTo } = useGlobalContext();
+
   useEffect(() => {
     if (data) {
+      const mappedEditableFields = editableFields.map((field) => field.key);
       const responseData = Object.entries(data).reduce(
         (accum, [key, value]) => {
-          if (editableFields.includes(key)) {
+          if (mappedEditableFields.includes(key)) {
             accum[key] = value;
           }
           return accum;
@@ -32,7 +43,29 @@ const Template = ({ mode, data, editableFields, children, ...props }) => {
     setEditableData(newData);
   };
 
-  console.log(editableData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    fetch(`${submitURL}${mode === 'create' ? '' : `/${data.id}`}`, {
+      method: mode === 'create' ? 'POST' : 'PATCH',
+      body: JSON.stringify(editableData),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatchAlertAndRedirectTo(
+          data,
+          `/projects/${data.data.data.id}/preview`
+        );
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      })
+      .catch((err) => dispatchErrorAlert(err));
+  };
+
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, { mode, update });
@@ -41,7 +74,11 @@ const Template = ({ mode, data, editableFields, children, ...props }) => {
   });
 
   return (
-    <form className="form-template form-template--grid" {...props}>
+    <form
+      onSubmit={handleSubmit}
+      className="form-template form-template--grid"
+      {...props}
+    >
       {childrenWithProps}
     </form>
   );
