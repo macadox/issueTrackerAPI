@@ -8,18 +8,31 @@ const TemplateInput = ({
   update,
   inputValue,
   className,
+  readOnly,
   ...props
 }) => {
-  const [term, setTerm] = useState(inputValue || null);
-
-  // useEffect(() => {
-  //   setTerm(inputValue);
-  // }, [inputValue]);
+  const [term, setTerm] = useState(inputValue || '');
 
   useEffect(() => {
     const inputValue = type === 'number' ? parseInt(term) || 0 : term;
     update(inputKey, inputValue);
   }, [term]);
+
+  if (mode === 'preview' || (mode === 'update' && readOnly)) {
+    return (
+      <div className={`form-template__field ${className}`}>
+        <label className="form-template__label" htmlFor={inputKey}>
+          {labelText}
+        </label>
+        <p
+          id={inputKey}
+          className="form-template__input form-template__input--readonly"
+        >
+          {inputValue}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className={`form-template__field ${className}`}>

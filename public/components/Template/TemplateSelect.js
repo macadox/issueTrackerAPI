@@ -10,15 +10,27 @@ const TemplateSelect = ({
   className,
   ...props
 }) => {
-  const [term, setTerm] = useState(inputValue || null);
-
-  // useEffect(() => {
-  //   setTerm(inputValue);
-  // }, [inputValue]);
+  const [term, setTerm] = useState(inputValue || options[0]);
 
   useEffect(() => {
     update(inputKey, term);
   }, [term]);
+
+  if (mode === 'preview') {
+    return (
+      <div className={`form-template__field ${className}`}>
+        <label className="form-template__label" htmlFor={inputKey}>
+          {labelText}
+        </label>
+        <p
+          id={inputKey}
+          className="form-template__input form-template__input--readonly"
+        >
+          {inputValue}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className={`form-template__field ${className}`}>

@@ -10,13 +10,12 @@ const UserMultiselect = ({
   update,
   className,
 }) => {
-  const [selectedValues, setSelectedValues] = useState(inputValue);
+  const [selectedValues, setSelectedValues] = useState(inputValue || []);
   const { data: resource, loading } = useFetch(
     `${window.location.origin}/api/v1/users?limit=50`
   );
   const [activeIndex, setActiveIndex] = useState(0);
   const multiselectRef = useRef(null);
-  console.log(selectedValues);
 
   useEffect(() => {
     update(
@@ -95,6 +94,7 @@ const UserMultiselect = ({
     );
   }
 
+  // if (mode === 'create' || mode === 'update')
   return (
     <div className={`form-template__field ${className}`}>
       <label htmlFor={inputKey} className="form-template__label">

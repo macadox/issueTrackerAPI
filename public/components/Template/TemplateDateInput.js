@@ -14,13 +14,25 @@ const TemplateDateInput = ({
 }) => {
   const [term, setTerm] = useState(inputValue || null);
 
-  // useEffect(() => {
-  //   setTerm(inputValue);
-  // }, [inputValue]);
-
   useEffect(() => {
     update(inputKey, term);
   }, [term]);
+
+  if (mode === 'preview') {
+    return (
+      <div className={`form-template__field ${className}`}>
+        <label className="form-template__label" htmlFor={inputKey}>
+          {labelText}
+        </label>
+        <p
+          id={inputKey}
+          className="form-template__input form-template__input--readonly"
+        >
+          {term && new Intl.DateTimeFormat('en-GB').format(new Date(term))}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className={`form-template__field ${className}`}>
@@ -33,7 +45,7 @@ const TemplateDateInput = ({
         options={{ dateFormat: 'm/d/Y' }}
         name={inputKey}
         value={term || null}
-        onChange={(date) => setTerm(date)}
+        onChange={(date) => setTerm(date[0])}
         placeholder="MM/DD/YYYY"
       />
     </div>

@@ -11,13 +11,25 @@ const TemplateTextarea = ({
 }) => {
   const [term, setTerm] = useState(inputValue || null);
 
-  // useEffect(() => {
-  //   setTerm(inputValue);
-  // }, [inputValue]);
-
   useEffect(() => {
     update(inputKey, term);
   }, [term]);
+
+  if (mode === 'preview') {
+    return (
+      <div className={`form-template__field ${className}`}>
+        <label className="form-template__label" htmlFor={inputKey}>
+          {labelText}
+        </label>
+        <p
+          id={inputKey}
+          className="form-template__textarea form-template__textarea--readonly"
+        >
+          {inputValue}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className={`form-template__field ${className}`}>
