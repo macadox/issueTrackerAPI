@@ -10,6 +10,7 @@ import AuthRoute from './components/AuthRoute';
 
 // Pages
 import HomePage from './pages/HomePage';
+import ErrorPage from './pages/ErrorPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import ConfirmSignupPage from './pages/ConfirmSignupPage';
@@ -72,6 +73,9 @@ const App = () => {
           path="/projects/:projectId/issues"
           children={<IssuesOverview />}
         />
+        <AuthRoute path="*">
+          <ErrorPage />
+        </AuthRoute>
       </Switch>
       <Footer />
       {showAlert && <Alert type={alert.type} message={alert.message} />}

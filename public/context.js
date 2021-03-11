@@ -111,6 +111,17 @@ export const AppProvider = ({ children }) => {
     });
   };
 
+  const dispatchErrorAndRedirectTo = (err, to) => {
+    dispatch({
+      type: 'SHOW_ALERT',
+      payload: {
+        type: 'error',
+        message: err,
+      },
+    });
+    history.push(to);
+  };
+
   const login = (body) => {
     return authenticationService
       .login(body)
@@ -204,6 +215,8 @@ export const AppProvider = ({ children }) => {
         resetPassword,
         hideAlert,
         dispatchErrorAlert,
+        dispatchErrorAndRedirectTo,
+        dispatchAlertAndRedirectTo,
         updateDetails,
         updatePassword,
       }}
