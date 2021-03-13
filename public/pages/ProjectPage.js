@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
 
+import Loader from '../components/Loader';
 import Breadcrumb from '../components/Breadcrumb';
 
 // Template fields
@@ -26,7 +27,7 @@ const editableFields = [
   { key: 'teamMembers', defaultVal: [] },
 ];
 
-const ProjectPage = ({ ...props }) => {
+const ProjectPage = () => {
   const getMode = () => {
     const parts = window.location.href.split('/');
     return parts[parts.length - 1];
@@ -43,7 +44,11 @@ const ProjectPage = ({ ...props }) => {
     : { data: {}, loading: false };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <main className="main main--loader">
+        <Loader />;
+      </main>
+    );
   }
 
   return (
@@ -110,7 +115,7 @@ const ProjectPage = ({ ...props }) => {
               <button
                 id="deleteFormButton"
                 form="projectForm"
-                type="button"
+                type="submit"
                 className="btn btn--small btn--light align--right"
               >
                 Delete
@@ -124,7 +129,9 @@ const ProjectPage = ({ ...props }) => {
             editableFields={editableFields}
             data={data}
             mode={mode}
-            submitURL={`${window.location.origin}/api/v1/projects`}
+            endpoint={`${window.location.origin}/api/v1/projects`}
+            saveRedirect={`/projects/${projectId}/preview`}
+            deleteRedirect="/projects"
           >
             <TemplateInput
               inputValue={data && data.prefix}

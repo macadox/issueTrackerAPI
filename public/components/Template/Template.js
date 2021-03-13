@@ -13,7 +13,9 @@ const Template = ({
   data,
   editableFields,
   children,
-  submitURL,
+  endpoint,
+  saveRedirect,
+  deleteRedirect,
   ...props
 }) => {
   const [editableData, setEditableData] = useState(
@@ -43,9 +45,17 @@ const Template = ({
     setEditableData(newData);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`${submitURL}${mode === 'create' ? '' : `/${data.id}`}`, {
+    if (e.nativeEvent.submitter.id === 'deleteFormButton') {
+      deleteForm();
+    } else {
+      updateForm();
+    }
+  };
+
+  const updateForm = async () => {
+    fetch(`${endpoint}${mode === 'create' ? '' : `/${data.id}`}`, {
       method: mode === 'create' ? 'POST' : 'PATCH',
       body: JSON.stringify(editableData),
       credentials: 'include',
@@ -55,13 +65,29 @@ const Template = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        dispatchAlertAndRedirectTo(
-          data,
-          `/projects/${data.data.data.id}/preview`
-        );
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
+        if (data.status === 'error' || data.status === 'fail') {
+          dispatchErrorAlert(data.message);
+        } else {
+          dispatchAlertAndRedirectTo(data, saveRedirect);
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        }
+      })
+      .catch((err) => dispatchErrorAlert(err));
+  };
+
+  const deleteForm = async () => {
+    fetch(`${endpoint}/${data.id}`, {
+      method: 'DELETE',
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 'error' || data.status === 'fail') {
+          dispatchErrorAlert(data.message);
+        } else {
+          dispatchAlertAndRedirectTo(data, deleteRedirect);
+        }
       })
       .catch((err) => dispatchErrorAlert(err));
   };

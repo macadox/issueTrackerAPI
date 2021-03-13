@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/useFetch';
 
+import Loader from '../components/Loader';
 import Breadcrumb from '../components/Breadcrumb';
 import SearchBar from '../components/SearchBar';
 
@@ -60,8 +61,11 @@ const IssuesOverview = () => {
   }, [search, sort, data]);
 
   if (loading) {
-    //   TODO
-    return <div>Loading...</div>;
+    return (
+      <main className="main main--loader">
+        <Loader />;
+      </main>
+    );
   }
 
   return (
