@@ -12,34 +12,35 @@ import TemplateTextarea from '../components/Template/TemplateTextarea';
 import TemplateSelect from '../components/Template/TemplateSelect';
 import UserMultiselect from '../components/Template/UserMultiselect';
 import TemplateDateInput from '../components/Template/TemplateDateInput';
+import AcceptanceCriterias from '../components/Template/AcceptanceCriterias';
 import TemplateImmutable from '../components/Template/TemplateImmutable';
 
 const editableFields = [
-  { key: 'status', defaultVal: 'Not released' },
-  { key: 'progress', defaultVal: 0 },
+  { key: 'status', defaultVal: 'New' },
   { key: 'name', defaultVal: '' },
+  { key: 'priority', defaultVal: 'COULD' },
+  { key: 'difficulty', defaultVal: 1 },
   { key: 'deadline', defaultVal: '' },
-  { key: 'startDate', defaultVal: '' },
-  { key: 'endDate', defaultVal: '' },
   { key: 'description', defaultVal: '' },
-  { key: 'teamMembers', defaultVal: [] },
+  { key: 'assignees', defaultVal: [] },
+  { key: 'acceptanceCriterias', defaultVal: [] },
 ];
 
-const ProjectPage = () => {
+const IssuePage = () => {
   const getMode = () => {
     const parts = window.location.href.split('/');
     return parts[parts.length - 1];
   };
   const mode = getMode();
 
-  const { projectId } = useParams();
-  const url = projectId
-    ? `${window.location.origin}/api/v1/projects/${projectId}`
-    : '';
+  const { projectId, issueId } = useParams();
+  const url =
+    projectId && issueId
+      ? `${window.location.origin}/api/v1/projects/${projectId}/issues/${issueId}`
+      : '';
 
-  const { data, loading } = projectId
-    ? useFetch(url)
-    : { data: {}, loading: false };
+  const { data, loading } =
+    projectId && issueId ? useFetch(url) : { data: {}, loading: false };
 
   if (loading) {
     return (
@@ -49,6 +50,8 @@ const ProjectPage = () => {
     );
   }
 
+  console.log(data);
+
   return (
     <main className="main">
       <Breadcrumb
@@ -56,16 +59,25 @@ const ProjectPage = () => {
           mode !== 'create'
             ? [
                 { label: 'PROJECTS', url: '/projects' },
-                { label: `PROJECT#${data.prefix}` },
+                {
+                  label: `PROJECT#${data.issueId.split('-')[0]}`,
+                  url: `/projects/${projectId}/preview`,
+                },
+                { label: 'ISSUES', url: `/projects/${projectId}/issues` },
+                { label: `ISSUE#${data.issueId}` },
               ]
             : [{ label: 'PROJECTS', url: '/projects' }]
+          // TODO: Create breadcrumb
         }
       />
       <div className="wrapper--app">
         <h1 className="heading-title">{data && data.name}</h1>
         <div className="app__header">
-          <Link className="btn btn--small btn--light" to="/projects">
-            Back to projects
+          <Link
+            className="btn btn--small btn--light"
+            to={`/projects/${projectId}/issues`}
+          >
+            Back to issues
           </Link>
           {mode !== 'preview' ? (
             <>
@@ -73,9 +85,9 @@ const ProjectPage = () => {
                 className="btn btn--small btn--light align--right"
                 to={
                   mode === 'create'
-                    ? '/projects'
+                    ? `/projects/${projectId}/issues`
                     : mode === 'update'
-                    ? `/projects/${projectId}/preview`
+                    ? `/projects/${projectId}/issues/${issueId}/preview`
                     : ''
                 }
               >
@@ -83,7 +95,7 @@ const ProjectPage = () => {
               </Link>
               <button
                 id="saveFormButton"
-                form="projectForm"
+                form="issueForm"
                 type="submit"
                 className="btn btn--small btn--light align--right"
               >
@@ -94,25 +106,13 @@ const ProjectPage = () => {
             <>
               <Link
                 className="btn btn--small btn--light align--right"
-                to={`/projects/${projectId}/issues/create`}
+                to={`/projects/${projectId}/issues/${issueId}/update`}
               >
-                Submit a new issue
-              </Link>
-              <Link
-                className="btn btn--small btn--light align--right"
-                to={`/projects/${projectId}/issues`}
-              >
-                View issues list
-              </Link>
-              <Link
-                className="btn btn--small btn--light align--right"
-                to={`/projects/${projectId}/update`}
-              >
-                Edit project
+                Edit issue
               </Link>
               <button
                 id="deleteFormButton"
-                form="projectForm"
+                form="issueForm"
                 type="submit"
                 className="btn btn--small btn--light align--right"
               >
@@ -123,58 +123,53 @@ const ProjectPage = () => {
         </div>
         <div className="app__content">
           <Template
-            id="projectForm"
+            id="issueForm"
             editableFields={editableFields}
             data={data}
             mode={mode}
-            endpoint={`${window.location.origin}/api/v1/projects`}
-            saveRedirect={`/projects/${projectId}/preview`}
-            deleteRedirect="/projects"
+            endpoint={`${window.location.origin}/api/v1/projects/${projectId}/issues`}
+            saveRedirect={`/projects/${projectId}/issues/${issueId}/preview`}
+            deleteRedirect={`/projects/${projectId}/issues`}
           >
-            <TemplateInput
-              inputValue={data && data.prefix}
-              inputKey="prefix"
-              type="text"
-              labelText="Prefix"
-              readOnly={true}
+            <TemplateImmutable
+              inputValue={data && data.issueId}
+              inputKey="issueId"
+              labelText="ID"
             />
             <TemplateImmutable
-              inputValue={data && data.teamLead && data.teamLead.name}
-              inputKey="teamLead"
-              labelText="Project Lead"
+              inputValue={data && data.author && data.author.name}
+              inputKey="author"
+              labelText="Issue Author"
             />
             <TemplateSelect
               inputValue={data && data.status}
               inputKey="status"
               labelText="Status"
-              options={['Not released', 'In progress', 'Testing', 'Released']}
-            />
-            <TemplateInput
-              inputValue={data && data.progress}
-              inputKey="progress"
-              type="number"
-              labelText="Progress"
+              options={['New', 'In progress', 'Completed']}
             />
             <TemplateInput
               inputValue={data && data.name}
               inputKey="name"
               type="text"
               labelText="Name"
+              className="newline"
+            />
+            <TemplateSelect
+              inputValue={data && data.priority}
+              inputKey="priority"
+              labelText="Priority"
+              options={['MUST', 'SHOULD', 'COULD', 'WONT']}
+            />
+            <TemplateInput
+              inputValue={data && data.difficulty}
+              inputKey="difficulty"
+              type="number"
+              labelText="Difficulty"
             />
             <TemplateDateInput
               inputValue={data && data.deadline}
               inputKey="deadline"
               labelText="Deadline"
-            />
-            <TemplateDateInput
-              inputValue={data && data.startDate}
-              inputKey="startDate"
-              labelText="Start Date"
-            />
-            <TemplateDateInput
-              inputValue={data && data.endDate}
-              inputKey="endDate"
-              labelText="End Date"
             />
             <TemplateTextarea
               inputValue={data && data.description}
@@ -183,10 +178,16 @@ const ProjectPage = () => {
               className="colspan2"
             />
             <UserMultiselect
-              inputValue={data && data.teamMembers}
-              inputKey="teamMembers"
-              labelText="Team Members"
+              inputValue={data && data.assignees}
+              inputKey="assignees"
+              labelText="Assignees"
               className="colspan2 newline"
+            />
+            <AcceptanceCriterias
+              inputValue={data && data.acceptanceCriterias}
+              inputKey="acceptanceCriterias"
+              labelText="Acceptance Criterias"
+              className="colspan3 newline"
             />
           </Template>
         </div>
@@ -195,4 +196,4 @@ const ProjectPage = () => {
   );
 };
 
-export default ProjectPage;
+export default IssuePage;

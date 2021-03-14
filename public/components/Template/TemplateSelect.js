@@ -18,10 +18,12 @@ const TemplateSelect = ({
 
   if (mode === 'preview') {
     return (
-      <div className={`form-template__field ${className}`}>
-        <label className="form-template__label" htmlFor={inputKey}>
-          {labelText}
-        </label>
+      <div className={`form-template__field ${className ? className : ''}`}>
+        {labelText && (
+          <label className="form-template__label" htmlFor={inputKey}>
+            {labelText}
+          </label>
+        )}
         <p
           id={inputKey}
           className="form-template__input form-template__input--readonly"
@@ -33,10 +35,12 @@ const TemplateSelect = ({
   }
 
   return (
-    <div className={`form-template__field ${className}`}>
-      <label htmlFor={inputKey} className="form-template__label">
-        {labelText}
-      </label>
+    <div className={`form-template__field ${className ? className : ''}`}>
+      {labelText && (
+        <label htmlFor={inputKey} className="form-template__label">
+          {labelText}
+        </label>
+      )}
       <select
         className="form-template__select"
         value={term || ''}

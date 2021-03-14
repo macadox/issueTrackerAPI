@@ -17,10 +17,12 @@ const TemplateTextarea = ({
 
   if (mode === 'preview') {
     return (
-      <div className={`form-template__field ${className}`}>
-        <label className="form-template__label" htmlFor={inputKey}>
-          {labelText}
-        </label>
+      <div className={`form-template__field ${className ? className : ''}`}>
+        {labelText && (
+          <label className="form-template__label" htmlFor={inputKey}>
+            {labelText}
+          </label>
+        )}
         <p
           id={inputKey}
           className="form-template__textarea form-template__textarea--readonly"
@@ -32,10 +34,12 @@ const TemplateTextarea = ({
   }
 
   return (
-    <div className={`form-template__field ${className}`}>
-      <label htmlFor={inputKey} className="form-template__label">
-        {labelText}
-      </label>
+    <div className={`form-template__field ${className ? className : ''}`}>
+      {labelText && (
+        <label htmlFor={inputKey} className="form-template__label">
+          {labelText}
+        </label>
+      )}
       <textarea
         onChange={(e) => setTerm(e.target.value)}
         name={inputKey}

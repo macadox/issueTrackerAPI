@@ -303,12 +303,9 @@ footer {
   opacity: 1;
 }
 
-.btn--noflex-start {
+.btn--ac {
   align-self: flex-start;
-}
-
-.btn--noflex-end {
-  align-self: flex-end;
+  margin: 0.5em 1em;
 }
 
 .align--right {
@@ -915,7 +912,6 @@ footer {
   border-radius: 4px;
   cursor: pointer;
   position: relative;
-  margin-top: 4px;
 }
 
 .checkbox:focus {

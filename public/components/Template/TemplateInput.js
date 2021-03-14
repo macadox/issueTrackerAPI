@@ -20,10 +20,12 @@ const TemplateInput = ({
 
   if (mode === 'preview' || (mode === 'update' && readOnly)) {
     return (
-      <div className={`form-template__field ${className}`}>
-        <label className="form-template__label" htmlFor={inputKey}>
-          {labelText}
-        </label>
+      <div className={`form-template__field ${className ? className : ''}`}>
+        {labelText && (
+          <label className="form-template__label" htmlFor={inputKey}>
+            {labelText}
+          </label>
+        )}
         <p
           id={inputKey}
           className="form-template__input form-template__input--readonly"
@@ -35,10 +37,12 @@ const TemplateInput = ({
   }
 
   return (
-    <div className={`form-template__field ${className}`}>
-      <label htmlFor={inputKey} className="form-template__label">
-        {labelText}
-      </label>
+    <div className={`form-template__field ${className ? className : ''}`}>
+      {labelText && (
+        <label htmlFor={inputKey} className="form-template__label">
+          {labelText}
+        </label>
+      )}
       <input
         onChange={(e) => setTerm(e.target.value)}
         id={inputKey}

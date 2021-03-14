@@ -20,7 +20,7 @@ const TemplateDateInput = ({
 
   if (mode === 'preview') {
     return (
-      <div className={`form-template__field ${className}`}>
+      <div className={`form-template__field ${className ? className : ''}`}>
         <label className="form-template__label" htmlFor={inputKey}>
           {labelText}
         </label>
@@ -35,7 +35,7 @@ const TemplateDateInput = ({
   }
 
   return (
-    <div className={`form-template__field ${className}`}>
+    <div className={`form-template__field ${className ? className : ''}`}>
       <label htmlFor={inputKey} className="form-template__label">
         {labelText}
       </label>

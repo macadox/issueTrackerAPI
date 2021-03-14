@@ -55,7 +55,7 @@ const Template = ({
   };
 
   const updateForm = async () => {
-    fetch(`${endpoint}${mode === 'create' ? '' : `/${data.id}`}`, {
+    fetch(`${endpoint}${mode === 'create' ? '' : `/${data.id || data._id}`}`, {
       method: mode === 'create' ? 'POST' : 'PATCH',
       body: JSON.stringify(editableData),
       credentials: 'include',

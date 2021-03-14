@@ -16,12 +16,13 @@ import SignupPage from './pages/SignupPage';
 import ConfirmSignupPage from './pages/ConfirmSignupPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
-
 import AccountPage from './pages/AccountPage';
+import AdminPage from './pages/AdminPage';
 
 import ProjectsOverview from './pages/ProjectsOverview';
 import IssuesOverview from './pages/IssuesOverview';
 import ProjectPage from './pages/ProjectPage';
+import IssuePage from './pages/IssuePage';
 
 import history from './services/history';
 import { useGlobalContext } from './context';
@@ -53,6 +54,9 @@ const App = () => {
           path="/resetPassword/:token"
           children={<ResetPasswordPage />}
         ></AuthRoute>
+        <AuthRoute type="private" path="/admin">
+          <AdminPage />
+        </AuthRoute>
         <AuthRoute type="private" path="/me">
           <AccountPage />
         </AuthRoute>
@@ -72,6 +76,16 @@ const App = () => {
           type="private"
           path="/projects/:projectId/issues"
           children={<IssuesOverview />}
+          exact
+        />
+        <AuthRoute
+          type="private"
+          path={[
+            '/projects/:projectId/issues/:issueId/preview',
+            '/projects/:projectId/issues/:issueId/update',
+            '/projects/:projectId/issues',
+          ]}
+          children={<IssuePage />}
         />
         <AuthRoute path="*">
           <ErrorPage />

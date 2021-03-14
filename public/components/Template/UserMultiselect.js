@@ -40,24 +40,27 @@ const UserMultiselect = ({
   };
 
   const handleKeyDown = (e) => {
-    e.preventDefault();
     // backspace
     if (e.keyCode === 8) {
+      e.preventDefault();
       if (selectedValues.length === 0) return;
       removeValue(selectedValues.length - 1);
       setActiveIndex(0);
     } // arrowup
     else if (e.keyCode === 38) {
+      e.preventDefault();
       if (dropdownValues.length === 0) return;
       if (activeIndex === 0) return;
       setActiveIndex(activeIndex - 1);
     } // arrowdown
     else if (e.keyCode === 40) {
+      e.preventDefault();
       if (dropdownValues.length === 0) return;
       if (activeIndex === dropdownValues.length - 1) return;
       else setActiveIndex(activeIndex + 1);
     } // space enter
     else if (e.keyCode === 13 || e.keyCode === 32) {
+      e.preventDefault();
       if (dropdownValues.length === 0) return;
       addValue(activeIndex);
       setActiveIndex(0);
@@ -70,10 +73,12 @@ const UserMultiselect = ({
 
   if (mode === 'preview') {
     return (
-      <div className={`form-template__field ${className}`}>
-        <label htmlFor={inputKey} className="form-template__label">
-          {labelText}
-        </label>
+      <div className={`form-template__field ${className ? className : ''}`}>
+        {labelText && (
+          <label htmlFor={inputKey} className="form-template__label">
+            {labelText}
+          </label>
+        )}
         <ul className="chosen">
           {selectedValues.map((v, i) => {
             const { _id, mainRole, name } = v;
@@ -96,10 +101,12 @@ const UserMultiselect = ({
 
   // if (mode === 'create' || mode === 'update')
   return (
-    <div className={`form-template__field ${className}`}>
-      <label htmlFor={inputKey} className="form-template__label">
-        {labelText}
-      </label>
+    <div className={`form-template__field ${className ? className : ''}`}>
+      {labelText && (
+        <label htmlFor={inputKey} className="form-template__label">
+          {labelText}
+        </label>
+      )}
       <div
         id={inputKey}
         role="listbox"
