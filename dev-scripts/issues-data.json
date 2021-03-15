@@ -78,10 +78,12 @@
     "description": "Rebuild the frontend to patch, post and get data from frontend with fetchAPI",
     "acceptanceCriterias": [
       {
-        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed.",
+        "solved": true
       },
       {
-        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
+        "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed.",
+        "solved": true
       },
       {
         "criterion": "Lorem ipsum dolor sit amet, consul labores gloriatur quo ad, ad saperet ancillae detraxit sed."
@@ -137,10 +139,12 @@
     "description": "Verify if saving the issues always checks if the project that we are asking for in the request is in the DB, so it does not send wrong responses.",
     "acceptanceCriterias": [
       {
-        "criterion": "Responses should be with status 'error' if project does not exist"
+        "criterion": "Responses should be with status 'error' if project does not exist",
+        "solved": true
       },
       {
-        "criterion": "Error should be displayed on the frontend in the Custom alert that I have created"
+        "criterion": "Error should be displayed on the frontend in the Custom alert that I have created",
+        "solved": true
       }
     ],
     "deadline": "2020-11-30",
@@ -157,7 +161,8 @@
     "description": "Find a way to deal with saving, editing and viewing form templates that will allow to save Projects and Issues.",
     "acceptanceCriterias": [
       {
-        "criterion": "The forms should not be hardcoded and have similar logic"
+        "criterion": "The forms should not be hardcoded and have similar logic",
+        "solved": true
       }
     ],
     "deadline": "2020-11-30",
@@ -244,7 +249,8 @@
     "project": "5fba5b1455d45d4da00aee01",
     "author": "5fba54c1dad2496b80d047d5",
     "issueId": "ISS1-009"
-  },{
+  },
+  {
     "name": "Implement user tab",
     "priority": "MUST",
     "difficulty": "7",

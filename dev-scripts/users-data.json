@@ -6,6 +6,7 @@
     "active": true,
     "photo": "macadox.jpg",
     "roles": ["admin", "developer", "designer", "tester", "product owner"],
+    "mainRole": "admin",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -16,6 +17,7 @@
     "active": true,
     "photo": "user1.jpg",
     "roles": ["manager"],
+    "mainRole": "manager",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -26,6 +28,7 @@
     "active": true,
     "photo": "user2.jpg",
     "roles": ["product owner"],
+    "mainRole": "product owner",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -36,6 +39,7 @@
     "active": true,
     "photo": "user3.jpg",
     "roles": ["product owner"],
+    "mainRole": "product owner",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -46,6 +50,7 @@
     "active": true,
     "photo": "user4.jpg",
     "roles": ["developer"],
+    "mainRole": "developer",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -56,6 +61,7 @@
     "active": true,
     "photo": "user5.jpg",
     "roles": ["developer"],
+    "mainRole": "developer",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -66,6 +72,7 @@
     "active": true,
     "photo": "user6.jpg",
     "roles": ["developer"],
+    "mainRole": "developer",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -76,6 +83,7 @@
     "active": true,
     "photo": "user7.jpg",
     "roles": ["developer"],
+    "mainRole": "developer",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -86,6 +94,7 @@
     "active": true,
     "photo": "user8.jpg",
     "roles": ["tester"],
+    "mainRole": "tester",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -96,6 +105,7 @@
     "active": true,
     "photo": "user9.jpg",
     "roles": ["designer", "tester"],
+    "mainRole": "designer",
     "password": "test1234",
     "confirmPassword": "test1234"
   },
@@ -106,6 +116,7 @@
     "active": true,
     "photo": "default.png",
     "roles": ["tester"],
+    "mainRole": "tester",
     "password": "test1234",
     "confirmPassword": "test1234"
   }

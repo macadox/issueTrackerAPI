@@ -61,7 +61,7 @@ exports.updateUser = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   if (!user) return next(new AppError('No user with that id!', 404));
 
-  if (!req.body.active) req.body.active = false;
+  // if (!req.body.active) req.body.active = false;
   if (req.file) req.body.photo = req.file.filename;
   for (let key in req.body) {
     user[key] = req.body[key];
