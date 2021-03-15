@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const helmet = require('helmet');
 const csp = require('express-csp-header');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -29,12 +29,12 @@ app.use(
     },
   })
 );
-app.use(
-  cors({
-    origin: ['http://localhost:8081'],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: ['http://localhost:8081'],
+//     credentials: true,
+//   })
+// );
 
 app.use(morgan('dev'));
 const limiter = rateLimit({
@@ -63,7 +63,7 @@ app.use('/api/v1/issues', issueRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/projects', projectRouter);
 app.get('/', function (req, res) {
-  res.sendFile(__dirname + 'index.html');
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.use(globalErrorHandler);
