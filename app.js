@@ -16,7 +16,6 @@ const AppError = require('./utils/appError');
 const issueRouter = require('./routes/issueRoutes');
 const userRouter = require('./routes/userRoutes');
 const projectRouter = require('./routes/projectRoutes');
-// const viewsRouter = require('./routes/viewsRoutes');
 
 console.log(process.env.NODE_ENV);
 
@@ -26,7 +25,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", "blob: data:"],
+      imgSrc: ["'self'", 'blob: data:'],
     },
   })
 );
