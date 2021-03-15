@@ -32,7 +32,7 @@ const HomePage = () => {
           <p className="product-description">
             Issue tracker provides all the functionalities required to create,
             track and approve project completion. All in easy to set up project
-            environment and it is completely free!{' '}
+            environment and it is completely free!
           </p>
         </div>
         <div className="section-advantages__right">

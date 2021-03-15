@@ -12,28 +12,32 @@ export default [
     img: Home,
     text: 'Home',
     url: '/',
-    private: false
+    private: false,
+    test: new RegExp(/\/$/, ''),
   },
   {
     id: 2,
     img: Briefing,
     text: 'Projects',
     url: '/projects',
-    private: true
+    private: true,
+    test: new RegExp(/^\/projects/, ''),
   },
   {
     id: 3,
     img: Settings,
     text: 'Admin',
     url: '/admin',
-    private: true
+    private: true,
+    test: new RegExp(/^\/admin/, ''),
   },
   {
     id: 4,
     img: User,
     text: 'User',
     url: '/me',
-    private: true
+    private: true,
+    test: new RegExp(/^\/me/, ''),
   },
   {
     id: 5,
@@ -41,7 +45,8 @@ export default [
     text: 'Login',
     url: '/login',
     private: false,
-    auth: true
+    auth: true,
+    test: new RegExp(/^\/login/, ''),
   },
   {
     id: 6,
@@ -49,6 +54,7 @@ export default [
     text: 'Sign Up',
     url: '/signup',
     private: false,
-    auth: true
+    auth: true,
+    test: new RegExp(/^\/signup/, ''),
   },
 ];
