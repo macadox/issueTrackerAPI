@@ -52,7 +52,7 @@ const userSchema = mongoose.Schema(
     ],
     mainRole: {
       type: String,
-      require: [true, 'A user must have a main role'],
+      required: [true, 'A user must have a main role'],
       enum: {
         values: [
           'developer',
