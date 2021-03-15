@@ -139,6 +139,7 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .section-cta,
@@ -539,6 +540,7 @@ footer {
 
 .wrapper--app {
   padding: 2em;
+  width: 100%;
 }
 
 .wrapper--app > * + * {

@@ -23,6 +23,7 @@ import ProjectsOverview from './pages/ProjectsOverview';
 import IssuesOverview from './pages/IssuesOverview';
 import ProjectPage from './pages/ProjectPage';
 import IssuePage from './pages/IssuePage';
+import UserPage from './pages/UserPage';
 
 import history from './services/history';
 import { useGlobalContext } from './context';
@@ -54,9 +55,18 @@ const App = () => {
           path="/resetPassword/:token"
           children={<ResetPasswordPage />}
         ></AuthRoute>
-        <AuthRoute type="private" path="/admin">
+        <AuthRoute type="private" path="/admin" exact>
           <AdminPage />
         </AuthRoute>
+        <AuthRoute
+          type="private"
+          path={[
+            '/admin/users/:userId/preview',
+            '/admin/users/:userId/update',
+            '/admin/users/create',
+          ]}
+          children={<UserPage />}
+        />
         <AuthRoute type="private" path="/me">
           <AccountPage />
         </AuthRoute>

@@ -38,7 +38,7 @@ const TemplateCheckbox = ({
           id={inputKey}
           className="form-template__input form-template__input--readonly"
         >
-          {inputValue}
+          {inputValue ? 'true' : 'false'}
         </p>
       </div>
     );
