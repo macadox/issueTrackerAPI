@@ -30,6 +30,7 @@ export default [
     url: '/admin',
     private: true,
     test: new RegExp(/^\/admin/, ''),
+    restrictTo: ['admin'],
   },
   {
     id: 4,

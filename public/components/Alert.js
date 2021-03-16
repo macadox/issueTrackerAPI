@@ -1,14 +1,17 @@
 import React, { useEffect } from 'react';
 import successImg from '../assets/img/ui/tick.svg';
 import errorImg from '../assets/img/ui/close.svg';
+import { FaTimes } from 'react-icons/fa';
 
 import { useGlobalContext } from '../context';
 
 const Alert = ({ type, message }) => {
-  const { hideAlert } = useGlobalContext();
+  const { hideAlert, alertPersistent } = useGlobalContext();
 
   useEffect(() => {
+    if (alertPersistent) return;
     let timeoutId = setTimeout(hideAlert, 3000);
+
     return () => {
       clearTimeout(timeoutId);
     };
@@ -30,6 +33,9 @@ const Alert = ({ type, message }) => {
         <img src={successImg} alt="success" className="alert__icon" />
       )}
       <p className="alert__message">{message}</p>
+      <button className="btn btn--icon btn--transparent btn--alert">
+        <FaTimes />
+      </button>
     </div>
   );
 };

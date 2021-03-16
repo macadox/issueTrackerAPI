@@ -17,7 +17,13 @@ const Header = () => {
         <Menu>
           {links.map((link) => {
             if (link.private && !user) return;
-            else if (user && link.auth) return;
+            else if (
+              (user && link.auth) ||
+              (user &&
+                link.restrictTo &&
+                !user.roles.some((role) => link.restrictTo.includes(role)))
+            )
+              return;
             else {
               return <MenuLink key={link.id} link={link} />;
             }

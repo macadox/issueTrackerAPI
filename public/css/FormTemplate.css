@@ -110,10 +110,6 @@
   margin-top: 0.5em;
 }
 
-.input-hidden {
-  display: none;
-}
-
 .chosen__choice--edit {
   display: flex;
   background-color: #f2f2f2;

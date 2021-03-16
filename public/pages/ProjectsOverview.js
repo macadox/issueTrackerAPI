@@ -14,7 +14,7 @@ import ListRow from '../components/List/ListRow';
 import ListDataElement from '../components/List/ListDataElement';
 import AssigneeList from '../components/List/AssigneeList';
 
-import { FaEdit } from 'react-icons/fa';
+import { FaList } from 'react-icons/fa';
 
 const url = `${window.location.origin}/api/v1/projects`;
 
@@ -138,7 +138,7 @@ const ProjectsOverview = () => {
                 title="# Issues"
                 sort={sort}
               />
-              <ListHeader title="action" />
+              <ListHeader title="Issue List" />
             </ListHead>
             <ListContent>
               {filteredData.map((project) => {
@@ -158,22 +158,17 @@ const ProjectsOverview = () => {
                 const nameLength = 35;
                 const descriptionLength = 50;
                 const deadlineDate = new Date(deadline);
+                const linkTo = `/projects/${id}/preview`;
 
                 return (
                   <ListRow key={id}>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {prefix}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {`${
                           name.length > nameLength
                             ? name.slice(0, nameLength) +
@@ -184,10 +179,7 @@ const ProjectsOverview = () => {
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {`${
                           description.length > descriptionLength
                             ? description.slice(0, descriptionLength) +
@@ -200,59 +192,41 @@ const ProjectsOverview = () => {
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {teamLead.name}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {new Intl.DateTimeFormat('en-GB').format(deadlineDate)}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {status}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {progress}%
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         <AssigneeList max={3} users={teamMembers} />
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${id}/issues`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {numIssues}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
                       <Link
                         className="btn btn--icon btn--transparent"
-                        to={`/projects/${id}/preview`}
+                        to={`/projects/${id}/issues`}
                       >
-                        <FaEdit />
+                        <FaList />
                       </Link>
                     </ListDataElement>
                   </ListRow>

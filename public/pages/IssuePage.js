@@ -50,8 +50,6 @@ const IssuePage = () => {
     );
   }
 
-  console.log(data);
-
   return (
     <main className="main">
       <Breadcrumb

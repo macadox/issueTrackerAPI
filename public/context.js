@@ -12,7 +12,7 @@ const reducer = (state, action) => {
     }
 
     case 'SHOW_ALERT': {
-      const { type, message } = action.payload;
+      const { type, message, persistent } = action.payload;
       return {
         ...state,
         alert: {
@@ -20,11 +20,17 @@ const reducer = (state, action) => {
           message,
         },
         showAlert: true,
+        alertPersistent: persistent || false,
       };
     }
 
     case 'HIDE_ALERT': {
-      return { ...state, alert: null, showAlert: false };
+      return {
+        ...state,
+        alert: null,
+        alertPersistent: false,
+        showAlert: false,
+      };
     }
 
     case 'FINISH_AUTH': {
@@ -41,6 +47,7 @@ const defaultState = {
   user: null,
   alert: null,
   showAlert: false,
+  alertPersistent: false,
   authenticationComplete: false,
 };
 
@@ -48,6 +55,7 @@ export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
 
   const handleOnIdle = (e) => {
+    if (!state.user) return;
     authenticationService
       .logout()
       .then(() => {
@@ -56,6 +64,7 @@ export const AppProvider = ({ children }) => {
           payload: {
             type: 'success',
             message: 'Logged out because of inactivity',
+            persistent: true,
           },
         });
         history.push('/login');
@@ -68,7 +77,7 @@ export const AppProvider = ({ children }) => {
   const handleOnAction = (e) => {};
 
   const { getRemainingTime, getLastActiveTime } = useIdleTimer({
-    timeout: 1000 * 60 * 60,
+    timeout: 1000 * 60 * 15,
     onIdle: handleOnIdle,
     onActive: handleOnActive,
     onAction: handleOnAction,
@@ -207,6 +216,7 @@ export const AppProvider = ({ children }) => {
         alert: state.alert,
         showAlert: state.showAlert,
         authenticationComplete: state.authenticationComplete,
+        alertPersistent: state.alertPersistent,
         login,
         logout,
         signup,

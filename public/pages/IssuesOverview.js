@@ -71,7 +71,14 @@ const IssuesOverview = () => {
   return (
     <main className="main">
       <Breadcrumb
-        crumbs={[{ label: 'PROJECTS', url: '/projects' }, { label: 'ISSUES' }]}
+        crumbs={[
+          { label: 'PROJECTS', url: '/projects' },
+          {
+            label: `PROJECT`,
+            url: `/projects/${projectId}/preview`,
+          },
+          { label: 'ISSUES', url: `/projects/${projectId}/issues` },
+        ]}
       />
       <div className="wrapper--app">
         <h1 className="heading-title">Issue list</h1>
@@ -165,22 +172,17 @@ const IssuesOverview = () => {
                 const descriptionLength = 50;
                 const createdDate = new Date(createdOn);
                 const deadlineDate = new Date(deadline);
+                const linkTo = `/projects/${projectId}/issues/${_id}/preview`;
 
                 return (
                   <ListRow key={_id}>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {issueId}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {`${
                           name.length > nameLength
                             ? name.slice(0, nameLength) +
@@ -191,10 +193,7 @@ const IssuesOverview = () => {
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {`${
                           description.length > descriptionLength
                             ? description.slice(0, descriptionLength) +
@@ -207,50 +206,32 @@ const IssuesOverview = () => {
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {priority}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {author.name}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {new Intl.DateTimeFormat('en-GB').format(createdDate)}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {new Intl.DateTimeFormat('en-GB').format(deadlineDate)}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         {status}
                       </Link>
                     </ListDataElement>
                     <ListDataElement>
-                      <Link
-                        className="list__content"
-                        to={`/projects/${projectId}/issues/${_id}/preview`}
-                      >
+                      <Link className="list__content" to={linkTo}>
                         <AssigneeList max={3} users={assignees} />
                       </Link>
                     </ListDataElement>

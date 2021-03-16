@@ -55,7 +55,7 @@ const App = () => {
           path="/resetPassword/:token"
           children={<ResetPasswordPage />}
         ></AuthRoute>
-        <AuthRoute type="private" path="/admin" exact>
+        <AuthRoute type="private" path="/admin" restrictTo="admin" exact>
           <AdminPage />
         </AuthRoute>
         <AuthRoute
