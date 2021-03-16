@@ -15,6 +15,7 @@ const UserMultiselect = ({
     `${window.location.origin}/api/v1/users?limit=50`
   );
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const multiselectRef = useRef(null);
 
   useEffect(() => {
@@ -109,14 +110,16 @@ const UserMultiselect = ({
       )}
       <div
         id={inputKey}
-        role="listbox"
-        aria-multiselectable="true"
+        role="combobox"
         className="chosen-container"
         tabIndex="0"
         onKeyDown={handleKeyDown}
         aria-activedescendant={
           dropdownValues[activeIndex] && dropdownValues[activeIndex]._id
         }
+        onFocus={() => setIsDropdownOpen(true)}
+        onBlur={() => setIsDropdownOpen(false)}
+        aria-expanded={isDropdownOpen}
         ref={multiselectRef}
       >
         <ul className="chosen chosen--edit">
@@ -133,7 +136,6 @@ const UserMultiselect = ({
                 key={_id}
                 id={_id}
                 className="chosen__choice chosen__choice--edit"
-                role="option"
               >
                 <span className="chosen__value">{userLabel}</span>
                 <button
@@ -145,6 +147,7 @@ const UserMultiselect = ({
                   }}
                   tabIndex={-1}
                   className="chosen__button"
+                  aria-label="remove item"
                 >
                   <FaTimes />
                 </button>
@@ -152,7 +155,7 @@ const UserMultiselect = ({
             );
           })}
         </ul>
-        <ul className="dropdown">
+        <ul className="dropdown" role="listbox">
           {dropdownValues.map((u, i) => {
             const { _id, mainRole, name } = u;
             const userLabel =
@@ -172,6 +175,7 @@ const UserMultiselect = ({
                 onClick={() => {
                   addValue(i);
                 }}
+                aria-selected={i === activeIndex}
               >
                 <span className="dropdown__value">{userLabel}</span>
               </li>

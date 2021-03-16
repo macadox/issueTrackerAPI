@@ -29,7 +29,7 @@ const Header = () => {
             }
           })}
           {user && (
-            <li className="menu__item">
+            <li className="menu__item" role="menuitem">
               <button
                 onClick={logout}
                 className="btn menu__link menu__link--logout"
@@ -38,7 +38,6 @@ const Header = () => {
                   src={Login}
                   alt="logout"
                   className="menu__icon menu__icon--logout"
-                  role="menuitem"
                 />
                 <span className="menu__text">Logout</span>
               </button>

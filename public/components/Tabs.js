@@ -20,6 +20,7 @@ const Tabs = ({ id, tabs, children, ...props }) => {
               label={label}
               onClick={() => setActiveIndex(i)}
               active={i === activeIndex}
+              aria-selected={i === activeIndex}
             />
           );
         })}
@@ -34,7 +35,6 @@ const Tabs = ({ id, tabs, children, ...props }) => {
             aria-labelledby={`tab_${i}`}
             key={id}
             active={i === activeIndex}
-            aria-selected={i === activeIndex}
           >
             {component}
           </TabPanel>

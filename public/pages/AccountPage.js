@@ -18,7 +18,7 @@ const AccountPage = () => {
     <main className="main">
       <div className="wrapper--app">
         <div className="app__header">
-          <h1 id="userAccount" className="heading-title">
+          <h1 id="userAccountTitle" className="heading-title">
             Account
           </h1>
         </div>

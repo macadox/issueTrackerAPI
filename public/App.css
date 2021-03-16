@@ -42,7 +42,7 @@ header {
 .logo__logged-in-as {
   font-size: 1.4rem;
   color: #f2f2f2;
-  opacity: 0.5;
+  opacity: 0.75;
   margin-left: 0.75em;
   padding-top: 1em;
 }
@@ -68,7 +68,7 @@ header {
 .menu__link--active,
 .menu__link:hover,
 .menu__link:focus {
-  background-color: #1a2133;
+  background-color: #272d3d;
 }
 
 .menu__icon {
@@ -102,7 +102,7 @@ footer {
 }
 
 .footer__copy {
-  color: #1a2133;
+  color: #272d3d;
   font-size: 1.2rem;
   opacity: 0.66;
 }
@@ -119,7 +119,7 @@ footer {
 
 .footer__menu a {
   text-decoration: none;
-  color: #1a2133;
+  color: #272d3d;
   font-size: 1.2rem;
   opacity: 0.66;
   transition: 0.2s ease-in-out;
@@ -279,12 +279,12 @@ footer {
 
 .btn--dark:focus,
 .btn--dark:hover {
-  background-color: #1a2133;
+  background-color: #272d3d;
 }
 
 .btn--light {
   color: #f2f2f2;
-  background-color: #6e778d;
+  background-color: #505d7d;
 }
 
 .btn--light:focus,
@@ -293,7 +293,7 @@ footer {
 }
 
 .btn--transparent {
-  color: #6e778d;
+  color: #505d7d;
   background-color: transparent;
   opacity: 0.6;
 }
@@ -500,7 +500,7 @@ footer {
   color: inherit;
   font-weight: 700;
   font-size: 1.2rem;
-  opacity: 0.78;
+  opacity: 0.88;
   transition: 0.3s ease-in-out;
 }
 
@@ -619,7 +619,7 @@ footer {
 
 .card__description {
   font-size: 1.4rem;
-  color: #6e778d;
+  color: #505d7d;
 }
 
 .card__progress-bar {
@@ -665,7 +665,7 @@ footer {
 
 .ui-label--info {
   background-color: #e5e5e5;
-  color: #6e778d;
+  color: #505d7d;
 }
 
 .ui-label__icon {
@@ -710,13 +710,13 @@ footer {
 .list__row--heading {
   display: table-row;
   width: 100%;
-  border-bottom: 1px solid #6e778d;
+  border-bottom: 1px solid #505d7d;
 }
 
 .list__heading {
   text-align: left;
   text-transform: capitalize;
-  color: #6e778d;
+  color: #505d7d;
   font-size: 1.2rem;
   font-weight: 400;
   padding-top: 0.4em;
@@ -867,11 +867,9 @@ footer {
   font-size: 1.4rem;
   top: -3px;
   color: inherit;
-  opacity: 0.66;
 }
 
 .breadcrumb__link {
-  opacity: 0.66;
   transition: 0.2s ease-in-out;
   cursor: pointer;
   color: inherit;
@@ -880,12 +878,11 @@ footer {
 
 .breadcrumb__item:last-of-type .breadcrumb__link {
   cursor: default;
-  opacity: 0.66;
 }
 
 .breadcrumb__link:hover,
 .breadcrumb__link:focus {
-  opacity: 1;
+  color: #272d3d;
 }
 
 .error {

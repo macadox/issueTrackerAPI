@@ -18,7 +18,7 @@ const MenuLink = ({ link }) => {
   }, []);
 
   return (
-    <li className="menu__item">
+    <li className="menu__item" role="menuitem">
       <Link
         to={url}
         className={`menu__link ${active ? 'menu__link--active' : ''}`}
@@ -29,7 +29,6 @@ const MenuLink = ({ link }) => {
           className={`menu__icon menu__icon--${text
             .toLowerCase()
             .replace(' ', '')}`}
-          role="menuitem"
         />
         <span className="menu__text">{text}</span>
       </Link>

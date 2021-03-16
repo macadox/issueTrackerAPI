@@ -10,7 +10,7 @@ const AdminPage = () => {
     <main className="main">
       <div className="wrapper--app">
         <div className="app__header">
-          <h1 id="adminPanel" className="heading-title">
+          <h1 id="adminPanelTitle" className="heading-title">
             Account
           </h1>
         </div>

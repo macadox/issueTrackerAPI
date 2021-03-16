@@ -13,6 +13,7 @@ const RoleMultiselect = ({
 }) => {
   const [selectedValues, setSelectedValues] = useState(inputValue || []);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const multiselectRef = useRef(null);
 
   useEffect(() => {
@@ -92,14 +93,16 @@ const RoleMultiselect = ({
       )}
       <div
         id={inputKey}
-        role="listbox"
-        aria-multiselectable="true"
+        role="combobox"
         className="chosen-container"
         tabIndex="0"
         onKeyDown={handleKeyDown}
         aria-activedescendant={
           dropdownValues[activeIndex] && dropdownValues[activeIndex].id
         }
+        onFocus={() => setIsDropdownOpen(true)}
+        onBlur={() => setIsDropdownOpen(false)}
+        aria-expanded={isDropdownOpen}
         ref={multiselectRef}
       >
         <ul className="chosen chosen--edit">
@@ -109,7 +112,6 @@ const RoleMultiselect = ({
                 key={v}
                 id={v}
                 className="chosen__choice chosen__choice--edit"
-                role="option"
               >
                 <span className="chosen__value">{v}</span>
                 <button
@@ -121,6 +123,7 @@ const RoleMultiselect = ({
                   }}
                   tabIndex={-1}
                   className="chosen__button"
+                  aria-label="remove item"
                 >
                   <FaTimes />
                 </button>
@@ -128,7 +131,7 @@ const RoleMultiselect = ({
             );
           })}
         </ul>
-        <ul className="dropdown">
+        <ul className="dropdown" role="listbox">
           {dropdownValues.map((u, i) => {
             return (
               <li
@@ -141,6 +144,7 @@ const RoleMultiselect = ({
                 onClick={() => {
                   addValue(i);
                 }}
+                aria-selected={i === activeIndex}
               >
                 <span className="dropdown__value">{u}</span>
               </li>
