@@ -8,7 +8,6 @@ const TemplateSelect = ({
   options,
   inputValue,
   className,
-  ...props
 }) => {
   const [term, setTerm] = useState(inputValue || options[0]);
 

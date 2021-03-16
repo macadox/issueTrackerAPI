@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { useGlobalContext } from '../context';
 
-const ConfirmSignupPage = (props) => {
+const ConfirmSignupPage = ({}) => {
   const { confirmSignup } = useGlobalContext();
   const { token } = useParams();
 

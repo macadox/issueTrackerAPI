@@ -1,6 +1,6 @@
 import React from 'react';
 
-import IllustrationHome from '../assets/img/ui/illustration-intro.png';
+import IllustrationHome from 'url:../assets/img/ui/illustration-intro.png';
 
 const HomePage = () => {
   return (

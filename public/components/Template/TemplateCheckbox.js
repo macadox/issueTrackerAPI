@@ -8,7 +8,6 @@ const TemplateCheckbox = ({
   inputValue,
   className,
   readOnly,
-  ...props
 }) => {
   const [term, setTerm] = useState(inputValue || false);
 

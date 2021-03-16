@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import { Router, Switch, HashRouter } from 'react-router-dom';
+import { Router, Switch } from 'react-router-dom';
 
 // Components
 import Header from './components/Header/index';

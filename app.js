@@ -9,9 +9,7 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 
-const authController = require('./controllers/authController');
 const globalErrorHandler = require('./controllers/errorHandler');
-const AppError = require('./utils/appError');
 
 const issueRouter = require('./routes/issueRoutes');
 const userRouter = require('./routes/userRoutes');

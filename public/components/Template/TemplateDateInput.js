@@ -10,7 +10,6 @@ const TemplateDateInput = ({
   update,
   inputValue,
   className,
-  ...props
 }) => {
   const [term, setTerm] = useState(inputValue || null);
 

@@ -1,10 +1,10 @@
-import Home from '../../assets/img/ui/home.svg';
-// import Dashboard from '../../assets/img/ui/dashboard.svg';
-import Briefing from '../../assets/img/ui/briefing.svg';
-import Settings from '../../assets/img/ui/settings.svg';
-import User from '../../assets/img/ui/user.svg';
-import Login from '../../assets/img/ui/login.svg';
-import Enter from '../../assets/img/ui/enter.svg';
+import Home from 'url:../../assets/img/ui/home.svg';
+// import Dashboard from 'url:../../assets/img/ui/dashboard.svg';
+import Briefing from 'url:../../assets/img/ui/briefing.svg';
+import Settings from 'url:../../assets/img/ui/settings.svg';
+import User from 'url:../../assets/img/ui/user.svg';
+import Login from 'url:../../assets/img/ui/login.svg';
+import Enter from 'url:../../assets/img/ui/enter.svg';
 
 export default [
   {

@@ -7,7 +7,6 @@ const TemplateTextarea = ({
   labelText,
   update,
   className,
-  ...props
 }) => {
   const [term, setTerm] = useState(inputValue || null);
 

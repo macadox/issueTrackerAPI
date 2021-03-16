@@ -4,7 +4,7 @@ import Menu from './Menu';
 import MenuLink from './MenuLink';
 
 import links from './data';
-import Login from '../../assets/img/ui/login.svg';
+import Login from 'url:../../assets/img/ui/login.svg';
 
 import { useGlobalContext } from '../../context';
 

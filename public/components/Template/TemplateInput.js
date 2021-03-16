@@ -9,7 +9,6 @@ const TemplateInput = ({
   inputValue,
   className,
   readOnly,
-  ...props
 }) => {
   const [term, setTerm] = useState(inputValue || '');
 

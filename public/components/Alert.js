@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import successImg from '../assets/img/ui/tick.svg';
-import errorImg from '../assets/img/ui/close.svg';
+import successImg from 'url:../assets/img/ui/tick.svg';
+import errorImg from 'url:../assets/img/ui/close.svg';
 import { FaTimes } from 'react-icons/fa';
 
 import { useGlobalContext } from '../context';
