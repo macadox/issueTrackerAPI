@@ -17,8 +17,13 @@ password: test1234
 
 Backend: NodeJS, Express, MongoDB
 
-Frontend: Pug, JavaScript, CSS
+Frontend: React, JavaScript, CSS, Pug (for emails)
 
 ## What I learned
 
-TODO.
+1. Authorization & Authentication of Users with Cookies and JWT.
+1. Designing Database Schema and setting it up with mongoose Library and Express.
+1. Writing modular and reusable code.
+1. Component composition in React.
+1. Better use webpack than parcel.
+1. React is awesome. 

@@ -22,7 +22,7 @@
 - /updatePassword endpoint that allows the user to update their password [x]
 - patch, post, delete requests on users exclusive to admin. (especially work on updating password) [x]
 - Add authentication and authorization middleware in the router files. router.use(authController.protect, etc.) [x]
-- Implement helmet, rate limiting, data sanitization, hpp [ ] | Everything but HPP
+- Implement helmet, rate limiting, data sanitization, hpp [x]
 
 #### Todo
 - 
@@ -61,6 +61,7 @@
 - Find another way to collect NESTED data in Array than stringifying into an input [ ]
 - Add design to tables (status, team member info on hover, email alias) [ ]
 - Add default values to the templates if the value coming from in the server response is undefined. Like: project.projectId || '' or (issue.owner && issue.owner.name)
+
 ### Modules
 
 #### Done
