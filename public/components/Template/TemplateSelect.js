@@ -15,6 +15,12 @@ const TemplateSelect = ({
     update(inputKey, term);
   }, [term]);
 
+  useEffect(() => {
+    if (options && !term) {
+      setTerm(options[0]);
+    }
+  }, [options]);
+
   if (mode === 'preview') {
     return (
       <div className={`form-template__field ${className ? className : ''}`}>

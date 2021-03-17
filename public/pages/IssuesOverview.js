@@ -16,7 +16,7 @@ import AssigneeList from '../components/List/AssigneeList';
 
 const IssuesOverview = () => {
   const { projectId } = useParams();
-  const url = `${window.location.origin}/api/v1/projects/${projectId}/issues`;
+  const url = `${window.location.origin}/api/v1/projects/${projectId}/issues?limit=50`;
 
   const { data, loading } = useFetch(url);
   const [filteredData, setFilteredData] = useState(data);

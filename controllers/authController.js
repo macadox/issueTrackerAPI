@@ -3,10 +3,9 @@ const { promisify } = require('util');
 const JWT = require('jsonwebtoken');
 
 const User = require('./../models/userModel');
-const AppError = require('../utils/appError');
 const catchAsync = require('./../utils/catchAsync');
+const AppError = require('../utils/appError');
 const Email = require('../utils/Email');
-const { hash } = require('bcryptjs');
 
 const sendToken = (user, statusCode, res, message) => {
   const token = JWT.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -16,7 +15,6 @@ const sendToken = (user, statusCode, res, message) => {
   const cookieOptions = {
     exipres: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 3600 * 1000
-      // Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 1000
     ),
     httpOnly: true,
   };

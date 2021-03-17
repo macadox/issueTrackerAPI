@@ -16,7 +16,7 @@ import AssigneeList from '../components/List/AssigneeList';
 
 import { FaList } from 'react-icons/fa';
 
-const url = `${window.location.origin}/api/v1/projects`;
+const url = `${window.location.origin}/api/v1/projects?limit=50`;
 
 const ProjectsOverview = () => {
   const { data, loading } = useFetch(url);

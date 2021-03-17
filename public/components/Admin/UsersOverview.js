@@ -12,8 +12,7 @@ import ListRow from '../List/ListRow';
 import ListDataElement from '../List/ListDataElement';
 
 const UsersOverview = () => {
-  const { projectId } = useParams();
-  const url = `${window.location.origin}/api/v1/users`;
+  const url = `${window.location.origin}/api/v1/users?limit=50`;
 
   const { data, loading } = useFetch(url);
   const [filteredData, setFilteredData] = useState(data);
