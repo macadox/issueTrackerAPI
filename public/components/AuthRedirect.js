@@ -2,11 +2,17 @@ import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { useGlobalContext } from '../context';
 
-const AuthRedirect = ({message, ...props }) => {
-  const { dispatchErrorAlert } = useGlobalContext();
-
+const AuthRedirect = ({ alert: { message, type }, ...props }) => {
+  const { dispatchErrorAlert, dispatchAlert } = useGlobalContext();
+  console.log(message, type);
   useEffect(() => {
-    dispatchErrorAlert(message);
+    if (message && type) {
+      if (type === 'error') {
+        dispatchErrorAlert(message);
+      } else if (type === 'success') {
+        dispatchAlert({ data: message });
+      }
+    }
   }, []);
 
   return <Redirect {...props} />;

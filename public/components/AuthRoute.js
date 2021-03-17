@@ -6,12 +6,14 @@ import { useGlobalContext } from '../context';
 const AuthRoute = ({ type, restrictTo, ...props }) => {
   const { user, authenticationComplete } = useGlobalContext();
 
-  // if (type === 'guest' && !user) return <Redirect to="/" />;
   if (type === 'private' && authenticationComplete && !user) {
     return (
       <AuthRedirect
         to="/login"
-        message={'You need to authenticate to proceed'}
+        alert={{
+          message: 'You need to authenticate to proceed',
+          type: 'error',
+        }}
       />
     );
   }
@@ -26,9 +28,11 @@ const AuthRoute = ({ type, restrictTo, ...props }) => {
     return (
       <AuthRedirect
         to="/"
-        message={
-          'You do not have necessary priviliages. Contact administrator.'
-        }
+        alert={{
+          message:
+            'You do not have necessary priviliages. Contact administrator.',
+          type: 'error',
+        }}
       />
     );
   }
