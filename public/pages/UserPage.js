@@ -20,26 +20,20 @@ const editableFields = [
   { key: 'organization', defaultVal: '' },
   { key: 'password', defaultVal: '' },
   { key: 'confirmPassword', defaultVal: '' },
-  { key: 'teamMembers', defaultVal: [] },
+  { key: 'roles', defaultVal: [] },
+  { key: 'mainRole', defaultVal: '' },
 ];
 
 const UserPage = () => {
-  const getMode = () => {
-    const parts = window.location.href.split('/');
-    return parts[parts.length - 1];
-  };
-  const mode = getMode();
-
   const { userId } = useParams();
-  const url = userId ? `${window.location.origin}/api/v1/users/${userId}` : '';
-
   const [selectableRoles, setSelectableRoles] = useState([]);
+  const url = userId ? `${window.location.origin}/api/v1/users/${userId}` : '';
   const { data, loading } = userId
     ? useFetch(url)
     : { data: {}, loading: false };
 
   useEffect(() => {
-    if (data) {
+    if (data && Array.isArray(selectableRoles) && selectableRoles.length < 1) {
       setSelectableRoles(data.roles);
     }
   }, [data]);
@@ -55,6 +49,12 @@ const UserPage = () => {
       </main>
     );
   }
+
+  const getMode = () => {
+    const parts = window.location.href.split('/');
+    return parts[parts.length - 1];
+  };
+  const mode = getMode();
 
   return (
     <main className="main">
@@ -120,7 +120,7 @@ const UserPage = () => {
             data={data}
             mode={mode}
             endpoint={`${window.location.origin}/api/v1/users`}
-            saveRedirect={`/admin/users/${userId}/preview`}
+            saveRedirect={`/admin/users/:resourceId/preview`}
             deleteRedirect="/admin"
           >
             {data.createdOn && (

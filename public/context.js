@@ -111,8 +111,8 @@ export const AppProvider = ({ children }) => {
       },
     });
     if (data.status === 'success') {
-      // history.push(to);
-      console.log('its success!!!, linijka kodu wyzej powoduje blad');
+      history.push('/');
+      history.push(to);
     }
     return data.status;
   };

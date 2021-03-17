@@ -9,7 +9,7 @@ const TemplateSelect = ({
   inputValue,
   className,
 }) => {
-  const [term, setTerm] = useState(inputValue || options[0]);
+  const [term, setTerm] = useState(inputValue || (options && options[0]) || '');
 
   useEffect(() => {
     update(inputKey, term);
@@ -47,13 +47,14 @@ const TemplateSelect = ({
         id={inputKey}
         onChange={(e) => setTerm(e.target.value)}
       >
-        {options.map((option, index) => {
-          return (
-            <option key={index} value={option}>
-              {option}
-            </option>
-          );
-        })}
+        {options &&
+          options.map((option, index) => {
+            return (
+              <option key={index} value={option}>
+                {option}
+              </option>
+            );
+          })}
       </select>
     </div>
   );

@@ -18,10 +18,10 @@ const Template = ({
   deleteRedirect,
   ...props
 }) => {
+  const { dispatchErrorAlert, dispatchAlertAndRedirectTo } = useGlobalContext();
   const [editableData, setEditableData] = useState(
     editableFields.reduce(editableDataReducer, {})
   );
-  const { dispatchErrorAlert, dispatchAlertAndRedirectTo } = useGlobalContext();
 
   useEffect(() => {
     if (data) {
@@ -65,13 +65,20 @@ const Template = ({
     })
       .then((res) => res.json())
       .then((data) => {
+        const replaceRegex = new RegExp(/\:resourceId/, 'gi');
         if (data.status === 'error' || data.status === 'fail') {
           dispatchErrorAlert(data.message);
         } else {
-          dispatchAlertAndRedirectTo(data, saveRedirect);
+          dispatchAlertAndRedirectTo(
+            data,
+            saveRedirect.replace(
+              replaceRegex,
+              data.data.data._id || data.data.data.id
+            )
+          );
           setTimeout(() => {
             window.location.reload();
-          }, 500);
+          }, 600000);
         }
       })
       .catch((err) => dispatchErrorAlert(err));

@@ -128,7 +128,7 @@ const ProjectPage = () => {
             data={data}
             mode={mode}
             endpoint={`${window.location.origin}/api/v1/projects`}
-            saveRedirect={`/projects/${projectId}/preview`}
+            saveRedirect={`/projects/:resourceId/preview`}
             deleteRedirect="/projects"
           >
             <TemplateInput

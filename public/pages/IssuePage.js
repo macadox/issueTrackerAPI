@@ -126,7 +126,7 @@ const IssuePage = () => {
             data={data}
             mode={mode}
             endpoint={`${window.location.origin}/api/v1/projects/${projectId}/issues`}
-            saveRedirect={`/projects/${projectId}/issues/${issueId}/preview`}
+            saveRedirect={`/projects/${projectId}/issues/:resourceId/preview`}
             deleteRedirect={`/projects/${projectId}/issues`}
           >
             <TemplateImmutable

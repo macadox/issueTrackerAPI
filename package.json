@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "watch:js": "parcel ./public/index.html --open",
+    "watch:js": "parcel ./public/index.html",
     "build": "parcel build ./public/index.html",
     "importDB": "cross-env NODE_ENV=import node ./dev-scripts/import.js --import",
     "deleteDB": "cross-env NODE_ENV=import node ./dev-scripts/import.js --delete",
