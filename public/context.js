@@ -34,7 +34,7 @@ const reducer = (state, action) => {
     }
 
     case 'FINISH_AUTH': {
-      return { ...state, authenticationComplete: !!state.user };
+      return { ...state, authenticationComplete: true };
     }
 
     default: {
@@ -53,6 +53,21 @@ const defaultState = {
 
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
+
+  const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+    timeout: 1000 * 60 * 15,
+    onIdle: handleOnIdle,
+    onActive: handleOnActive,
+    onAction: handleOnAction,
+    debounce: 500,
+  });
+
+  useEffect(() => {
+    authenticationService.user.subscribe((x) => {
+      dispatch({ type: 'LOGIN', payload: x });
+      dispatch({ type: 'FINISH_AUTH' });
+    });
+  }, []);
 
   const handleOnIdle = (e) => {
     if (!state.user) return;
@@ -76,14 +91,6 @@ export const AppProvider = ({ children }) => {
 
   const handleOnAction = (e) => {};
 
-  const { getRemainingTime, getLastActiveTime } = useIdleTimer({
-    timeout: 1000 * 60 * 15,
-    onIdle: handleOnIdle,
-    onActive: handleOnActive,
-    onAction: handleOnAction,
-    debounce: 500,
-  });
-
   const dispatchAlert = (data) => {
     dispatch({
       type: 'SHOW_ALERT',
@@ -104,7 +111,8 @@ export const AppProvider = ({ children }) => {
       },
     });
     if (data.status === 'success') {
-      history.push(to);
+      // history.push(to);
+      console.log('its success!!!, linijka kodu wyzej powoduje blad');
     }
     return data.status;
   };
@@ -199,16 +207,6 @@ export const AppProvider = ({ children }) => {
       .catch((err) => dispatchErrorAlert(err));
   };
 
-  useEffect(() => {
-    authenticationService.user.subscribe((x) =>
-      dispatch({ type: 'LOGIN', payload: x })
-    );
-  }, []);
-
-  useEffect(() => {
-    dispatch({ type: 'FINISH_AUTH' });
-  }, [state.user]);
-
   return (
     <AppContext.Provider
       value={{
@@ -225,6 +223,7 @@ export const AppProvider = ({ children }) => {
         resetPassword,
         hideAlert,
         dispatchErrorAlert,
+        dispatchAlert,
         dispatchErrorAndRedirectTo,
         dispatchAlertAndRedirectTo,
         updateDetails,

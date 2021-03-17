@@ -28,13 +28,13 @@ router
   .route('/updatePassword')
   .patch(userController.textMultipart, authController.updatePassword);
 
-// disabled admin, to be able to fetch data
-router.use(authController.restrict('admin'));
-
+// user must be able to fetch all users to assign them to forms.
 router
-  .route('/')
-  .get(userController.getAllUsers)
-  .post(userController.createUser);
+.route('/')
+.get(userController.getAllUsers)
+.post(authController.restrict('admin'), userController.createUser);
+
+router.use(authController.restrict('admin'));
 
 router
   .route('/:id')

@@ -4,7 +4,7 @@ import { useGlobalContext } from '../context';
 
 const AuthRedirect = ({ alert: { message, type }, ...props }) => {
   const { dispatchErrorAlert, dispatchAlert } = useGlobalContext();
-  console.log(message, type);
+
   useEffect(() => {
     if (message && type) {
       if (type === 'error') {
