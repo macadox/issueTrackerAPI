@@ -74,9 +74,11 @@ async function resetPassword(body, token) {
   )
     .then((res) => res.json())
     .then((data) => {
-      const user = data.data.user;
-      localStorage.setItem('user', JSON.stringify(user));
-      userSubject.next(user);
+      if (!data.error) {
+        const user = data.data.user;
+        localStorage.setItem('user', JSON.stringify(user));
+        userSubject.next(user);
+      }
       return data;
     })
     .catch((err) => console.error(err));
