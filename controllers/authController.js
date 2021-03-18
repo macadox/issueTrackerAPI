@@ -81,7 +81,7 @@ exports.confirmSignup = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
   res.status(308).json({
     status: 'success',
-    message: 'Email confirmed successfully',
+    message: 'Email confirmed successfully. You may log in now.',
   });
 });
 

@@ -12,9 +12,8 @@ const userSchema = mongoose.Schema(
         validator: function (val) {
           return /\b([A-ZÀ-ÿ][-,a-z. ']+[ ]+)+/.test(val);
         },
+        message: 'Provide a full name',
       },
-      message:
-        'Please provide a valid name (name + surname). Each needs to start with uppercase letter.',
     },
     email: {
       type: String,
@@ -52,7 +51,6 @@ const userSchema = mongoose.Schema(
     ],
     mainRole: {
       type: String,
-      required: [true, 'A user must have a main role'],
       enum: {
         values: [
           'developer',
@@ -63,7 +61,6 @@ const userSchema = mongoose.Schema(
           'default',
           'admin',
         ],
-        default: 'default',
         message:
           'role has to be a developer, designer, product owner, tester or manager',
       },
@@ -127,7 +124,7 @@ userSchema.pre('save', function (next) {
   if (!this.isNew) return next();
 
   if (this.roles.length == 0) this.roles.push('default');
-  if (!this.mainRole) this.mainRole = this.roles[0];
+  if (!this.mainRole) this.mainRole = this.roles[0] || 'default';
   next();
 });
 
