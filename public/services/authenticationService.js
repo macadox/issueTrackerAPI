@@ -49,7 +49,9 @@ async function signup(body) {
 async function confirmSignup(token) {
   return fetch(`${window.location.origin}/api/v1/users/signup/${token}`, {
     method: 'GET',
-  }).catch((err) => console.error(err));
+  })
+    .then((res) => res.json())
+    .catch((err) => console.error(err));
 }
 
 async function sendPasswordReset(body) {

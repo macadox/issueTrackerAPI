@@ -171,7 +171,7 @@ export const AppProvider = ({ children }) => {
   const confirmSignup = (token) => {
     return authenticationService
       .confirmSignup(token)
-      .then((d) => dispatchAlertAndRedirectTo(d, '/login'))
+      .then((d) => dispatchAlert(d))
       .catch((err) => dispatchErrorAlert(err));
   };
 
