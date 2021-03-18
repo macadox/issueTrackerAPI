@@ -63,6 +63,7 @@ const userSchema = mongoose.Schema(
           'default',
           'admin',
         ],
+        default: 'default',
         message:
           'role has to be a developer, designer, product owner, tester or manager',
       },
@@ -92,7 +93,7 @@ const userSchema = mongoose.Schema(
     passwordResetExpires: Date,
     active: {
       type: Boolean,
-      default: false
+      default: false,
     },
     userConfirmationToken: String,
   },
@@ -126,7 +127,7 @@ userSchema.pre('save', function (next) {
   if (!this.isNew) return next();
 
   if (this.roles.length == 0) this.roles.push('default');
-  if (!this.mainRole) this.mainRole = this.roles[0]
+  if (!this.mainRole) this.mainRole = this.roles[0];
   next();
 });
 
