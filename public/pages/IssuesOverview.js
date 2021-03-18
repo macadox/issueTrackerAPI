@@ -27,6 +27,15 @@ import { FaEdit } from 'react-icons/fa';
 import bulb from 'url:../assets/img/ui/lightbulb.svg';
 import clock from 'url:../assets/img/ui/wall-clock.svg';
 
+const getLocalStorage = () => {
+  let grid = localStorage.getItem('grid');
+  if (grid) {
+    return (grid = JSON.parse(localStorage.getItem('grid')));
+  } else {
+    return false;
+  }
+};
+
 const IssuesOverview = () => {
   const { projectId } = useParams();
   const url = `${window.location.origin}/api/v1/projects/${projectId}/issues?limit=50`;
@@ -35,7 +44,7 @@ const IssuesOverview = () => {
   const [filteredData, setFilteredData] = useState(data);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState(null);
-  const [isGrid, setIsGrid] = useState(false);
+  const [isGrid, setIsGrid] = useState(getLocalStorage());
 
   const sortColumn = (sortKey) => {
     if (sort === `+${sortKey}`) {
@@ -73,6 +82,10 @@ const IssuesOverview = () => {
       clearTimeout(timeoutId);
     };
   }, [search, sort, data]);
+
+  useEffect(() => {
+    localStorage.setItem('grid', isGrid);
+  }, [isGrid]);
 
   if (loading) {
     return (

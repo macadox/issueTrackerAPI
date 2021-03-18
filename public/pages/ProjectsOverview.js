@@ -30,12 +30,21 @@ import clock from 'url:../assets/img/ui/wall-clock.svg';
 
 const url = `${window.location.origin}/api/v1/projects?limit=50`;
 
+const getLocalStorage = () => {
+  let grid = localStorage.getItem('grid');
+  if (grid) {
+    return (grid = JSON.parse(localStorage.getItem('grid')));
+  } else {
+    return false;
+  }
+};
+
 const ProjectsOverview = () => {
   const { data, loading } = useFetch(url);
   const [filteredData, setFilteredData] = useState(data);
   const [search, setSearch] = useState('');
   const [sort, setSort] = useState(null);
-  const [isGrid, setIsGrid] = useState(false);
+  const [isGrid, setIsGrid] = useState(getLocalStorage());
 
   const sortColumn = (sortKey) => {
     if (sort === `+${sortKey}`) {
@@ -73,6 +82,10 @@ const ProjectsOverview = () => {
       clearTimeout(timeoutId);
     };
   }, [search, sort, data]);
+
+  useEffect(() => {
+    localStorage.setItem('grid', isGrid);
+  }, [isGrid]);
 
   if (loading) {
     return (
