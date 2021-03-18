@@ -23,7 +23,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'", "'unsafe-inline'"],
-      imgSrc: ["'self'", 'blob: data:'],
+      imgSrc: ["'self'", 'https://loremicon.com', 'blob: data:'],
     },
   })
 );
