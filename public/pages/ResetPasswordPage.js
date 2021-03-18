@@ -9,8 +9,8 @@ const ResetPasswordPage = () => {
   const { resetPassword } = useGlobalContext();
   const { token } = useParams();
 
-  const submitResetPassword = (body) => {
-    resetPassword(body, token);
+  const submitResetPassword = async (body) => {
+    await resetPassword(body, token);
   };
 
   return (
