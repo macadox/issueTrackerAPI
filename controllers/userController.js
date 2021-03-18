@@ -41,9 +41,7 @@ exports.createUser = catchAsync(async (req, res, next) => {
 
   await newUser.save({ validateBeforeSave: false });
 
-  const url = `${req.protocol}://${req.get(
-    'host'
-  )}/#/api/v1/users/signup/${token}`;
+  const url = `https://${req.get('host')}/#/api/v1/users/signup/${token}`;
 
   await new Email(newUser, url).sendWelcome();
 
